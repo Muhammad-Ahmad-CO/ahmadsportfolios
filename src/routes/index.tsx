@@ -1,26 +1,495 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
+import portrait from "@/assets/portrait.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+const EMAIL = "ahmadkaimkhani40@gmail.com";
+const PHONE = "0314-1241710";
+const LINKEDIN = "https://www.linkedin.com/in/muhammad-ahmed";
+const GITHUB = "https://github.com/kaim953";
+
+/* ---------------- Reusable ---------------- */
+function FadeIn({
+  children,
+  delay = 0,
+  y = 30,
+  x = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  y?: number;
+  x?: number;
+  className?: string;
+}) {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <motion.div
+      initial={{ opacity: 0, y, x }}
+      whileInView={{ opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+      {children}
+    </motion.div>
+  );
+}
+
+function ContactButton({ className = "" }: { className?: string }) {
+  return (
+    <a
+      href={`mailto:${EMAIL}`}
+      className={`group inline-flex items-center gap-2 rounded-full px-5 py-2.5 md:px-7 md:py-3 text-sm md:text-base uppercase tracking-wider text-[#0C0C0C] font-medium transition-transform hover:scale-105 ${className}`}
+      style={{ background: "linear-gradient(180deg, #BBCCD7 0%, #D7E2EA 100%)" }}
+    >
+      Contact Me
+      <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+    </a>
+  );
+}
+
+function LiveProjectButton({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-4 py-2 md:px-5 md:py-2.5 text-xs md:text-sm uppercase tracking-wider text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+    >
+      Live Project
+      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:rotate-45" />
+    </a>
+  );
+}
+
+function Magnet({ children, strength = 0.3 }: { children: ReactNode; strength?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 150, damping: 15 });
+  const sy = useSpring(y, { stiffness: 150, damping: 15 });
+
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const mx = e.clientX - (rect.left + rect.width / 2);
+    const my = e.clientY - (rect.top + rect.height / 2);
+    x.set(mx * strength);
+    y.set(my * strength);
+  };
+  const onLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      style={{ x: sx, y: sy }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function AnimatedText({ text }: { text: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 0.8", "end 0.2"],
+  });
+  const chars = text.split("");
+  return (
+    <p
+      ref={ref}
+      className="text-center font-medium leading-relaxed mx-auto max-w-[640px] flex flex-wrap justify-center"
+      style={{
+        color: "#D7E2EA",
+        fontSize: "clamp(1rem, 2vw, 1.35rem)",
+      }}
+    >
+      {chars.map((c, i) => {
+        const start = i / chars.length;
+        const end = start + 1 / chars.length;
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const opacity = useTransform(scrollYProgress, [start, end], [0.15, 1]);
+        return (
+          <motion.span key={i} style={{ opacity }}>
+            {c === " " ? "\u00A0" : c}
+          </motion.span>
+        );
+      })}
+    </p>
+  );
+}
+
+/* ---------------- Sections ---------------- */
+function Hero() {
+  return (
+    <section
+      id="hero"
+      className="relative flex h-screen min-h-[700px] flex-col"
+      style={{ overflowX: "clip" }}
+    >
+      {/* Navbar */}
+      <FadeIn y={-20} delay={0}>
+        <nav className="flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
+          <div className="text-[#D7E2EA] font-semibold tracking-wider uppercase text-sm md:text-base">
+            MA.
+          </div>
+          <ul className="flex gap-5 md:gap-10 text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
+            {[
+              { l: "About", h: "#about" },
+              { l: "Price", h: "#services" },
+              { l: "Projects", h: "#projects" },
+              { l: "Contact", h: "#footer" },
+            ].map((n) => (
+              <li key={n.l}>
+                <a href={n.h} className="transition-opacity hover:opacity-70">
+                  {n.l}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </FadeIn>
+
+      {/* Heading */}
+      <div className="overflow-hidden mt-6 sm:mt-4 md:-mt-5 px-4">
+        <FadeIn y={40} delay={0.15}>
+          <h1
+            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap text-center"
+            style={{ fontSize: "clamp(2.5rem, 14vw, 17.5vw)" }}
+          >
+            Hi, I&rsquo;m Muhammad Ahmed
+          </h1>
+        </FadeIn>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="mt-auto flex items-end justify-between px-6 md:px-10 pb-8 md:pb-12 gap-4">
+        <FadeIn y={20} delay={0.35} className="max-w-[260px]">
+          <p
+            className="font-light uppercase tracking-wide"
+            style={{
+              color: "#D7E2EA",
+              fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)",
+            }}
+          >
+            Driving the Future with AI &amp; Code
+          </p>
+        </FadeIn>
+        <FadeIn y={20} delay={0.5}>
+          <ContactButton />
+        </FadeIn>
+      </div>
+
+      {/* Portrait */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-0 flex items-end justify-center"
+      >
+        <Magnet strength={0.15}>
+          <div
+            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] aspect-[3/4] rounded-full overflow-hidden"
+            style={{
+              boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
+              maskImage: "linear-gradient(to top, black 70%, transparent 100%)",
+            }}
+          >
+            <img
+              src={portrait}
+              alt="Muhammad Ahmed portrait"
+              width={768}
+              height={1024}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </Magnet>
+      </motion.div>
+    </section>
+  );
+}
+
+/* Marquee tiles using gradients (placeholder for AI showcase) */
+const TILE_GRADIENTS = [
+  "from-indigo-500 via-purple-500 to-pink-500",
+  "from-cyan-400 via-blue-500 to-indigo-600",
+  "from-emerald-400 via-teal-500 to-cyan-600",
+  "from-orange-400 via-pink-500 to-rose-600",
+  "from-violet-500 via-fuchsia-500 to-pink-500",
+  "from-yellow-400 via-orange-500 to-red-500",
+  "from-slate-400 via-slate-600 to-slate-800",
+  "from-sky-400 via-cyan-500 to-blue-600",
+  "from-lime-400 via-emerald-500 to-teal-600",
+  "from-rose-400 via-pink-500 to-fuchsia-600",
+  "from-amber-400 via-orange-500 to-pink-500",
+];
+const TILE_LABELS = [
+  "LLM", "Computer Vision", "Automation", "MediaPipe", "RAG",
+  "Agents", "Prompting", "Embeddings", "TensorFlow", "PyTorch",
+  "OpenAI", "Whisper", "Diffusion", "Transformers", "Edge AI",
+  "Pipelines", "Vector DB", "Fine-tuning", "Inference", "Multimodal", "GenAI",
+];
+
+function MarqueeRow({ items, direction }: { items: { g: string; t: string }[]; direction: 1 | -1 }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [offset, setOffset] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = ref.current;
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      const o = (window.scrollY - top + window.innerHeight) * 0.3;
+      setOffset(o - 200);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const tripled = [...items, ...items, ...items];
+  return (
+    <div ref={ref} className="overflow-hidden">
+      <div
+        className="flex gap-3"
+        style={{
+          transform: `translateX(${direction * offset}px)`,
+          willChange: "transform",
+        }}
+      >
+        {tripled.map((it, i) => (
+          <div
+            key={i}
+            className={`shrink-0 w-[280px] h-[180px] md:w-[420px] md:h-[270px] rounded-2xl bg-gradient-to-br ${it.g} flex items-center justify-center`}
+          >
+            <span className="text-white/90 font-bold text-2xl md:text-4xl uppercase tracking-tight">
+              {it.t}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
+function Marquee() {
+  const all = TILE_LABELS.map((t, i) => ({ t, g: TILE_GRADIENTS[i % TILE_GRADIENTS.length] }));
+  const row1 = all.slice(0, 11);
+  const row2 = all.slice(11);
+  return (
+    <section className="py-16 md:py-24 space-y-3">
+      <MarqueeRow items={row1} direction={1} />
+      <MarqueeRow items={row2} direction={-1} />
+    </section>
+  );
+}
+
+function About() {
+  const bio =
+    "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
+
+  return (
+    <section
+      id="about"
+      className="relative min-h-screen px-5 sm:px-8 md:px-10 py-20 flex flex-col items-center justify-center"
+    >
+      <FadeIn>
+        <h2
+          className="hero-heading font-black uppercase tracking-tight text-center"
+          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+        >
+          About me
+        </h2>
+      </FadeIn>
+      <div className="mt-10 md:mt-16">
+        <AnimatedText text={bio} />
+      </div>
+      <FadeIn delay={0.3} className="mt-10">
+        <ContactButton />
+      </FadeIn>
+    </section>
+  );
+}
+
+const SERVICES = [
+  { n: "01", name: "AI Integration & APIs", d: "Seamlessly embedding intelligent models and third-party AI services into existing systems or websites." },
+  { n: "02", name: "Computer Vision Solutions", d: "Real-time hand tracking, object detection, and MediaPipe-powered interactive experiences." },
+  { n: "03", name: "Intelligent Automation", d: "Automating repetitive coding tasks, data pipelines, and workflow optimisation using LLMs and scripting." },
+  { n: "04", name: "AI-Powered Web Applications", d: "Building responsive, modern web apps that leverage AI on the frontend and backend." },
+  { n: "05", name: "Technical Consulting", d: "Advising on AI strategy, tool selection, and clean code practices for teams and startups." },
+];
+
+function Services() {
+  return (
+    <section
+      id="services"
+      className="bg-white rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 md:py-28"
+    >
+      <FadeIn>
+        <h2
+          className="font-black uppercase tracking-tight text-[#0C0C0C] mb-16 sm:mb-20 md:mb-28"
+          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+        >
+          Services
+        </h2>
+      </FadeIn>
+      <div>
+        {SERVICES.map((s, i) => (
+          <FadeIn key={s.n} delay={i * 0.08}>
+            <div
+              className="flex flex-col md:flex-row md:items-center gap-3 md:gap-10 py-8 md:py-10"
+              style={{ borderTop: "1px solid rgba(12,12,12,0.15)" }}
+            >
+              <span
+                className="font-light text-[#0C0C0C]/80"
+                style={{ fontSize: "clamp(2rem, 6vw, 4.5rem)" }}
+              >
+                {s.n}
+              </span>
+              <h3
+                className="uppercase font-medium text-[#0C0C0C] md:w-1/3"
+                style={{ fontSize: "clamp(1.25rem, 2.5vw, 2rem)" }}
+              >
+                {s.name}
+              </h3>
+              <p className="text-[#0C0C0C]/60 md:flex-1 md:text-right text-base md:text-lg max-w-2xl md:ml-auto">
+                {s.d}
+              </p>
+            </div>
+          </FadeIn>
+        ))}
+        <div style={{ borderTop: "1px solid rgba(12,12,12,0.15)" }} />
+      </div>
+    </section>
+  );
+}
+
+const PROJECTS = [
+  { n: "01", name: "Car Customization", category: "Personal", url: "https://019dcdd0-0d09-78ea-9fbe-3a1083806ed1.arena.site/", g1: "from-red-500 to-orange-600", g2: "from-zinc-700 to-zinc-900", g3: "from-orange-400 via-red-500 to-rose-700" },
+  { n: "02", name: "Skin Care Routine", category: "Personal", url: "https://019dcd3f-e3e6-77e7-bf0e-82469eff1a73.arena.site/", g1: "from-pink-300 to-rose-400", g2: "from-amber-200 to-pink-300", g3: "from-rose-300 via-pink-400 to-fuchsia-500" },
+  { n: "03", name: "Neural Hands Tracking", category: "Personal", url: "https://019dca8c-d485-73cb-a8fe-a9f6eeef26c0.arena.site/", g1: "from-cyan-400 to-blue-600", g2: "from-indigo-500 to-purple-700", g3: "from-sky-400 via-cyan-500 to-blue-700" },
+  { n: "04", name: "Study Mentor", category: "Personal", url: "https://019dc13a-492a-7dc7-afeb-8b6c41175485.arena.site/", g1: "from-emerald-400 to-teal-600", g2: "from-lime-400 to-emerald-600", g3: "from-teal-400 via-emerald-500 to-green-700" },
+  { n: "05", name: "Sample Portfolio Design", category: "Personal", url: "https://019da0da-59ed-754a-8ca6-05f228d4c1d4.arena.site/", g1: "from-slate-400 to-slate-700", g2: "from-zinc-300 to-slate-500", g3: "from-slate-500 via-zinc-600 to-slate-900" },
+];
+
+function ProjectCard({
+  p,
+  index,
+  total,
+}: {
+  p: (typeof PROJECTS)[number];
+  index: number;
+  total: number;
+}) {
+  const targetScale = 1 - (total - 1 - index) * 0.03;
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start start"],
+  });
+  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+
+  return (
+    <div ref={ref} className="h-[85vh] flex items-start justify-center sticky" style={{ top: `${index * 28}px` }}>
+      <motion.article
+        style={{ scale }}
+        className="w-full rounded-[32px] md:rounded-[56px] border-2 border-[#D7E2EA] p-4 sm:p-6 md:p-8 bg-[#0C0C0C]"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3 md:gap-5 text-[#D7E2EA]">
+            <span className="font-light text-2xl md:text-4xl">{p.n}</span>
+            <span className="uppercase tracking-wider text-xs md:text-sm opacity-60">
+              {p.category}
+            </span>
+            <h3 className="uppercase font-medium text-xl md:text-3xl">{p.name}</h3>
+          </div>
+          <LiveProjectButton href={p.url} />
+        </div>
+        <div className="mt-5 md:mt-8 grid grid-cols-5 gap-3 md:gap-4 h-[45vh] md:h-[55vh]">
+          <div className="col-span-2 flex flex-col gap-3 md:gap-4">
+            <div className={`flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g1}`} />
+            <div className={`flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g2}`} />
+          </div>
+          <div className={`col-span-3 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g3}`} />
+        </div>
+      </motion.article>
+    </div>
+  );
+}
+
+function Projects() {
+  return (
+    <section
+      id="projects"
+      className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-20 md:pt-28 pb-32"
+    >
+      <FadeIn>
+        <h2
+          className="hero-heading font-black uppercase tracking-tight mb-16 md:mb-24"
+          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+        >
+          Project
+        </h2>
+      </FadeIn>
+      <div className="relative">
+        {PROJECTS.map((p, i) => (
+          <ProjectCard key={p.n} p={p} index={i} total={PROJECTS.length} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer id="footer" className="bg-[#0C0C0C] py-12 md:py-16 px-6 border-t border-white/10">
+      <div className="max-w-4xl mx-auto text-center text-[#D7E2EA] space-y-6">
+        <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">Let&rsquo;s build with AI</h2>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm md:text-base">
+          <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 hover:opacity-70">
+            <Mail className="h-4 w-4" /> {EMAIL}
+          </a>
+          <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 hover:opacity-70">
+            <Phone className="h-4 w-4" /> {PHONE}
+          </a>
+        </div>
+        <div className="flex items-center justify-center gap-6">
+          <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:opacity-70">
+            <Linkedin className="h-4 w-4" /> LinkedIn
+          </a>
+          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:opacity-70">
+            <Github className="h-4 w-4" /> GitHub
+          </a>
+        </div>
+        <p className="text-xs text-[#D7E2EA]/50 pt-6">
+          © 2026 Muhammad Ahmed. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
 function Index() {
-  return <PlaceholderIndex />;
+  return (
+    <main className="bg-[#0C0C0C]">
+      <Hero />
+      <Marquee />
+      <About />
+      <Services />
+      <Projects />
+      <Footer />
+    </main>
+  );
 }
