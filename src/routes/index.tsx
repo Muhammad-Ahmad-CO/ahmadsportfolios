@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
-import portrait from "@/assets/portrait.jpg";
+import portrait from "@/assets/portrait.png";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -163,11 +163,11 @@ function Hero() {
       </FadeIn>
 
       {/* Heading */}
-      <div className="overflow-hidden mt-6 sm:mt-4 md:-mt-5 px-4">
+      <div className="mt-6 sm:mt-4 md:-mt-5 px-4">
         <FadeIn y={40} delay={0.15}>
           <h1
-            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap text-center"
-            style={{ fontSize: "clamp(2.5rem, 14vw, 17.5vw)" }}
+            className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
+            style={{ fontSize: "clamp(2.25rem, 11vw, 17.5vw)" }}
           >
             Hi, I&rsquo;m Muhammad Ahmed
           </h1>
@@ -201,10 +201,9 @@ function Hero() {
       >
         <Magnet strength={0.15}>
           <div
-            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] aspect-[3/4] rounded-full overflow-hidden"
+            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] aspect-[3/4]"
             style={{
-              boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
-              maskImage: "linear-gradient(to top, black 70%, transparent 100%)",
+              filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.55))",
             }}
           >
             <img
@@ -212,7 +211,7 @@ function Hero() {
               alt="Muhammad Ahmed portrait"
               width={768}
               height={1024}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain object-bottom"
             />
           </div>
         </Magnet>
