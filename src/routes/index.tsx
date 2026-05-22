@@ -163,11 +163,11 @@ function Hero() {
       </FadeIn>
 
       {/* Heading */}
-      <div className="overflow-hidden mt-6 sm:mt-4 md:-mt-5 px-4">
+      <div className="mt-6 sm:mt-4 md:-mt-5 px-4">
         <FadeIn y={40} delay={0.15}>
           <h1
-            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap text-center"
-            style={{ fontSize: "clamp(2.5rem, 14vw, 17.5vw)" }}
+            className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
+            style={{ fontSize: "clamp(2.25rem, 11vw, 17.5vw)" }}
           >
             Hi, I&rsquo;m Muhammad Ahmed
           </h1>
