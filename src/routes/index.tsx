@@ -201,10 +201,9 @@ function Hero() {
       >
         <Magnet strength={0.15}>
           <div
-            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] aspect-[3/4] rounded-full overflow-hidden"
+            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] aspect-[3/4]"
             style={{
-              boxShadow: "0 30px 80px rgba(0,0,0,0.6)",
-              maskImage: "linear-gradient(to top, black 70%, transparent 100%)",
+              filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.55))",
             }}
           >
             <img
@@ -212,7 +211,7 @@ function Hero() {
               alt="Muhammad Ahmed portrait"
               width={768}
               height={1024}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain object-bottom"
             />
           </div>
         </Magnet>
