@@ -43,7 +43,11 @@ function FadeIn({
 function ContactButton({ className = "" }: { className?: string }) {
   return (
     <a
-      href={`mailto:${EMAIL}`}
+      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=Hello%20Muhammad&body=Hi%20Muhammad,%0A%0AI%20wanted%20to%20reach%20out%20regarding...`}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Send an email to Muhammad Ahmed via Gmail"
+      role="button"
       className={`group inline-flex items-center gap-2 rounded-full px-5 py-2.5 md:px-7 md:py-3 text-sm md:text-base uppercase tracking-wider text-[#0C0C0C] font-medium transition-transform hover:scale-105 ${className}`}
       style={{ background: "linear-gradient(180deg, #BBCCD7 0%, #D7E2EA 100%)" }}
     >
@@ -457,7 +461,7 @@ function Footer() {
       <div className="max-w-4xl mx-auto text-center text-[#D7E2EA] space-y-6">
         <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">Let&rsquo;s build with AI</h2>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm md:text-base">
-          <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 hover:opacity-70">
+          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=Hello%20Muhammad&body=Hi%20Muhammad,%0A%0AI%20wanted%20to%20reach%20out%20regarding...`} target="_blank" rel="noopener noreferrer" aria-label="Send an email to Muhammad Ahmed via Gmail" className="inline-flex items-center gap-2 hover:opacity-70">
             <Mail className="h-4 w-4" /> {EMAIL}
           </a>
           <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 hover:opacity-70">
