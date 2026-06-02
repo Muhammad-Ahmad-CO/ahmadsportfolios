@@ -310,41 +310,39 @@ function About() {
   const transform = useMotionTemplate`rotateX(30deg) translateY(${yMotionValue}px) translateZ(10px)`;
 
   return (
-    <>
-      <section id="about" ref={targetRef} className="relative h-[200vh]">
-        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center px-5 sm:px-8 md:px-10">
-          <FadeIn>
-            <h2
-              className="hero-heading font-black uppercase tracking-tight text-center"
-              style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-            >
-              About me
-            </h2>
-          </FadeIn>
-
-          <div
-            className="mt-8 md:mt-12 w-full flex justify-center"
-            style={{ perspective: "500px" }}
+    <section id="about" ref={targetRef} className="relative h-[200vh]">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-5 sm:px-8 md:px-10">
+        <FadeIn>
+          <h2
+            className="hero-heading text-center font-black uppercase tracking-tight"
+            style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
           >
-            <motion.p
-              style={{
-                transform,
-                transformOrigin: "50% 100%",
-                color: "#D7E2EA",
-                fontSize: "clamp(1rem, 2vw, 1.35rem)",
-              }}
-              className="max-w-[720px] text-center font-medium leading-relaxed"
-            >
-              {bio}
-            </motion.p>
-          </div>
+            About me
+          </h2>
+        </FadeIn>
 
-          <FadeIn delay={0.3} className="mt-10">
-            <ContactButton />
-          </FadeIn>
+        <div
+          className="mt-8 flex w-full justify-center md:mt-12"
+          style={{ perspective: "500px" }}
+        >
+          <motion.p
+            style={{
+              transform,
+              transformOrigin: "50% 100%",
+              color: "#D7E2EA",
+              fontSize: "clamp(1rem, 2vw, 1.35rem)",
+            }}
+            className="max-w-[720px] text-center font-medium leading-relaxed"
+          >
+            {bio}
+          </motion.p>
         </div>
-      </section>
-    </>
+
+        <FadeIn delay={0.3} className="mt-10">
+          <ContactButton />
+        </FadeIn>
+      </div>
+    </section>
   );
 }
 
