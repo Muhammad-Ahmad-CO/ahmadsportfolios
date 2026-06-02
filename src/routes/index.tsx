@@ -310,7 +310,7 @@ function About() {
   const transform = useMotionTemplate`rotateX(30deg) translateY(${yMotionValue}px) translateZ(10px)`;
 
   return (
-    <ReactLenis root>
+    <></>
       <section id="about" ref={targetRef} className="relative h-[200vh]">
         <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center px-5 sm:px-8 md:px-10">
           <FadeIn>
