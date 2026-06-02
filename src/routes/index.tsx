@@ -136,6 +136,51 @@ function AnimatedText({ text }: { text: string }) {
   );
 }
 
+/* ---------------- TextRoll ---------------- */
+const STAGGER = 0.035;
+function TextRoll({ children, center = true }: { children: string; center?: boolean }) {
+  const letters = children.split("");
+  return (
+    <motion.span
+      initial="initial"
+      whileHover="hovered"
+      className="relative block overflow-hidden whitespace-nowrap"
+      style={{ lineHeight: 1 }}
+    >
+      <span className="block">
+        {letters.map((l, i) => {
+          const delay = center ? STAGGER * Math.abs(i - (letters.length - 1) / 2) : STAGGER * i;
+          return (
+            <motion.span
+              key={i}
+              variants={{ initial: { y: 0 }, hovered: { y: "-100%" } }}
+              transition={{ duration: 0.35, ease: "easeInOut", delay }}
+              className="inline-block"
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </span>
+      <span className="absolute inset-0 block">
+        {letters.map((l, i) => {
+          const delay = center ? STAGGER * Math.abs(i - (letters.length - 1) / 2) : STAGGER * i;
+          return (
+            <motion.span
+              key={i}
+              variants={{ initial: { y: "100%" }, hovered: { y: 0 } }}
+              transition={{ duration: 0.35, ease: "easeInOut", delay }}
+              className="inline-block"
+            >
+              {l === " " ? "\u00A0" : l}
+            </motion.span>
+          );
+        })}
+      </span>
+    </motion.span>
+  );
+}
+
 /* ---------------- Sections ---------------- */
 function Hero() {
   return (
@@ -158,8 +203,8 @@ function Hero() {
               { l: "Contact", h: "#footer" },
             ].map((n) => (
               <li key={n.l}>
-                <a href={n.h} className="transition-opacity hover:opacity-70">
-                  {n.l}
+                <a href={n.h} className="inline-block transition-opacity hover:opacity-90">
+                  <TextRoll>{n.l}</TextRoll>
                 </a>
               </li>
             ))}
