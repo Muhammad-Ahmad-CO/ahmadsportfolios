@@ -203,8 +203,8 @@ function Hero() {
               { l: "Contact", h: "#footer" },
             ].map((n) => (
               <li key={n.l}>
-                <a href={n.h} className="transition-opacity hover:opacity-70">
-                  {n.l}
+                <a href={n.h} className="inline-block transition-opacity hover:opacity-90">
+                  <TextRoll>{n.l}</TextRoll>
                 </a>
               </li>
             ))}
