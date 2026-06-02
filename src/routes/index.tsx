@@ -344,7 +344,7 @@ function About() {
           </FadeIn>
         </div>
       </section>
-    </ReactLenis>
+    </>
   );
 }
 
