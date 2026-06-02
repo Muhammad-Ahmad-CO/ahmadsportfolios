@@ -304,26 +304,47 @@ function About() {
   const bio =
     "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
 
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: targetRef });
+  const yMotionValue = useTransform(scrollYProgress, [0, 1], [487, 0]);
+  const transform = useMotionTemplate`rotateX(30deg) translateY(${yMotionValue}px) translateZ(10px)`;
+
   return (
-    <section
-      id="about"
-      className="relative min-h-screen px-5 sm:px-8 md:px-10 py-20 flex flex-col items-center justify-center"
-    >
-      <FadeIn>
-        <h2
-          className="hero-heading font-black uppercase tracking-tight text-center"
-          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-        >
-          About me
-        </h2>
-      </FadeIn>
-      <div className="mt-10 md:mt-16">
-        <AnimatedText text={bio} />
-      </div>
-      <FadeIn delay={0.3} className="mt-10">
-        <ContactButton />
-      </FadeIn>
-    </section>
+    <ReactLenis root>
+      <section id="about" ref={targetRef} className="relative h-[200vh]">
+        <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col items-center justify-center px-5 sm:px-8 md:px-10">
+          <FadeIn>
+            <h2
+              className="hero-heading font-black uppercase tracking-tight text-center"
+              style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+            >
+              About me
+            </h2>
+          </FadeIn>
+
+          <div
+            className="mt-8 md:mt-12 w-full flex justify-center"
+            style={{ perspective: "500px" }}
+          >
+            <motion.p
+              style={{
+                transform,
+                transformOrigin: "50% 100%",
+                color: "#D7E2EA",
+                fontSize: "clamp(1rem, 2vw, 1.35rem)",
+              }}
+              className="max-w-[720px] text-center font-medium leading-relaxed"
+            >
+              {bio}
+            </motion.p>
+          </div>
+
+          <FadeIn delay={0.3} className="mt-10">
+            <ContactButton />
+          </FadeIn>
+        </div>
+      </section>
+    </ReactLenis>
   );
 }
 
