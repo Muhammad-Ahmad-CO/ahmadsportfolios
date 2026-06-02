@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTe
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
 import portrait from "@/assets/portrait.png";
+import { CrowdCanvas } from "@/components/CrowdCanvas";
 
 export const Route = createFileRoute("/")({
   component: Index,
