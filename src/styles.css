@@ -1,13 +1,12 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800;900&display=swap');
+@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
 html, body, #root {
   background-color: #0C0C0C;
-  font-family: 'Kanit', sans-serif;
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 * { box-sizing: border-box; }
