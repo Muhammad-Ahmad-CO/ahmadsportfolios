@@ -245,24 +245,42 @@ function Hero() {
 
       {/* Portrait */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-0 flex items-end justify-center"
+        transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center"
       >
-        <Magnet strength={0.15}>
+        <Magnet strength={0.1}>
           <div
-            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] aspect-[3/4]"
+            className="pointer-events-auto relative w-[260px] sm:w-[340px] md:w-[460px] lg:w-[560px] xl:w-[640px] aspect-[3/4]"
             style={{
-              filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.55))",
+              filter:
+                "drop-shadow(0 40px 50px rgba(0,0,0,0.6)) drop-shadow(0 0 80px rgba(187,204,215,0.15))",
             }}
           >
+            {/* Soft radial glow behind subject */}
+            <div
+              aria-hidden
+              className="absolute inset-0 -z-10"
+              style={{
+                background:
+                  "radial-gradient(45% 38% at 50% 62%, rgba(187,204,215,0.28) 0%, rgba(187,204,215,0.08) 45%, transparent 75%)",
+                filter: "blur(8px)",
+              }}
+            />
             <img
               src={portrait}
               alt="Muhammad Ahmed portrait"
               width={768}
               height={1024}
-              className="h-full w-full object-contain object-bottom"
+              className="h-full w-full object-contain object-bottom select-none"
+              style={{
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+                maskImage:
+                  "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+              }}
+              draggable={false}
             />
           </div>
         </Magnet>
