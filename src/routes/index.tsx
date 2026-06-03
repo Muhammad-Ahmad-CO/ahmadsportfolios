@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTe
 import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -243,16 +244,16 @@ function Hero() {
         </FadeIn>
       </div>
 
-      {/* Portrait */}
+      {/* Portrait (passport-style avatar frame) */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 bottom-10 md:bottom-16 flex items-end justify-center"
       >
         <Magnet strength={0.1}>
           <div
-            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] xl:w-[540px] aspect-[3/4] mx-auto"
+            className="pointer-events-auto relative mx-auto"
             style={{
               filter:
                 "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
@@ -261,14 +262,14 @@ function Hero() {
             {/* Soft radial glow behind subject */}
             <div
               aria-hidden
-              className="absolute inset-0 -z-10"
+              className="absolute -inset-6 -z-10"
               style={{
                 background:
-                  "radial-gradient(45% 38% at 50% 62%, rgba(187,204,215,0.28) 0%, rgba(187,204,215,0.08) 45%, transparent 75%)",
+                  "radial-gradient(50% 50% at 50% 50%, rgba(187,204,215,0.28) 0%, rgba(187,204,215,0.08) 45%, transparent 75%)",
                 filter: "blur(8px)",
               }}
             />
-            <PortraitWithFallback />
+            <PortraitAvatar />
           </div>
         </Magnet>
       </motion.div>
@@ -276,54 +277,32 @@ function Hero() {
   );
 }
 
-function PortraitWithFallback() {
-  const [errored, setErrored] = useState(false);
-
-  if (errored || !portrait) {
-    return (
-      <div
-        role="img"
-        aria-label="Muhammad Ahmed portrait placeholder"
-        className="h-full w-full rounded-[28px] flex items-end justify-center overflow-hidden relative"
-        style={{
-          background:
-            "linear-gradient(160deg, rgba(215,226,234,0.12) 0%, rgba(187,204,215,0.06) 60%, rgba(12,12,12,0.4) 100%)",
-          border: "1px solid rgba(215,226,234,0.18)",
-          padding: "24px",
-          boxShadow:
-            "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
-          maskImage:
-            "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
-        }}
-      >
-        <span
-          className="font-black uppercase tracking-tight text-[#D7E2EA]/70 select-none"
-          style={{ fontSize: "clamp(3rem, 10vw, 7rem)", lineHeight: 1 }}
-        >
-          MA
-        </span>
-      </div>
-    );
-  }
-
+function PortraitAvatar() {
   return (
-    <img
-      src={portrait}
-      alt="Muhammad Ahmed portrait"
-      width={768}
-      height={1024}
-      onError={() => setErrored(true)}
-      className="h-full w-full object-contain object-bottom select-none"
+    <Avatar
+      className="rounded-[28px] h-[260px] w-[210px] sm:h-[320px] sm:w-[260px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
       style={{
-        WebkitMaskImage:
-          "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
-        maskImage:
-          "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+        border: "1px solid rgba(215,226,234,0.22)",
+        padding: "10px",
+        background:
+          "linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.35) 100%)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
       }}
-      draggable={false}
-    />
+    >
+      <AvatarImage
+        src={portrait}
+        alt="Muhammad Ahmed portrait"
+        className="rounded-[20px] object-cover object-top"
+        draggable={false}
+      />
+      <AvatarFallback
+        className="rounded-[20px] font-black uppercase tracking-tight text-[#D7E2EA]/70"
+        style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
+      >
+        MA
+      </AvatarFallback>
+    </Avatar>
   );
 }
 
