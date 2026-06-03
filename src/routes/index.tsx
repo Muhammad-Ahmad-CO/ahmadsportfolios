@@ -252,10 +252,10 @@ function Hero() {
       >
         <Magnet strength={0.1}>
           <div
-            className="pointer-events-auto relative w-[260px] sm:w-[340px] md:w-[460px] lg:w-[560px] xl:w-[640px] aspect-[3/4]"
+            className="pointer-events-auto relative w-[200px] sm:w-[280px] md:w-[380px] lg:w-[460px] xl:w-[540px] aspect-[3/4] mx-auto"
             style={{
               filter:
-                "drop-shadow(0 40px 50px rgba(0,0,0,0.6)) drop-shadow(0 0 80px rgba(187,204,215,0.15))",
+                "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
             }}
           >
             {/* Soft radial glow behind subject */}
@@ -268,24 +268,62 @@ function Hero() {
                 filter: "blur(8px)",
               }}
             />
-            <img
-              src={portrait}
-              alt="Muhammad Ahmed portrait"
-              width={768}
-              height={1024}
-              className="h-full w-full object-contain object-bottom select-none"
-              style={{
-                WebkitMaskImage:
-                  "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
-                maskImage:
-                  "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
-              }}
-              draggable={false}
-            />
+            <PortraitWithFallback />
           </div>
         </Magnet>
       </motion.div>
     </section>
+  );
+}
+
+function PortraitWithFallback() {
+  const [errored, setErrored] = useState(false);
+
+  if (errored || !portrait) {
+    return (
+      <div
+        role="img"
+        aria-label="Muhammad Ahmed portrait placeholder"
+        className="h-full w-full rounded-[28px] flex items-end justify-center overflow-hidden relative"
+        style={{
+          background:
+            "linear-gradient(160deg, rgba(215,226,234,0.12) 0%, rgba(187,204,215,0.06) 60%, rgba(12,12,12,0.4) 100%)",
+          border: "1px solid rgba(215,226,234,0.18)",
+          padding: "24px",
+          boxShadow:
+            "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+          maskImage:
+            "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+        }}
+      >
+        <span
+          className="font-black uppercase tracking-tight text-[#D7E2EA]/70 select-none"
+          style={{ fontSize: "clamp(3rem, 10vw, 7rem)", lineHeight: 1 }}
+        >
+          MA
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={portrait}
+      alt="Muhammad Ahmed portrait"
+      width={768}
+      height={1024}
+      onError={() => setErrored(true)}
+      className="h-full w-full object-contain object-bottom select-none"
+      style={{
+        WebkitMaskImage:
+          "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+        maskImage:
+          "linear-gradient(to bottom, #000 82%, rgba(0,0,0,0.4) 96%, transparent 100%)",
+      }}
+      draggable={false}
+    />
   );
 }
 
