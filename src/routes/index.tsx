@@ -306,19 +306,19 @@ function PortraitAvatar() {
   );
 }
 
-/* Marquee tiles using gradients (placeholder for AI showcase) */
+/* Marquee tiles using black & white gradient shades */
 const TILE_GRADIENTS = [
-  "from-indigo-500 via-purple-500 to-pink-500",
-  "from-cyan-400 via-blue-500 to-indigo-600",
-  "from-emerald-400 via-teal-500 to-cyan-600",
-  "from-orange-400 via-pink-500 to-rose-600",
-  "from-violet-500 via-fuchsia-500 to-pink-500",
-  "from-yellow-400 via-orange-500 to-red-500",
-  "from-slate-400 via-slate-600 to-slate-800",
-  "from-sky-400 via-cyan-500 to-blue-600",
-  "from-lime-400 via-emerald-500 to-teal-600",
-  "from-rose-400 via-pink-500 to-fuchsia-600",
-  "from-amber-400 via-orange-500 to-pink-500",
+  "from-zinc-900 via-zinc-700 to-zinc-500",
+  "from-gray-950 via-gray-800 to-gray-600",
+  "from-neutral-900 via-neutral-700 to-neutral-500",
+  "from-black via-gray-800 to-gray-500",
+  "from-zinc-800 via-zinc-600 to-zinc-400",
+  "from-gray-900 via-gray-700 to-gray-400",
+  "from-neutral-800 via-neutral-600 to-neutral-400",
+  "from-zinc-950 via-zinc-800 to-zinc-500",
+  "from-gray-800 via-gray-700 to-gray-500",
+  "from-black via-zinc-700 to-zinc-400",
+  "from-neutral-950 via-neutral-800 to-neutral-500",
 ];
 const TILE_LABELS = [
   "LLM", "Computer Vision", "Automation", "MediaPipe", "RAG",
