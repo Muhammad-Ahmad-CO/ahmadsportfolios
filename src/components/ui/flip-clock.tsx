@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Digit = ({ value }: { value: number }) => {
   return (
-    <div className="relative w-8 h-12 md:w-10 md:h-14 overflow-hidden rounded-md bg-[#0C0C0C]/80 border border-[#D7E2EA]/20 shadow-inner flex items-center justify-center">
+    <div className="relative w-5 h-7 md:w-6 md:h-8 overflow-hidden rounded bg-[#0C0C0C]/80 border border-[#D7E2EA]/20 shadow-inner flex items-center justify-center">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={value}
@@ -13,7 +13,7 @@ const Digit = ({ value }: { value: number }) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "100%", opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute font-mono text-xl md:text-2xl font-bold text-[#D7E2EA] tabular-nums"
+          className="absolute font-mono text-xs md:text-sm font-bold text-[#D7E2EA] tabular-nums"
         >
           {value}
         </motion.span>
@@ -35,15 +35,15 @@ export default function FlipClock() {
   const seconds = time.getSeconds().toString().padStart(2, "0");
 
   return (
-    <div className="flex items-center gap-1 md:gap-1.5">
+    <div className="flex items-center gap-0.5 md:gap-1">
       {hours.split("").map((digit, i) => (
         <Digit key={`h-${i}`} value={Number(digit)} />
       ))}
-      <span className="text-[#D7E2EA] font-bold text-xl md:text-2xl px-0.5">:</span>
+      <span className="text-[#D7E2EA] font-bold text-xs md:text-sm">:</span>
       {minutes.split("").map((digit, i) => (
         <Digit key={`m-${i}`} value={Number(digit)} />
       ))}
-      <span className="text-[#D7E2EA] font-bold text-xl md:text-2xl px-0.5">:</span>
+      <span className="text-[#D7E2EA] font-bold text-xs md:text-sm">:</span>
       {seconds.split("").map((digit, i) => (
         <Digit key={`s-${i}`} value={Number(digit)} />
       ))}

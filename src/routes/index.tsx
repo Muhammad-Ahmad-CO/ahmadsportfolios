@@ -7,6 +7,7 @@ import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
+import { TidalCursor } from "@/components/ui/tidal-cursor";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -592,6 +593,7 @@ function Index() {
       <div className="fixed top-4 left-4 md:top-6 md:left-6 z-50">
         <FlipClock />
       </div>
+      <TidalCursor />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
