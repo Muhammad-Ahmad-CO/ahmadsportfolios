@@ -8,6 +8,7 @@ import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
+import GlassCard from "@/components/ui/glass-card";
 
 export const Route = createFileRoute("/")({
   component: Index,
