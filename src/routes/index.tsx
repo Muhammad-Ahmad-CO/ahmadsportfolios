@@ -593,6 +593,7 @@ function Index() {
       <div className="fixed top-4 left-4 md:top-6 md:left-6 z-50">
         <FlipClock />
       </div>
+      <TidalCursor />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
