@@ -35,15 +35,15 @@ export default function FlipClock() {
   const seconds = time.getSeconds().toString().padStart(2, "0");
 
   return (
-    <div className="flex items-center gap-1 md:gap-1.5">
+    <div className="flex items-center gap-0.5 md:gap-1">
       {hours.split("").map((digit, i) => (
         <Digit key={`h-${i}`} value={Number(digit)} />
       ))}
-      <span className="text-[#D7E2EA] font-bold text-xl md:text-2xl px-0.5">:</span>
+      <span className="text-[#D7E2EA] font-bold text-xs md:text-sm">:</span>
       {minutes.split("").map((digit, i) => (
         <Digit key={`m-${i}`} value={Number(digit)} />
       ))}
-      <span className="text-[#D7E2EA] font-bold text-xl md:text-2xl px-0.5">:</span>
+      <span className="text-[#D7E2EA] font-bold text-xs md:text-sm">:</span>
       {seconds.split("").map((digit, i) => (
         <Digit key={`s-${i}`} value={Number(digit)} />
       ))}
