@@ -7,6 +7,7 @@ import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
+import { TidalCursor } from "@/components/ui/tidal-cursor";
 
 export const Route = createFileRoute("/")({
   component: Index,
