@@ -410,13 +410,13 @@ function About() {
           style={{ perspective: "500px" }}
         >
           <motion.p
+            className="max-w-[820px] text-center font-medium leading-relaxed"
             style={{
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(1rem, 2vw, 1.35rem)",
+              fontSize: "clamp(1.15rem, 2.4vw, 1.7rem)",
             }}
-            className="max-w-[720px] text-center font-medium leading-relaxed"
           >
             {bio}
           </motion.p>
