@@ -6,6 +6,7 @@ import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import FlipClock from "@/components/ui/flip-clock";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -588,6 +589,9 @@ function Footer() {
 function Index() {
   return (
     <main className="relative bg-[#0C0C0C]">
+      <div className="fixed top-4 left-4 md:top-6 md:left-6 z-50">
+        <FlipClock />
+      </div>
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
