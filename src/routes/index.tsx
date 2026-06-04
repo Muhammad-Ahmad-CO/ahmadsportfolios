@@ -8,6 +8,7 @@ import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
+import GlassCard from "@/components/ui/glass-card";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -409,13 +410,13 @@ function About() {
           style={{ perspective: "500px" }}
         >
           <motion.p
+            className="max-w-[820px] text-center font-medium leading-relaxed"
             style={{
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(1rem, 2vw, 1.35rem)",
+              fontSize: "clamp(1.15rem, 2.4vw, 1.7rem)",
             }}
-            className="max-w-[720px] text-center font-medium leading-relaxed"
           >
             {bio}
           </motion.p>
@@ -560,28 +561,27 @@ function Projects() {
 
 function Footer() {
   return (
-    <footer id="footer" className="bg-[#0C0C0C] py-12 md:py-16 px-6 border-t border-white/10">
-      <div className="max-w-4xl mx-auto text-center text-[#D7E2EA] space-y-6">
-        <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">Let&rsquo;s build with AI</h2>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm md:text-base">
-          <a href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=Hello%20Muhammad&body=Hi%20Muhammad,%0A%0AI%20wanted%20to%20reach%20out%20regarding...`} target="_blank" rel="noopener noreferrer" aria-label="Send an email to Muhammad Ahmed via Gmail" className="inline-flex items-center gap-2 hover:opacity-70">
-            <Mail className="h-4 w-4" /> {EMAIL}
-          </a>
-          <a href={`tel:${PHONE}`} className="inline-flex items-center gap-2 hover:opacity-70">
-            <Phone className="h-4 w-4" /> {PHONE}
-          </a>
+    <footer id="footer" className="bg-[#0C0C0C] py-16 md:py-24 px-6 border-t border-white/10">
+      <div className="max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
+        <div className="text-center md:text-left space-y-4">
+          <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">
+            Let&rsquo;s build with AI
+          </h2>
+          <p className="text-sm md:text-base text-[#D7E2EA]/60 max-w-md mx-auto md:mx-0">
+            Reach out for collaborations, projects, or just to say hi.
+          </p>
+          <p className="text-xs text-[#D7E2EA]/40 pt-4">
+            © 2026 Muhammad Ahmed. All rights reserved.
+          </p>
         </div>
-        <div className="flex items-center justify-center gap-6">
-          <a href={LINKEDIN} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:opacity-70">
-            <Linkedin className="h-4 w-4" /> LinkedIn
-          </a>
-          <a href={GITHUB} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:opacity-70">
-            <Github className="h-4 w-4" /> GitHub
-          </a>
+        <div className="flex justify-center md:justify-end">
+          <GlassCard
+            email={EMAIL}
+            phone={PHONE}
+            linkedin={LINKEDIN}
+            github={GITHUB}
+          />
         </div>
-        <p className="text-xs text-[#D7E2EA]/50 pt-6">
-          © 2026 Muhammad Ahmed. All rights reserved.
-        </p>
       </div>
     </footer>
   );
