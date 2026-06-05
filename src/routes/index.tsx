@@ -10,6 +10,7 @@ import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
+import HeroAnimatedText from "@/components/ui/hero-animated-text";
 
 export const Route = createFileRoute("/")({
   component: Index,
