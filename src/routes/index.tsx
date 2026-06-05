@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
 import GlassCard from "@/components/ui/glass-card";
-import BoxLoader from "@/components/ui/box-loader";
+import Preloader from "@/components/ui/preloader";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -588,30 +588,11 @@ function Footer() {
   );
 }
 
-function Preloader() {
-  const [hidden, setHidden] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setHidden(true), 1800);
-    return () => clearTimeout(t);
-  }, []);
-  return (
-    <div
-      aria-hidden
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0C0C0C] transition-opacity duration-700"
-      style={{
-        opacity: hidden ? 0 : 1,
-        pointerEvents: hidden ? "none" : "auto",
-      }}
-    >
-      <BoxLoader />
-    </div>
-  );
-}
 
 function Index() {
   return (
     <main className="relative bg-[#0C0C0C]">
-      <Preloader />
+      <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div className="fixed top-4 left-4 md:top-6 md:left-6 z-50">
         <FlipClock />
       </div>
