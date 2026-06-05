@@ -588,25 +588,6 @@ function Footer() {
   );
 }
 
-function Preloader() {
-  const [hidden, setHidden] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setHidden(true), 1800);
-    return () => clearTimeout(t);
-  }, []);
-  return (
-    <div
-      aria-hidden
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0C0C0C] transition-opacity duration-700"
-      style={{
-        opacity: hidden ? 0 : 1,
-        pointerEvents: hidden ? "none" : "auto",
-      }}
-    >
-      <BoxLoader />
-    </div>
-  );
-}
 
 function Index() {
   return (
