@@ -284,7 +284,7 @@ function Hero() {
 function PortraitAvatar() {
   return (
     <Avatar
-      className="rounded-[28px] h-[260px] w-[210px] sm:h-[320px] sm:w-[260px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+      className="group rounded-[28px] h-[260px] w-[210px] sm:h-[320px] sm:w-[260px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
       style={{
         border: "1px solid rgba(215,226,234,0.22)",
         padding: "10px",
@@ -297,7 +297,7 @@ function PortraitAvatar() {
       <AvatarImage
         src={portrait}
         alt="Muhammad Ahmed portrait"
-        className="rounded-[20px] object-cover object-top"
+        className="rounded-[20px] object-cover object-top grayscale group-hover:grayscale-0 transition-[filter] duration-700 ease-out"
         draggable={false}
       />
       <AvatarFallback
