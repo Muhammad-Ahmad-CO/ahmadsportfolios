@@ -10,7 +10,7 @@ import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
-import HeroAnimatedText from "@/components/ui/hero-animated-text";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -219,63 +219,34 @@ function Hero() {
         </nav>
       </FadeIn>
 
-      {/* Main content: portrait + animated text side-by-side */}
+      {/* Main content: portrait centered */}
       <div className="flex-1 flex items-center justify-center px-4 md:px-10">
-        <div className="w-full max-w-7xl flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 lg:gap-16">
-          {/* Portrait */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="shrink-0"
-          >
-            <Magnet strength={0.1}>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <Magnet strength={0.1}>
+            <div
+              className="relative"
+              style={{
+                filter:
+                  "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
+              }}
+            >
               <div
-                className="relative"
+                aria-hidden
+                className="absolute -inset-6 -z-10"
                 style={{
-                  filter:
-                    "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
+                  background:
+                    "radial-gradient(50% 50% at 50% 50%, rgba(187,204,215,0.28) 0%, rgba(187,204,215,0.08) 45%, transparent 75%)",
+                  filter: "blur(8px)",
                 }}
-              >
-                <div
-                  aria-hidden
-                  className="absolute -inset-6 -z-10"
-                  style={{
-                    background:
-                      "radial-gradient(50% 50% at 50% 50%, rgba(187,204,215,0.28) 0%, rgba(187,204,215,0.08) 45%, transparent 75%)",
-                    filter: "blur(8px)",
-                  }}
-                />
-                <motion.div
-                  data-hero-image
-                  animate={{ scale: [1, 1.05] }}
-                  transition={{
-                    duration: 6,
-                    ease: "easeOut",
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                  }}
-                  style={{ transformOrigin: "center" }}
-                >
-                  <PortraitAvatar />
-                </motion.div>
-              </div>
-            </Magnet>
-          </motion.div>
-
-          {/* Animated text */}
-          <div className="flex-1 min-w-0 flex justify-center md:justify-start">
-            <HeroAnimatedText
-              name="MUHAMMAD AHMED"
-              rotatingWords={[
-                "AI Solutions",
-                "Intelligent Agents",
-                "Smart Automations",
-              ]}
-              tail="that resonate."
-            />
-          </div>
-        </div>
+              />
+              <PortraitAvatar />
+            </div>
+          </Magnet>
+        </motion.div>
       </div>
 
       {/* Bottom bar */}
