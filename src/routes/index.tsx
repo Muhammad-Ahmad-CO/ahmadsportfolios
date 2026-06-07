@@ -10,9 +10,6 @@ import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
-import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
-
-const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -247,16 +244,6 @@ function Hero() {
           </p>
         </FadeIn>
         <FadeIn y={20} delay={0.5} className="relative flex flex-col items-end gap-1">
-          <div
-            className="relative h-[120px] w-[120px] md:h-[160px] md:w-[160px] -mb-2 pointer-events-auto"
-            style={{
-              filter:
-                "drop-shadow(0 10px 24px rgba(187,204,215,0.25)) hue-rotate(180deg) saturate(0.45) brightness(0.95)",
-            }}
-            aria-label="Interactive 3D robot"
-          >
-            <InteractiveRobotSpline scene={ROBOT_SCENE_URL} className="h-full w-full" />
-          </div>
           <ContactButton />
         </FadeIn>
       </div>
@@ -392,7 +379,7 @@ function MarqueeRow({ items, direction }: { items: { g: string; t: string }[]; d
               }}
             />
             <span
-              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight text-[#D7E2EA]"
+              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight text-gray-400"
               style={{
                 textShadow: "0 1px 0 rgba(0,0,0,0.6)",
               }}
