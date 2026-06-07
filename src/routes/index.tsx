@@ -379,7 +379,7 @@ function MarqueeRow({ items, direction }: { items: { g: string; t: string }[]; d
               }}
             />
             <span
-              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight text-[#D7E2EA]"
+              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight text-gray-400"
               style={{
                 textShadow: "0 1px 0 rgba(0,0,0,0.6)",
               }}
