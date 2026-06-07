@@ -10,9 +10,6 @@ import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
-import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
-
-const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
 
 export const Route = createFileRoute("/")({
   component: Index,
