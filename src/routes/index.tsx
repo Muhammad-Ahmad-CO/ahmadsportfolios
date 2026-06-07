@@ -246,7 +246,17 @@ function Hero() {
             Driving the Future with AI &amp; Code
           </p>
         </FadeIn>
-        <FadeIn y={20} delay={0.5}>
+        <FadeIn y={20} delay={0.5} className="relative flex flex-col items-end gap-1">
+          <div
+            className="relative h-[120px] w-[120px] md:h-[160px] md:w-[160px] -mb-2 pointer-events-auto"
+            style={{
+              filter:
+                "drop-shadow(0 10px 24px rgba(187,204,215,0.25)) hue-rotate(180deg) saturate(0.45) brightness(0.95)",
+            }}
+            aria-label="Interactive 3D robot"
+          >
+            <InteractiveRobotSpline scene={ROBOT_SCENE_URL} className="h-full w-full" />
+          </div>
           <ContactButton />
         </FadeIn>
       </div>
