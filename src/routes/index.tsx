@@ -7,7 +7,7 @@ import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
-import { TidalCursor } from "@/components/ui/tidal-cursor";
+import { MorphingCursor } from "@/components/ui/morphing-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 
@@ -616,7 +616,7 @@ function Index() {
       <div className="fixed top-4 left-1/2 -translate-x-1/2 md:top-6 z-50">
         <FlipClock />
       </div>
-      <TidalCursor />
+      <MorphingCursor />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
