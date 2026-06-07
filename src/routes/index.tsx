@@ -616,7 +616,7 @@ function Index() {
   return (
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
-      <div className="fixed top-4 left-4 md:top-6 md:left-6 z-50">
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 md:top-6 z-50">
         <FlipClock />
       </div>
       <TidalCursor />
