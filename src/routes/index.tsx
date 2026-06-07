@@ -10,6 +10,9 @@ import FlipClock from "@/components/ui/flip-clock";
 import { TidalCursor } from "@/components/ui/tidal-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
+import { InteractiveRobotSpline } from "@/components/ui/interactive-3d-robot";
+
+const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -243,7 +246,17 @@ function Hero() {
             Driving the Future with AI &amp; Code
           </p>
         </FadeIn>
-        <FadeIn y={20} delay={0.5}>
+        <FadeIn y={20} delay={0.5} className="relative flex flex-col items-end gap-1">
+          <div
+            className="relative h-[120px] w-[120px] md:h-[160px] md:w-[160px] -mb-2 pointer-events-auto"
+            style={{
+              filter:
+                "drop-shadow(0 10px 24px rgba(187,204,215,0.25)) hue-rotate(180deg) saturate(0.45) brightness(0.95)",
+            }}
+            aria-label="Interactive 3D robot"
+          >
+            <InteractiveRobotSpline scene={ROBOT_SCENE_URL} className="h-full w-full" />
+          </div>
           <ContactButton />
         </FadeIn>
       </div>
@@ -364,10 +377,10 @@ function MarqueeRow({ items, direction }: { items: { g: string; t: string }[]; d
             className="shrink-0 w-[280px] h-[180px] md:w-[420px] md:h-[270px] rounded-2xl flex items-center justify-center relative overflow-hidden"
             style={{
               background:
-                "linear-gradient(135deg, #2a2a2a 0%, #6e6e6e 18%, #c8c8c8 38%, #f4f4f4 50%, #c8c8c8 62%, #5a5a5a 82%, #1a1a1a 100%)",
+                "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 30%, #262626 50%, #1a1a1a 70%, #060606 100%)",
               boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.55), inset 0 -2px 6px rgba(0,0,0,0.55), 0 18px 40px -18px rgba(0,0,0,0.7)",
-              border: "1px solid rgba(255,255,255,0.18)",
+                "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 2px rgba(0,0,0,0.6), 0 18px 40px -22px rgba(0,0,0,0.7)",
+              border: "1px solid rgba(255,255,255,0.06)",
             }}
           >
             <div
@@ -375,20 +388,13 @@ function MarqueeRow({ items, direction }: { items: { g: string; t: string }[]; d
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 48%, rgba(255,255,255,0.05) 55%, transparent 70%)",
-                mixBlendMode: "overlay",
+                  "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
               }}
             />
             <span
-              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight"
+              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight text-[#D7E2EA]"
               style={{
-                background:
-                  "linear-gradient(180deg, #f8f8f8 0%, #d0d0d0 45%, #6a6a6a 55%, #2a2a2a 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-                textShadow: "0 1px 0 rgba(255,255,255,0.15)",
-                filter: "drop-shadow(0 1px 0 rgba(0,0,0,0.4))",
+                textShadow: "0 1px 0 rgba(0,0,0,0.6)",
               }}
             >
               {it.t}
@@ -620,7 +626,7 @@ function Index() {
   return (
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
-      <div className="fixed top-4 left-4 md:top-6 md:left-6 z-50">
+      <div className="fixed top-4 left-1/2 -translate-x-1/2 md:top-6 z-50">
         <FlipClock />
       </div>
       <TidalCursor />
