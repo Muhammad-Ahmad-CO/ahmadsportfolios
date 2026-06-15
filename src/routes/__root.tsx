@@ -76,10 +76,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "description", content: "Portfolio of Muhammad Ahmed, AI Specialist orchestrating intelligent, efficient solutions with modern AI tools and frameworks." },
       { name: "author", content: "Muhammad Ahmed" },
       { property: "og:title", content: "Muhammad Ahmed – AI Specialist" },
-      { property: "og:description", content: "AI Specialist portfolio — projects, services, and contact." },
+      { property: "og:description", content: "Portfolio of Muhammad Ahmed, AI Specialist orchestrating intelligent, efficient solutions with modern AI tools and frameworks." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Muhammad Ahmed – AI Specialist" },
+      { name: "twitter:description", content: "Portfolio of Muhammad Ahmed, AI Specialist orchestrating intelligent, efficient solutions with modern AI tools and frameworks." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6561983f-e87e-463f-a9b6-b4295c8ea2de" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6561983f-e87e-463f-a9b6-b4295c8ea2de" },
     ],
     links: [
       {
