@@ -337,7 +337,7 @@ const TILE_GRADIENTS = [
 const TILE_LABELS = [
   "LLM", "Computer Vision", "Automation", "MediaPipe", "RAG",
   "Agents", "Prompting", "Embeddings", "TensorFlow", "PyTorch",
-  "OpenAI", "Whisper", "Diffusion", "Transformers", "Edge AI",
+  "OpenAI", "Speech AI", "Whisper", "Diffusion", "Transformers", "Edge AI",
   "Pipelines", "Vector DB", "Fine-tuning", "Inference", "Multimodal", "GenAI",
 ];
 
@@ -426,27 +426,27 @@ function About() {
 
   return (
     <section id="about" ref={targetRef} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden px-5 sm:px-8 md:px-10">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden px-5 sm:px-8 md:px-10 pt-28 md:pt-32">
         <FadeIn>
           <h2
             className="hero-heading text-center font-black uppercase tracking-tight"
-            style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+            style={{ fontSize: "clamp(2.5rem, 10vw, 130px)" }}
           >
             About me
           </h2>
         </FadeIn>
 
         <div
-          className="mt-8 flex w-full justify-center md:mt-12"
+          className="mt-6 flex w-full justify-center md:mt-10"
           style={{ perspective: "500px" }}
         >
           <motion.p
-            className="max-w-[820px] text-center font-medium leading-relaxed"
+            className="max-w-[720px] text-center font-medium leading-relaxed px-2"
             style={{
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(1.15rem, 2.4vw, 1.7rem)",
+              fontSize: "clamp(0.9rem, 1.4vw, 1.15rem)",
             }}
           >
             {bio}
