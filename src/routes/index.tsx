@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 
-import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Sun, Moon } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,6 +11,7 @@ import { MorphingCursor } from "@/components/ui/morphing-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
+import { Dock, DockIcon } from "@/components/ui/dock";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -621,12 +622,21 @@ function Footer() {
 
 function Index() {
   const [showClock, setShowClock] = useState(true);
+  const [isLight, setIsLight] = useState(false);
   useEffect(() => {
     const onScroll = () => setShowClock(window.scrollY < window.innerHeight * 0.7);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  const toggleTheme = () => {
+    setIsLight((v) => {
+      const next = !v;
+      document.documentElement.classList.toggle("light", next);
+      document.documentElement.classList.toggle("dark", !next);
+      return next;
+    });
+  };
   return (
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
@@ -648,6 +658,26 @@ function Index() {
         <Services />
         <Projects />
         <Footer />
+      </div>
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <Dock>
+          <DockIcon href="#top" label="Home">
+            <Home className="h-5 w-5" />
+          </DockIcon>
+          <DockIcon href={GITHUB} label="GitHub">
+            <Github className="h-5 w-5" />
+          </DockIcon>
+          <DockIcon
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
+            label="Email"
+          >
+            <Mail className="h-5 w-5" />
+          </DockIcon>
+          <div className="mx-1 h-8 w-px self-center bg-white/10" />
+          <DockIcon onClick={toggleTheme} label={isLight ? "Dark mode" : "Light mode"}>
+            {isLight ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </DockIcon>
+        </Dock>
       </div>
     </main>
   );
