@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 
-import { ArrowUpRight, Mail, Phone, Linkedin, Github } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Sun, Moon } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,6 +11,7 @@ import { MorphingCursor } from "@/components/ui/morphing-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
+import { Dock, DockIcon } from "@/components/ui/dock";
 
 export const Route = createFileRoute("/")({
   component: Index,
