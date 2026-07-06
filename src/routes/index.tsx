@@ -306,6 +306,15 @@ function PortraitAvatar() {
       >
         MA
       </AvatarFallback>
+      <GlyphMatrix
+        color="#D7E2EA"
+        cellSize={12}
+        mutationRate={0.05}
+        interval={100}
+        fadeBottom={0.5}
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-[10px] rounded-[20px] opacity-40 mix-blend-screen transition-opacity duration-700 ease-out group-hover:opacity-15"
+      />
     </Avatar>
   );
 }
