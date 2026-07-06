@@ -10,6 +10,7 @@ import FlipClock from "@/components/ui/flip-clock";
 import { MorphingCursor } from "@/components/ui/morphing-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
+import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 
 export const Route = createFileRoute("/")({
   component: Index,
