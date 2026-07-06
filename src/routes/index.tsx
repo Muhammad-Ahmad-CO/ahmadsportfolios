@@ -659,6 +659,26 @@ function Index() {
         <Projects />
         <Footer />
       </div>
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+        <Dock>
+          <DockIcon href="#top" label="Home">
+            <Home className="h-5 w-5" />
+          </DockIcon>
+          <DockIcon href={GITHUB} label="GitHub">
+            <Github className="h-5 w-5" />
+          </DockIcon>
+          <DockIcon
+            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
+            label="Email"
+          >
+            <Mail className="h-5 w-5" />
+          </DockIcon>
+          <div className="mx-1 h-8 w-px self-center bg-white/10" />
+          <DockIcon onClick={toggleTheme} label={isLight ? "Dark mode" : "Light mode"}>
+            {isLight ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </DockIcon>
+        </Dock>
+      </div>
     </main>
   );
 }
