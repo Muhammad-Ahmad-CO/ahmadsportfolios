@@ -54,7 +54,7 @@ function FadeIn({
 function ContactButton({ className = "" }: { className?: string }) {
   return (
     <a
-      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=Hello%20Muhammad&body=Hi%20Muhammad,%0A%0AI%20wanted%20to%20reach%20out%20regarding...`}
+      href={EMAIL_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Send an email to Muhammad Ahmed via Gmail"
