@@ -632,8 +632,7 @@ function Index() {
   const toggleTheme = () => {
     setIsLight((v) => {
       const next = !v;
-      document.documentElement.classList.toggle("light", next);
-      document.documentElement.classList.toggle("dark", !next);
+      document.documentElement.classList.toggle("light-mode", next);
       return next;
     });
   };
