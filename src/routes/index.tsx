@@ -19,6 +19,7 @@ export const Route = createFileRoute("/")({
 });
 
 const EMAIL = "ahmadkaimkhani40@gmail.com";
+const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
 const PHONE = "0314-1241710";
 const LINKEDIN = "https://www.linkedin.com/in/muhammad-ahmed";
 const GITHUB = "https://github.com/kaim953";
