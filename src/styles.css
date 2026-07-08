@@ -43,6 +43,18 @@ main { overflow-x: clip; }
   to { opacity: 0; visibility: hidden; }
 }
 
+/* Global light-mode toggle: invert everything, then revert real media so
+   photos/videos still look natural. Applied by the Dock theme button. */
+html.light-mode {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #f3f3f3;
+}
+html.light-mode img,
+html.light-mode video,
+html.light-mode canvas {
+  filter: invert(1) hue-rotate(180deg);
+}
+
 /*
  * Design system definition.
  *

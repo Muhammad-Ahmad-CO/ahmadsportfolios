@@ -593,7 +593,7 @@ function Projects() {
 
 function Footer() {
   return (
-    <footer id="footer" className="bg-[#0C0C0C] py-16 md:py-24 px-6 border-t border-white/10">
+    <footer id="footer" className="bg-[#0C0C0C] pt-16 md:pt-24 pb-32 md:pb-32 px-6 border-t border-white/10">
       <div className="max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
         <div className="text-center md:text-left space-y-4">
           <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">
@@ -632,8 +632,7 @@ function Index() {
   const toggleTheme = () => {
     setIsLight((v) => {
       const next = !v;
-      document.documentElement.classList.toggle("light", next);
-      document.documentElement.classList.toggle("dark", !next);
+      document.documentElement.classList.toggle("light-mode", next);
       return next;
     });
   };
@@ -659,23 +658,23 @@ function Index() {
         <Projects />
         <Footer />
       </div>
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+      <div className="fixed bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 px-3 max-w-[calc(100vw-1.5rem)]">
         <Dock>
           <DockIcon href="#top" label="Home">
-            <Home className="h-5 w-5" />
+            <Home className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon href={GITHUB} label="GitHub">
-            <Github className="h-5 w-5" />
+            <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon
             href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
             label="Email"
           >
-            <Mail className="h-5 w-5" />
+            <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
-          <div className="mx-1 h-8 w-px self-center bg-white/10" />
+          <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
           <DockIcon onClick={toggleTheme} label={isLight ? "Dark mode" : "Light mode"}>
-            {isLight ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            {isLight ? <Moon className="h-4 w-4 sm:h-5 sm:w-5" /> : <Sun className="h-4 w-4 sm:h-5 sm:w-5" />}
           </DockIcon>
         </Dock>
       </div>
