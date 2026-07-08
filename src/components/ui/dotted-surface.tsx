@@ -106,11 +106,11 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 			window.removeEventListener('resize', handleResize);
 			if (sceneRef.current) {
 				cancelAnimationFrame(sceneRef.current.animationId);
-				sceneRef.current.scene.traverse((object) => {
+				sceneRef.current.scene.traverse((object: THREE.Object3D) => {
 					if (object instanceof THREE.Points) {
 						object.geometry.dispose();
 						if (Array.isArray(object.material)) {
-							object.material.forEach((m) => m.dispose());
+							object.material.forEach((m: THREE.Material) => m.dispose());
 						} else {
 							object.material.dispose();
 						}
