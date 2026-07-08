@@ -12,6 +12,7 @@ import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { Dock, DockIcon } from "@/components/ui/dock";
+import { DottedSurface } from "@/components/ui/dotted-surface";
 
 export const Route = createFileRoute("/")({
   component: Index,
