@@ -593,7 +593,7 @@ function Projects() {
 
 function Footer() {
   return (
-    <footer id="footer" className="bg-[#0C0C0C] py-16 md:py-24 px-6 border-t border-white/10">
+    <footer id="footer" className="bg-[#0C0C0C] pt-16 md:pt-24 pb-32 md:pb-32 px-6 border-t border-white/10">
       <div className="max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
         <div className="text-center md:text-left space-y-4">
           <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">
