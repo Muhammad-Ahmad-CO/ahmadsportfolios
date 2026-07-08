@@ -152,7 +152,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
           <p className="gc-sub">Available for work</p>
 
           {email && (
-            <a className="gc-row" href={`mailto:${email}`}>
+            <a className="gc-row" href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB" target="_blank" rel="noopener noreferrer">
               <Mail className="h-4 w-4" />
               <span>{email}</span>
             </a>

@@ -12,12 +12,14 @@ import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { Dock, DockIcon } from "@/components/ui/dock";
+import { DottedSurface } from "@/components/ui/dotted-surface";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
 const EMAIL = "ahmadkaimkhani40@gmail.com";
+const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
 const PHONE = "0314-1241710";
 const LINKEDIN = "https://www.linkedin.com/in/muhammad-ahmed";
 const GITHUB = "https://github.com/kaim953";
@@ -52,7 +54,7 @@ function FadeIn({
 function ContactButton({ className = "" }: { className?: string }) {
   return (
     <a
-      href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=Hello%20Muhammad&body=Hi%20Muhammad,%0A%0AI%20wanted%20to%20reach%20out%20regarding...`}
+      href={EMAIL_URL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Send an email to Muhammad Ahmed via Gmail"
@@ -593,8 +595,9 @@ function Projects() {
 
 function Footer() {
   return (
-    <footer id="footer" className="bg-[#0C0C0C] pt-16 md:pt-24 pb-32 md:pb-32 px-6 border-t border-white/10">
-      <div className="max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
+    <footer id="footer" className="relative overflow-hidden bg-[#0C0C0C] pt-16 md:pt-24 pb-32 md:pb-32 px-6 border-t border-white/10">
+      <DottedSurface className="opacity-40" />
+      <div className="relative z-10 max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
         <div className="text-center md:text-left space-y-4">
           <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">
             Let&rsquo;s build with AI
@@ -667,7 +670,7 @@ function Index() {
             <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon
-            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
+            href={EMAIL_URL}
             label="Email"
           >
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
