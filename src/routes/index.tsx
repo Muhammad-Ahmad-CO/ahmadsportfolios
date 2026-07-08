@@ -658,23 +658,23 @@ function Index() {
         <Projects />
         <Footer />
       </div>
-      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+      <div className="fixed bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 px-3 max-w-[calc(100vw-1.5rem)]">
         <Dock>
           <DockIcon href="#top" label="Home">
-            <Home className="h-5 w-5" />
+            <Home className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon href={GITHUB} label="GitHub">
-            <Github className="h-5 w-5" />
+            <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon
             href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
             label="Email"
           >
-            <Mail className="h-5 w-5" />
+            <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
-          <div className="mx-1 h-8 w-px self-center bg-white/10" />
+          <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
           <DockIcon onClick={toggleTheme} label={isLight ? "Dark mode" : "Light mode"}>
-            {isLight ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            {isLight ? <Moon className="h-4 w-4 sm:h-5 sm:w-5" /> : <Sun className="h-4 w-4 sm:h-5 sm:w-5" />}
           </DockIcon>
         </Dock>
       </div>
