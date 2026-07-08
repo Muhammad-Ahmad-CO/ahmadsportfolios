@@ -669,7 +669,7 @@ function Index() {
             <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon
-            href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}`}
+            href={EMAIL_URL}
             label="Email"
           >
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
