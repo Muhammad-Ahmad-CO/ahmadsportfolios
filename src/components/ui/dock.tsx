@@ -27,8 +27,8 @@ const DockContext = createContext<DockContextValue | null>(null);
 export function Dock({
   children,
   className,
-  magnification = 60,
-  distance = 140,
+  magnification = 56,
+  distance = 120,
 }: DockProps) {
   const mouseX = useMotionValue(Infinity);
   return (
@@ -37,7 +37,7 @@ export function Dock({
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={cn(
-          "mx-auto flex h-16 items-end gap-3 rounded-2xl border border-white/10 bg-black/40 px-4 pb-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+          "mx-auto flex h-12 sm:h-14 md:h-16 items-end gap-1.5 sm:gap-2 md:gap-3 rounded-2xl border border-white/10 bg-black/50 px-2 sm:px-3 md:px-4 pb-1.5 sm:pb-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
           className
         )}
       >
@@ -59,8 +59,8 @@ export function DockIcon({ children, className, onClick, href, label }: DockIcon
   const ref = useRef<HTMLDivElement>(null);
   const ctx = useContext(DockContext);
   const mouseX = ctx?.mouseX ?? useMotionValue(Infinity);
-  const magnification = ctx?.magnification ?? 60;
-  const distance = ctx?.distance ?? 140;
+  const magnification = ctx?.magnification ?? 56;
+  const distance = ctx?.distance ?? 120;
 
   const distanceCalc = useTransform(mouseX, (val: number) => {
     const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
@@ -70,7 +70,7 @@ export function DockIcon({ children, className, onClick, href, label }: DockIcon
   const widthTransform = useTransform(
     distanceCalc,
     [-distance, 0, distance],
-    [40, magnification, 40]
+    [32, magnification, 32]
   );
   const width = useSpring(widthTransform, { mass: 0.1, stiffness: 150, damping: 12 });
 
