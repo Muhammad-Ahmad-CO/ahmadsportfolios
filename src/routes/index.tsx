@@ -441,7 +441,7 @@ function About() {
         </FadeIn>
 
         <div
-          className="mt-6 flex w-full justify-center md:mt-10"
+          className="mt-6 flex h-[46vh] w-full items-start justify-center overflow-hidden md:mt-10 md:h-[50vh]"
           style={{ perspective: "500px" }}
         >
           <motion.p
