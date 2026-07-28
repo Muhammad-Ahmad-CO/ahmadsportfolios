@@ -7,7 +7,7 @@ import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
-import { MorphingCursor } from "@/components/ui/morphing-cursor";
+import { ArrowCursor } from "@/components/ui/arrow-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
