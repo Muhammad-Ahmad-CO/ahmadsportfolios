@@ -444,17 +444,18 @@ function About() {
           style={{ perspective: "500px" }}
         >
           <motion.p
-            className="max-w-[720px] text-center font-medium leading-relaxed px-2"
+            className="max-w-[860px] text-center font-medium leading-relaxed px-2"
             style={{
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(0.9rem, 1.4vw, 1.15rem)",
+              fontSize: "clamp(1.05rem, 2vw, 1.6rem)",
             }}
           >
             {bio}
           </motion.p>
         </div>
+
 
         <FadeIn delay={0.3} className="mt-10">
           <ContactButton />
@@ -649,7 +650,7 @@ function Index() {
       >
         <FlipClock />
       </div>
-      <MorphingCursor />
+      <ArrowCursor />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
