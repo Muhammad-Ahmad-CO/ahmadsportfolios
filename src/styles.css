@@ -12,6 +12,13 @@ html, body, #root {
 * { box-sizing: border-box; }
 main { overflow-x: clip; }
 
+/* Custom arrow cursor: hide the native one only on fine-pointer devices */
+@media (pointer: fine) {
+  html.cursor-none-root,
+  html.cursor-none-root * { cursor: none !important; }
+}
+
+
 .hero-heading {
   background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
   -webkit-background-clip: text;
