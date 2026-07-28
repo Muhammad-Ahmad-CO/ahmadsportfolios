@@ -42,7 +42,7 @@ function FadeIn({
     <motion.div
       initial={{ opacity: 0, y, x }}
       whileInView={{ opacity: 1, y: 0, x: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -235,7 +235,7 @@ function Hero() {
       </div>
 
       {/* Bottom bar */}
-      <div className="relative z-20 mt-auto grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 px-4 sm:px-6 md:px-10 pb-8 md:pb-12">
+      <div className="relative z-20 mt-auto grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 px-4 sm:px-6 md:px-10 pb-24 sm:pb-12 md:pb-12">
         <FadeIn y={20} delay={0.35} className="min-w-0 max-w-[150px] sm:max-w-[260px]">
           <p
             className="font-light uppercase tracking-wide"
@@ -258,7 +258,7 @@ function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-20 sm:bottom-14 md:bottom-16 z-10 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 bottom-32 sm:bottom-16 md:bottom-16 z-10 flex items-end justify-center"
       >
         <Magnet strength={0.1}>
           <div
