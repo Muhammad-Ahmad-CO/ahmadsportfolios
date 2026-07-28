@@ -11,6 +11,7 @@ import { ArrowCursor } from "@/components/ui/arrow-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
+import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 
