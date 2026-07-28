@@ -289,7 +289,7 @@ function Hero() {
 function PortraitAvatar() {
   return (
     <Avatar
-      className="group rounded-[28px] h-[200px] w-[160px] xs:h-[230px] xs:w-[185px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+      className="group rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
       style={{
         border: "1px solid rgba(215,226,234,0.22)",
         padding: "10px",
