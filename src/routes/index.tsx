@@ -7,7 +7,7 @@ import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import FlipClock from "@/components/ui/flip-clock";
-import { MorphingCursor } from "@/components/ui/morphing-cursor";
+import { ArrowCursor } from "@/components/ui/arrow-cursor";
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
@@ -42,7 +42,7 @@ function FadeIn({
     <motion.div
       initial={{ opacity: 0, y, x }}
       whileInView={{ opacity: 1, y: 0, x: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -201,11 +201,11 @@ function Hero() {
     >
       {/* Navbar */}
       <FadeIn y={-20} delay={0}>
-        <nav className="flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
-          <div className="text-[#D7E2EA] font-semibold tracking-wider uppercase text-sm md:text-base">
+        <nav className="flex items-center justify-between gap-3 px-4 sm:px-6 md:px-10 pt-6 md:pt-8">
+          <div className="shrink-0 text-[#D7E2EA] font-semibold tracking-wider uppercase text-sm md:text-base">
             MA.
           </div>
-          <ul className="flex gap-5 md:gap-10 text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
+          <ul className="flex min-w-0 flex-wrap justify-end gap-x-3 gap-y-1 sm:gap-5 md:gap-10 text-[0.7rem] sm:text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
             {[
               { l: "About", h: "#about" },
               { l: "Price", h: "#services" },
@@ -223,11 +223,11 @@ function Hero() {
       </FadeIn>
 
       {/* Heading */}
-      <div className="mt-6 sm:mt-4 md:-mt-5 px-4">
+      <div className="mt-20 sm:mt-8 md:-mt-5 px-4">
         <FadeIn y={40} delay={0.15}>
           <h1
             className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
-            style={{ fontSize: "clamp(2.25rem, 11vw, 17.5vw)" }}
+            style={{ fontSize: "clamp(2rem, 11vw, 17.5vw)" }}
           >
             Hi, I&rsquo;m Muhammad Ahmed
           </h1>
@@ -235,13 +235,13 @@ function Hero() {
       </div>
 
       {/* Bottom bar */}
-      <div className="mt-auto flex items-end justify-between px-6 md:px-10 pb-8 md:pb-12 gap-4">
-        <FadeIn y={20} delay={0.35} className="max-w-[260px]">
+      <div className="relative z-20 mt-auto grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 px-4 sm:px-6 md:px-10 pb-24 sm:pb-12 md:pb-12">
+        <FadeIn y={20} delay={0.35} className="min-w-0 max-w-[150px] sm:max-w-[260px]">
           <p
             className="font-light uppercase tracking-wide"
             style={{
               color: "#D7E2EA",
-              fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)",
+              fontSize: "clamp(0.65rem, 1.4vw, 1.5rem)",
             }}
           >
             Driving the Future with AI &amp; Code
@@ -252,12 +252,13 @@ function Hero() {
         </FadeIn>
       </div>
 
+
       {/* Portrait (passport-style avatar frame) */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-10 md:bottom-16 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 bottom-32 sm:bottom-16 md:bottom-16 z-10 flex items-end justify-center"
       >
         <Magnet strength={0.1}>
           <div
@@ -288,7 +289,7 @@ function Hero() {
 function PortraitAvatar() {
   return (
     <Avatar
-      className="group rounded-[28px] h-[260px] w-[210px] sm:h-[320px] sm:w-[260px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+      className="group rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
       style={{
         border: "1px solid rgba(215,226,234,0.22)",
         padding: "10px",
@@ -429,7 +430,7 @@ function About() {
 
   return (
     <section id="about" ref={targetRef} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden px-5 sm:px-8 md:px-10 pt-28 md:pt-32">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32">
         <FadeIn>
           <h2
             className="hero-heading text-center font-black uppercase tracking-tight"
@@ -440,23 +441,24 @@ function About() {
         </FadeIn>
 
         <div
-          className="mt-6 flex w-full justify-center md:mt-10"
+          className="mt-6 flex h-[46vh] w-full items-start justify-center overflow-hidden md:mt-10 md:h-[50vh]"
           style={{ perspective: "500px" }}
         >
           <motion.p
-            className="max-w-[720px] text-center font-medium leading-relaxed px-2"
+            className="max-w-[860px] text-center font-medium leading-relaxed px-2"
             style={{
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(0.9rem, 1.4vw, 1.15rem)",
+              fontSize: "clamp(1rem, 2.1vw, 1.6rem)",
             }}
           >
             {bio}
           </motion.p>
         </div>
 
-        <FadeIn delay={0.3} className="mt-10">
+
+        <FadeIn delay={0.3} className="mt-6 md:mt-10">
           <ContactButton />
         </FadeIn>
       </div>
@@ -643,13 +645,13 @@ function Index() {
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
-        className={`fixed top-3 left-1/2 -translate-x-1/2 md:top-5 z-50 transition-opacity duration-300 ${
+        className={`fixed top-16 sm:top-3 left-1/2 -translate-x-1/2 md:top-5 z-50 scale-90 sm:scale-100 transition-opacity duration-300 ${
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
         <FlipClock />
       </div>
-      <MorphingCursor />
+      <ArrowCursor />
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
