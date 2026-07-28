@@ -430,7 +430,7 @@ function About() {
 
   return (
     <section id="about" ref={targetRef} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden px-5 sm:px-8 md:px-10 pt-28 md:pt-32">
+      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32">
         <FadeIn>
           <h2
             className="hero-heading text-center font-black uppercase tracking-tight"
@@ -450,7 +450,7 @@ function About() {
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(1.05rem, 2vw, 1.6rem)",
+              fontSize: "clamp(1rem, 2.1vw, 1.6rem)",
             }}
           >
             {bio}
@@ -458,7 +458,7 @@ function About() {
         </div>
 
 
-        <FadeIn delay={0.3} className="mt-10">
+        <FadeIn delay={0.3} className="mt-6 md:mt-10">
           <ContactButton />
         </FadeIn>
       </div>
