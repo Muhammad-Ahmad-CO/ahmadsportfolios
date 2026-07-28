@@ -201,11 +201,11 @@ function Hero() {
     >
       {/* Navbar */}
       <FadeIn y={-20} delay={0}>
-        <nav className="flex items-center justify-between px-6 md:px-10 pt-6 md:pt-8">
-          <div className="text-[#D7E2EA] font-semibold tracking-wider uppercase text-sm md:text-base">
+        <nav className="flex items-center justify-between gap-3 px-4 sm:px-6 md:px-10 pt-6 md:pt-8">
+          <div className="shrink-0 text-[#D7E2EA] font-semibold tracking-wider uppercase text-sm md:text-base">
             MA.
           </div>
-          <ul className="flex gap-5 md:gap-10 text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
+          <ul className="flex min-w-0 flex-wrap justify-end gap-x-3 gap-y-1 sm:gap-5 md:gap-10 text-[0.7rem] sm:text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
             {[
               { l: "About", h: "#about" },
               { l: "Price", h: "#services" },
@@ -223,11 +223,11 @@ function Hero() {
       </FadeIn>
 
       {/* Heading */}
-      <div className="mt-6 sm:mt-4 md:-mt-5 px-4">
+      <div className="mt-8 sm:mt-6 md:-mt-5 px-4">
         <FadeIn y={40} delay={0.15}>
           <h1
             className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
-            style={{ fontSize: "clamp(2.25rem, 11vw, 17.5vw)" }}
+            style={{ fontSize: "clamp(2rem, 11vw, 17.5vw)" }}
           >
             Hi, I&rsquo;m Muhammad Ahmed
           </h1>
@@ -235,13 +235,13 @@ function Hero() {
       </div>
 
       {/* Bottom bar */}
-      <div className="mt-auto flex items-end justify-between px-6 md:px-10 pb-8 md:pb-12 gap-4">
-        <FadeIn y={20} delay={0.35} className="max-w-[260px]">
+      <div className="relative z-20 mt-auto grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 px-4 sm:px-6 md:px-10 pb-8 md:pb-12">
+        <FadeIn y={20} delay={0.35} className="min-w-0 max-w-[150px] sm:max-w-[260px]">
           <p
             className="font-light uppercase tracking-wide"
             style={{
               color: "#D7E2EA",
-              fontSize: "clamp(0.75rem, 1.4vw, 1.5rem)",
+              fontSize: "clamp(0.65rem, 1.4vw, 1.5rem)",
             }}
           >
             Driving the Future with AI &amp; Code
@@ -251,6 +251,7 @@ function Hero() {
           <ContactButton />
         </FadeIn>
       </div>
+
 
       {/* Portrait (passport-style avatar frame) */}
       <motion.div
