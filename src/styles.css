@@ -50,6 +50,25 @@ main { overflow-x: clip; }
   to { opacity: 0; visibility: hidden; }
 }
 
+/* Integration ticker loops: 3x repeated sets translated by exactly -33.333% */
+@keyframes ticker {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-33.333%, 0, 0); }
+}
+@keyframes ticker-reverse {
+  from { transform: translate3d(-33.333%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+@keyframes ticker-up {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -33.333%, 0); }
+}
+@keyframes ticker-down {
+  from { transform: translate3d(0, -33.333%, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+
 /* Global light-mode toggle: invert everything, then revert real media so
    photos/videos still look natural. Applied by the Dock theme button. */
 html.light-mode {
