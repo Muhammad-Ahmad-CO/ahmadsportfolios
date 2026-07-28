@@ -324,100 +324,14 @@ function PortraitAvatar() {
   );
 }
 
-/* Marquee tiles using black & white gradient shades */
-const TILE_GRADIENTS = [
-  "from-zinc-900 via-zinc-700 to-zinc-500",
-  "from-gray-950 via-gray-800 to-gray-600",
-  "from-neutral-900 via-neutral-700 to-neutral-500",
-  "from-black via-gray-800 to-gray-500",
-  "from-zinc-800 via-zinc-600 to-zinc-400",
-  "from-gray-900 via-gray-700 to-gray-400",
-  "from-neutral-800 via-neutral-600 to-neutral-400",
-  "from-zinc-950 via-zinc-800 to-zinc-500",
-  "from-gray-800 via-gray-700 to-gray-500",
-  "from-black via-zinc-700 to-zinc-400",
-  "from-neutral-950 via-neutral-800 to-neutral-500",
-];
-const TILE_LABELS = [
-  "LLM", "Computer Vision", "Automation", "MediaPipe", "RAG",
-  "Agents", "Prompting", "Embeddings", "TensorFlow", "PyTorch",
-  "OpenAI", "Speech AI", "Whisper", "Diffusion", "Transformers", "Edge AI",
-  "Pipelines", "Vector DB", "Fine-tuning", "Inference", "Multimodal", "GenAI",
-];
-
-function MarqueeRow({ items, direction }: { items: { g: string; t: string }[]; direction: 1 | -1 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const onScroll = () => {
-      const el = ref.current;
-      if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY;
-      const o = (window.scrollY - top + window.innerHeight) * 0.3;
-      setOffset(o - 200);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const tripled = [...items, ...items, ...items];
-  return (
-    <div ref={ref} className="overflow-hidden">
-      <div
-        className="flex gap-3"
-        style={{
-          transform: `translateX(${direction * offset}px)`,
-          willChange: "transform",
-        }}
-      >
-        {tripled.map((it, i) => (
-          <div
-            key={i}
-            className="shrink-0 w-[280px] h-[180px] md:w-[420px] md:h-[270px] rounded-2xl flex items-center justify-center relative overflow-hidden"
-            style={{
-              background:
-                "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 30%, #262626 50%, #1a1a1a 70%, #060606 100%)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.08), inset 0 -1px 2px rgba(0,0,0,0.6), 0 18px 40px -22px rgba(0,0,0,0.7)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
-            <div
-              aria-hidden
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
-              }}
-            />
-            <span
-              className="relative font-black text-2xl md:text-4xl uppercase tracking-tight text-gray-400"
-              style={{
-                textShadow: "0 1px 0 rgba(0,0,0,0.6)",
-              }}
-            >
-              {it.t}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 function Marquee() {
-  const all = TILE_LABELS.map((t, i) => ({ t, g: TILE_GRADIENTS[i % TILE_GRADIENTS.length] }));
-  const row1 = all.slice(0, 11);
-  const row2 = all.slice(11);
   return (
-    <section className="py-16 md:py-24 space-y-3">
-      <MarqueeRow items={row1} direction={1} />
-      <MarqueeRow items={row2} direction={-1} />
+    <section className="py-16 md:py-24">
+      <IntegrationTicker />
     </section>
   );
 }
+
 
 function About() {
   const bio =
