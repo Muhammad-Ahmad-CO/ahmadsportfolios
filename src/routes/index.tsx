@@ -223,7 +223,7 @@ function Hero() {
       </FadeIn>
 
       {/* Heading */}
-      <div className="mt-8 sm:mt-6 md:-mt-5 px-4">
+      <div className="mt-20 sm:mt-8 md:-mt-5 px-4">
         <FadeIn y={40} delay={0.15}>
           <h1
             className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
