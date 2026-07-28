@@ -258,7 +258,7 @@ function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-10 md:bottom-16 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 bottom-20 sm:bottom-14 md:bottom-16 z-10 flex items-end justify-center"
       >
         <Magnet strength={0.1}>
           <div
@@ -289,7 +289,7 @@ function Hero() {
 function PortraitAvatar() {
   return (
     <Avatar
-      className="group rounded-[28px] h-[260px] w-[210px] sm:h-[320px] sm:w-[260px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+      className="group rounded-[28px] h-[200px] w-[160px] xs:h-[230px] xs:w-[185px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
       style={{
         border: "1px solid rgba(215,226,234,0.22)",
         padding: "10px",
