@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const Digit = ({ value }: { value: number }) => {
   return (
-    <div className="relative w-5 h-7 md:w-6 md:h-8 overflow-hidden rounded bg-[#0C0C0C]/80 border border-[#D7E2EA]/20 shadow-inner flex items-center justify-center">
+    <div className="relative flex h-[22px] w-[16px] items-center justify-center overflow-hidden rounded-[5px] border border-[#D7E2EA]/10 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(215,226,234,0.08)] backdrop-blur-sm sm:h-[26px] sm:w-[19px] md:h-[30px] md:w-[22px]">
       <AnimatePresence mode="popLayout">
         <motion.span
           key={value}
@@ -13,7 +13,8 @@ const Digit = ({ value }: { value: number }) => {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "100%", opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute font-mono text-xs md:text-sm font-bold text-[#D7E2EA] tabular-nums"
+          className="absolute font-mono font-semibold tabular-nums text-[#D7E2EA]/75"
+          style={{ fontSize: "clamp(0.62rem, 1.5vw, 0.9rem)" }}
         >
           {value}
         </motion.span>
@@ -34,16 +35,25 @@ export default function FlipClock() {
   const minutes = time.getMinutes().toString().padStart(2, "0");
   const seconds = time.getSeconds().toString().padStart(2, "0");
 
+  const Sep = () => (
+    <span
+      className="px-[1px] font-mono font-semibold text-[#D7E2EA]/40"
+      style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.8rem)" }}
+    >
+      :
+    </span>
+  );
+
   return (
-    <div className="flex items-center gap-0.5 md:gap-1">
+    <div className="flex items-center gap-[3px] rounded-xl border border-white/[0.06] bg-[#0C0C0C]/50 px-2 py-1 backdrop-blur-md sm:gap-1 sm:px-2.5 sm:py-1.5">
       {hours.split("").map((digit, i) => (
         <Digit key={`h-${i}`} value={Number(digit)} />
       ))}
-      <span className="text-[#D7E2EA] font-bold text-xs md:text-sm">:</span>
+      <Sep />
       {minutes.split("").map((digit, i) => (
         <Digit key={`m-${i}`} value={Number(digit)} />
       ))}
-      <span className="text-[#D7E2EA] font-bold text-xs md:text-sm">:</span>
+      <Sep />
       {seconds.split("").map((digit, i) => (
         <Digit key={`s-${i}`} value={Number(digit)} />
       ))}
