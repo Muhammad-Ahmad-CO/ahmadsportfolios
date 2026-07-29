@@ -353,8 +353,14 @@ function About() {
         </FadeIn>
 
         <div
-          className="mt-6 flex h-[46vh] w-full items-start justify-center overflow-hidden md:mt-10 md:h-[50vh]"
-          style={{ perspective: "500px" }}
+          className="relative mt-4 flex h-[38vh] w-full items-start justify-center overflow-hidden sm:h-[42vh] md:mt-10 md:h-[48vh]"
+          style={{
+            perspective: "500px",
+            maskImage:
+              "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
+          }}
         >
           <motion.p
             className="max-w-[860px] text-center font-medium leading-relaxed px-2"
@@ -362,7 +368,7 @@ function About() {
               transform,
               transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(1rem, 2.1vw, 1.6rem)",
+              fontSize: "clamp(0.95rem, 3.4vw, 1.6rem)",
             }}
           >
             {bio}
@@ -370,9 +376,10 @@ function About() {
         </div>
 
 
-        <FadeIn delay={0.3} className="mt-6 md:mt-10">
+        <FadeIn delay={0.3} className="relative z-10 mt-8 md:mt-10">
           <ContactButton />
         </FadeIn>
+
       </div>
     </section>
   );
