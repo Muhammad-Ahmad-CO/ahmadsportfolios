@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Sun, Moon } from "lucide-react";
 import portrait from "@/assets/portrait.png";
@@ -336,13 +336,14 @@ function About() {
     "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
 
   const targetRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: targetRef });
-  const yMotionValue = useTransform(scrollYProgress, [0, 1], [487, 0]);
-  const transform = useMotionTemplate`rotateX(30deg) translateY(${yMotionValue}px) translateZ(10px)`;
 
   return (
-    <section id="about" ref={targetRef} className="relative h-[200vh]">
-      <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-start overflow-hidden px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-32">
+    <section
+      id="about"
+      ref={targetRef}
+      className="relative w-full px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36"
+    >
+      <div className="mx-auto flex w-full max-w-[1000px] flex-col items-center">
         <FadeIn>
           <h2
             className="hero-heading text-center font-black uppercase tracking-tight"
@@ -352,38 +353,22 @@ function About() {
           </h2>
         </FadeIn>
 
-        <div
-          className="relative mt-4 flex h-[38vh] w-full items-start justify-center overflow-hidden sm:h-[42vh] md:mt-10 md:h-[48vh]"
-          style={{
-            perspective: "500px",
-            maskImage:
-              "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
-            WebkitMaskImage:
-              "linear-gradient(to bottom, black 0%, black 78%, transparent 100%)",
-          }}
-        >
-          <motion.p
-            className="max-w-[860px] text-center font-medium leading-relaxed px-2"
+        <FadeIn delay={0.15} className="mt-8 w-full md:mt-12">
+          <p
+            className="mx-auto max-w-[900px] text-center font-medium leading-[1.6]"
             style={{
-              transform,
-              transformOrigin: "50% 100%",
               color: "#D7E2EA",
-              fontSize: "clamp(0.95rem, 3.4vw, 1.6rem)",
+              fontSize: "clamp(1.15rem, 2.6vw, 2rem)",
             }}
           >
             {bio}
-          </motion.p>
-        </div>
-
-
-        <FadeIn delay={0.3} className="relative z-10 mt-8 md:mt-10">
-          <ContactButton />
+          </p>
         </FadeIn>
-
       </div>
     </section>
   );
 }
+
 
 const SERVICES = [
   { n: "01", name: "AI Integration & APIs", d: "Seamlessly embedding intelligent models and third-party AI services into existing systems or websites." },
