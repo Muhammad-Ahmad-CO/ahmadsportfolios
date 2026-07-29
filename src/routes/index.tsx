@@ -557,7 +557,7 @@ function Index() {
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
-        className={`fixed top-16 sm:top-3 left-1/2 -translate-x-1/2 md:top-5 z-50 scale-90 sm:scale-100 transition-opacity duration-300 ${
+        className={`fixed top-16 left-4 sm:top-4 sm:left-5 md:top-5 md:left-6 z-50 scale-90 sm:scale-100 transition-opacity duration-300 ${
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
