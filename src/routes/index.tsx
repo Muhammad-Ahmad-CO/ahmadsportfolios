@@ -202,10 +202,7 @@ function Hero() {
     >
       {/* Navbar */}
       <FadeIn y={-20} delay={0}>
-        <nav className="flex items-center justify-between gap-3 px-4 sm:px-6 md:px-10 pt-6 md:pt-8">
-          <div className="shrink-0 text-[#D7E2EA] font-semibold tracking-wider uppercase text-sm md:text-base">
-            MA.
-          </div>
+        <nav className="flex items-center justify-end gap-3 px-4 sm:px-6 md:px-10 pt-6 md:pt-8">
           <ul className="flex min-w-0 flex-wrap justify-end gap-x-3 gap-y-1 sm:gap-5 md:gap-10 text-[0.7rem] sm:text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
             {[
               { l: "About", h: "#about" },
@@ -560,7 +557,7 @@ function Index() {
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
-        className={`fixed top-16 sm:top-3 left-1/2 -translate-x-1/2 md:top-5 z-50 scale-90 sm:scale-100 transition-opacity duration-300 ${
+        className={`fixed top-16 left-4 sm:top-4 sm:left-5 md:top-5 md:left-6 z-50 scale-90 sm:scale-100 transition-opacity duration-300 ${
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
