@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Sun, Moon } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
 import { ArrowCursor } from "@/components/ui/arrow-cursor";
 import GlassCard from "@/components/ui/glass-card";
@@ -285,9 +285,13 @@ function Hero() {
 }
 
 function PortraitAvatar() {
+  const [blasted, setBlasted] = useState(false);
+
   return (
-    <Avatar
-      className="group rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+    <div
+      className="group relative rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+      onMouseEnter={() => setBlasted(true)}
+      onMouseLeave={() => setBlasted(false)}
       style={{
         border: "1px solid rgba(215,226,234,0.22)",
         padding: "10px",
@@ -297,18 +301,14 @@ function PortraitAvatar() {
           "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
       }}
     >
-      <AvatarImage
+      <BlastPortrait
         src={portrait}
         alt="Muhammad Ahmed portrait"
-        className="rounded-[20px] object-cover object-top grayscale group-hover:grayscale-0 transition-[filter] duration-700 ease-out"
-        draggable={false}
+        rows={9}
+        cols={7}
+        radius="20px"
+        className="h-full w-full grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
       />
-      <AvatarFallback
-        className="rounded-[20px] font-black uppercase tracking-tight text-[#D7E2EA]/70"
-        style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
-      >
-        MA
-      </AvatarFallback>
       <GlyphMatrix
         color="#D7E2EA"
         cellSize={12}
@@ -316,11 +316,14 @@ function PortraitAvatar() {
         interval={100}
         fadeBottom={0.5}
         aria-hidden="true"
-        className="pointer-events-none absolute inset-[10px] rounded-[20px] opacity-40 mix-blend-screen transition-opacity duration-700 ease-out group-hover:opacity-15"
+        className={`pointer-events-none absolute inset-[10px] rounded-[20px] mix-blend-screen transition-opacity duration-500 ease-out ${
+          blasted ? "opacity-0" : "opacity-40"
+        }`}
       />
-    </Avatar>
+    </div>
   );
 }
+
 
 function Marquee() {
   return (
