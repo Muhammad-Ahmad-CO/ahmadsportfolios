@@ -343,17 +343,12 @@ function Marquee() {
 }
 
 
-const BIO_LINES = [
-  "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist.",
-  "My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions.",
-  "I specialize in automating and optimizing coding workflows through modern AI tools and frameworks.",
-  "My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems.",
-  "I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms.",
-  "Ensuring the final product is not only functional but also follows industry-standard clean code practices.",
-];
+const BIO =
+  "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
 
 function About() {
   const targetRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(targetRef, { once: true, amount: 0.15 });
 
   return (
     <section
@@ -371,13 +366,19 @@ function About() {
           </h2>
         </FadeIn>
 
-        <FadeIn delay={0.15} className="mt-8 w-full md:mt-12">
-          <LayeredText
-            lines={BIO_LINES}
-            className="mx-auto max-w-[900px] text-center"
-            fontSize="clamp(1.05rem, 2.2vw, 1.75rem)"
-          />
-        </FadeIn>
+        <div className="mt-8 w-full md:mt-12">
+          <TextEffect
+            per="word"
+            preset="blur"
+            trigger={inView}
+            delay={0.2}
+            as="p"
+            className="mx-auto max-w-[900px] text-center font-medium leading-[1.55]"
+            style={undefined}
+          >
+            {BIO}
+          </TextEffect>
+        </div>
       </div>
     </section>
   );
