@@ -14,6 +14,7 @@ import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
+import { LayeredText } from "@/components/ui/layered-text";
 
 export const Route = createFileRoute("/")({
   component: Index,
