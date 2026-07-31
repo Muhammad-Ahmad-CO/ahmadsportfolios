@@ -289,16 +289,22 @@ function PortraitAvatar() {
 
   return (
     <div
-      className="group relative rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
+      className="group relative rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px] transition-[background,border-color,box-shadow] duration-500 ease-out"
       onMouseEnter={() => setBlasted(true)}
       onMouseLeave={() => setBlasted(false)}
+      onPointerDown={(e) => {
+        if (e.pointerType !== "mouse") setBlasted((v) => !v);
+      }}
       style={{
-        border: "1px solid rgba(215,226,234,0.22)",
+        touchAction: "manipulation",
+        border: `1px solid ${blasted ? "transparent" : "rgba(215,226,234,0.22)"}`,
         padding: "10px",
-        background:
-          "linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.35) 100%)",
-        boxShadow:
-          "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
+        background: blasted
+          ? "transparent"
+          : "linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.35) 100%)",
+        boxShadow: blasted
+          ? "none"
+          : "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
       }}
     >
       <BlastPortrait
@@ -307,6 +313,7 @@ function PortraitAvatar() {
         rows={9}
         cols={7}
         radius="20px"
+        blasted={blasted}
         className="h-full w-full grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
       />
       <GlyphMatrix
@@ -323,6 +330,7 @@ function PortraitAvatar() {
     </div>
   );
 }
+
 
 
 function Marquee() {
