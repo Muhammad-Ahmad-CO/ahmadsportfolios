@@ -373,8 +373,7 @@ function About() {
             trigger={inView}
             delay={0.2}
             as="p"
-            className="mx-auto max-w-[900px] text-center font-medium leading-[1.55]"
-            style={undefined}
+            className="mx-auto max-w-[900px] text-center font-medium leading-[1.55] text-[#D7E2EA] text-[clamp(1.15rem,2.6vw,2rem)]"
           >
             {BIO}
           </TextEffect>
