@@ -14,6 +14,7 @@ import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
+import { LayeredText } from "@/components/ui/layered-text";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -342,10 +343,16 @@ function Marquee() {
 }
 
 
-function About() {
-  const bio =
-    "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
+const BIO_LINES = [
+  "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist.",
+  "My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions.",
+  "I specialize in automating and optimizing coding workflows through modern AI tools and frameworks.",
+  "My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems.",
+  "I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms.",
+  "Ensuring the final product is not only functional but also follows industry-standard clean code practices.",
+];
 
+function About() {
   const targetRef = useRef<HTMLDivElement>(null);
 
   return (
@@ -365,15 +372,11 @@ function About() {
         </FadeIn>
 
         <FadeIn delay={0.15} className="mt-8 w-full md:mt-12">
-          <p
-            className="mx-auto max-w-[900px] text-center font-medium leading-[1.6]"
-            style={{
-              color: "#D7E2EA",
-              fontSize: "clamp(1.15rem, 2.6vw, 2rem)",
-            }}
-          >
-            {bio}
-          </p>
+          <LayeredText
+            lines={BIO_LINES}
+            className="mx-auto max-w-[900px] text-center"
+            fontSize="clamp(1.05rem, 2.2vw, 1.75rem)"
+          />
         </FadeIn>
       </div>
     </section>
