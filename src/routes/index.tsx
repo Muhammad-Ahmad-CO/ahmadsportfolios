@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
-import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Sun, Moon } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
@@ -15,6 +15,7 @@ import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
+import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -561,20 +562,18 @@ function Footer() {
 
 function Index() {
   const [showClock, setShowClock] = useState(true);
-  const [isLight, setIsLight] = useState(false);
+  const [theme, setTheme] = useState<ThemeMode>("dark");
   useEffect(() => {
     const onScroll = () => setShowClock(window.scrollY < window.innerHeight * 0.7);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const toggleTheme = () => {
-    setIsLight((v) => {
-      const next = !v;
-      document.documentElement.classList.toggle("light-mode", next);
-      return next;
-    });
-  };
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("light-mode", theme === "light");
+    root.classList.toggle("eye-mode", theme === "eye");
+  }, [theme]);
   return (
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
@@ -612,9 +611,9 @@ function Index() {
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
-          <DockIcon onClick={toggleTheme} label={isLight ? "Dark mode" : "Light mode"}>
-            {isLight ? <Moon className="h-4 w-4 sm:h-5 sm:w-5" /> : <Sun className="h-4 w-4 sm:h-5 sm:w-5" />}
-          </DockIcon>
+          <div className="self-center pl-1">
+            <ThemeSwitch value={theme} onChange={setTheme} />
+          </div>
         </Dock>
       </div>
     </main>

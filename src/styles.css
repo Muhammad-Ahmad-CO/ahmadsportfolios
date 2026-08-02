@@ -6,12 +6,11 @@
 
 html, body, #root {
   background-color: #0C0C0C;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: "Kanit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @theme {
-  --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Kanit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -217,4 +216,74 @@ html.light-mode canvas {
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/* Eye-protection theme (warm filter on top of the dark theme) */
+html.eye-mode {
+  filter: sepia(0.4) saturate(0.85) brightness(0.95) contrast(0.98);
+}
+
+/* Uiverse-inspired glass theme selector (horizontal, dock-sized) */
+.radio-input {
+  display: flex;
+  align-items: center;
+}
+.radio-input .glass {
+  z-index: 2;
+  padding: 4px;
+  background-color: rgba(190, 189, 189, 0.35);
+  border-radius: 999px;
+  box-shadow:
+    rgba(50, 50, 93, 0.2) 0px 12px 24px -10px,
+    rgba(0, 0, 0, 0.25) 0px 6px 16px -12px,
+    rgba(10, 37, 64, 0.26) 0px -2px 6px 0px inset;
+  backdrop-filter: blur(8px);
+}
+.radio-input .glass-inner {
+  border: 3px solid rgba(245, 245, 245, 0.35);
+  border-radius: 999px;
+  padding: 2px;
+}
+.radio-input .selector {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.radio-input .choice-circle {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  width: 26px;
+  border-radius: 100%;
+  border: 3px solid rgba(245, 245, 245, 0.35);
+  color: rgba(20, 20, 20, 0.55);
+  cursor: pointer;
+  background: transparent;
+  box-shadow: 0px 0px 20px -13px gray, 0px 0px 20px -14px gray inset;
+  transition: color 300ms ease;
+}
+.radio-input .choice-circle[aria-checked="true"] {
+  color: #0C0C0C;
+}
+.radio-input .ball {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 26px;
+  width: 26px;
+  border-radius: 100%;
+  background-color: rgb(232, 232, 232);
+  box-shadow:
+    rgba(0, 0, 0, 0.17) 0px -6px 6px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -10px 10px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px;
+  transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
 }
