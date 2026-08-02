@@ -9,6 +9,7 @@ import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
+import SocialCard from "@/components/ui/social-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
@@ -262,7 +263,7 @@ function Hero() {
       >
         <Magnet strength={0.1}>
           <div
-            className="pointer-events-auto relative mx-auto"
+            className="keep-color pointer-events-auto relative mx-auto"
             style={{
               filter:
                 "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
@@ -497,10 +498,10 @@ function ProjectCard({
         </div>
         <div className="mt-5 md:mt-8 grid grid-cols-5 gap-3 md:gap-4 h-[45vh] md:h-[55vh]">
           <div className="col-span-2 flex flex-col gap-3 md:gap-4">
-            <div className={`flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g1}`} />
-            <div className={`flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g2}`} />
+            <div className={`keep-color flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g1}`} />
+            <div className={`keep-color flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g2}`} />
           </div>
-          <div className={`col-span-3 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g3}`} />
+          <div className={`keep-color col-span-3 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g3}`} />
         </div>
       </motion.article>
     </div>
@@ -546,9 +547,16 @@ function Footer() {
             © 2026 Muhammad Ahmed. All rights reserved.
           </p>
         </div>
-        <div className="flex justify-center md:justify-end">
+        <div className="flex flex-col items-center gap-8 md:items-end">
           <GlassCard
             email={EMAIL}
+            phone={PHONE}
+            linkedin={LINKEDIN}
+            github={GITHUB}
+          />
+          <SocialCard
+            email={EMAIL}
+            emailUrl={EMAIL_URL}
             phone={PHONE}
             linkedin={LINKEDIN}
             github={GITHUB}
