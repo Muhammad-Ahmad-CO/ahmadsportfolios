@@ -561,20 +561,18 @@ function Footer() {
 
 function Index() {
   const [showClock, setShowClock] = useState(true);
-  const [isLight, setIsLight] = useState(false);
+  const [theme, setTheme] = useState<ThemeMode>("dark");
   useEffect(() => {
     const onScroll = () => setShowClock(window.scrollY < window.innerHeight * 0.7);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const toggleTheme = () => {
-    setIsLight((v) => {
-      const next = !v;
-      document.documentElement.classList.toggle("light-mode", next);
-      return next;
-    });
-  };
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("light-mode", theme === "light");
+    root.classList.toggle("eye-mode", theme === "eye");
+  }, [theme]);
   return (
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
