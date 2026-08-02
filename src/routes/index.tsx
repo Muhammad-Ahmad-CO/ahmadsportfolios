@@ -546,9 +546,16 @@ function Footer() {
             © 2026 Muhammad Ahmed. All rights reserved.
           </p>
         </div>
-        <div className="flex justify-center md:justify-end">
+        <div className="flex flex-col items-center gap-8 md:items-end">
           <GlassCard
             email={EMAIL}
+            phone={PHONE}
+            linkedin={LINKEDIN}
+            github={GITHUB}
+          />
+          <SocialCard
+            email={EMAIL}
+            emailUrl={EMAIL_URL}
             phone={PHONE}
             linkedin={LINKEDIN}
             github={GITHUB}
