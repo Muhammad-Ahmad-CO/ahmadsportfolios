@@ -263,7 +263,7 @@ function Hero() {
       >
         <Magnet strength={0.1}>
           <div
-            className="pointer-events-auto relative mx-auto"
+            className="keep-color pointer-events-auto relative mx-auto"
             style={{
               filter:
                 "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
@@ -498,10 +498,10 @@ function ProjectCard({
         </div>
         <div className="mt-5 md:mt-8 grid grid-cols-5 gap-3 md:gap-4 h-[45vh] md:h-[55vh]">
           <div className="col-span-2 flex flex-col gap-3 md:gap-4">
-            <div className={`flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g1}`} />
-            <div className={`flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g2}`} />
+            <div className={`keep-color flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g1}`} />
+            <div className={`keep-color flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g2}`} />
           </div>
-          <div className={`col-span-3 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g3}`} />
+          <div className={`keep-color col-span-3 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g3}`} />
         </div>
       </motion.article>
     </div>
