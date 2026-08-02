@@ -9,6 +9,7 @@ import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
+import SocialCard from "@/components/ui/social-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
