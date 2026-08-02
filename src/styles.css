@@ -6,12 +6,11 @@
 
 html, body, #root {
   background-color: #0C0C0C;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-family: "Kanit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 @theme {
-  --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Kanit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
