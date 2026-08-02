@@ -6,17 +6,16 @@
 
 html, body, #root {
   background-color: #0C0C0C;
-  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@theme {
+  --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
 main { overflow-x: clip; }
-
-/* Custom arrow cursor: hide the native one only on fine-pointer devices */
-@media (pointer: fine) {
-  html.cursor-none-root,
-  html.cursor-none-root * { cursor: none !important; }
-}
 
 
 .hero-heading {
