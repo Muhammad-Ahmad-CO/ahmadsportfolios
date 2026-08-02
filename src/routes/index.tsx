@@ -348,7 +348,8 @@ const BIO =
 
 function About() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(targetRef, { once: true, amount: 0.15 });
+  const [replay, setReplay] = useState(true);
+  const inView = useInView(targetRef, { once: !replay, amount: 0.15 });
 
   return (
     <section
@@ -366,8 +367,23 @@ function About() {
           </h2>
         </FadeIn>
 
+        <button
+          type="button"
+          onClick={() => setReplay((v) => !v)}
+          aria-pressed={replay}
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#D7E2EA]/30 px-4 py-1.5 text-[0.7rem] uppercase tracking-wider text-[#D7E2EA]/70 transition-colors hover:border-[#D7E2EA]/60 hover:text-[#D7E2EA]"
+        >
+          <span
+            className={`h-2 w-2 rounded-full transition-colors ${
+              replay ? "bg-[#BBCCD7]" : "bg-[#D7E2EA]/25"
+            }`}
+          />
+          Replay on scroll {replay ? "On" : "Off"}
+        </button>
+
         <div className="mt-8 w-full md:mt-12">
           <TextEffect
+            key={replay ? "replay" : "once"}
             per="word"
             preset="blur"
             trigger={inView}
