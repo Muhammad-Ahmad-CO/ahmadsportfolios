@@ -7,7 +7,7 @@ import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
-import { ArrowCursor } from "@/components/ui/arrow-cursor";
+
 import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
@@ -585,7 +585,7 @@ function Index() {
       >
         <FlipClock />
       </div>
-      <ArrowCursor />
+      
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
