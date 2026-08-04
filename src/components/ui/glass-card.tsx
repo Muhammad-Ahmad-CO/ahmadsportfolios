@@ -84,7 +84,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             align-items: center;
             gap: 28px;
           }
-          @media (min-width: 760px) {
+          @container (min-width: 560px) {
             .glass-card { padding: 32px 28px; }
             .gc-inner {
               flex-direction: row;
