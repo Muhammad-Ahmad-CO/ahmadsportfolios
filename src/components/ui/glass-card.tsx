@@ -27,8 +27,9 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
           .glass-card {
             position: relative;
             border-radius: 32px;
-            padding: 32px 28px;
+            padding: 24px 18px;
             background: linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.55) 100%);
+
             border: 1px solid var(--c-border);
             backdrop-filter: blur(18px) saturate(140%);
             -webkit-backdrop-filter: blur(18px) saturate(140%);
