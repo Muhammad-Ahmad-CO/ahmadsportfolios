@@ -16,6 +16,7 @@ import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
+import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 
 
 export const Route = createFileRoute("/")({
