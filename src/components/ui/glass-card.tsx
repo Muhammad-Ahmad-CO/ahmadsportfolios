@@ -88,9 +88,12 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
               flex-direction: row;
               align-items: center;
               justify-content: space-between;
-              gap: 32px;
+              gap: 24px;
             }
+            .gc-left { min-width: 280px; }
+            .gc-row { font-size: .82rem; }
           }
+
           .gc-left {
             width: 100%;
             flex: 1 1 auto;
