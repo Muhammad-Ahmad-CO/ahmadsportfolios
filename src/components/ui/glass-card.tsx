@@ -23,7 +23,9 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             perspective: 1200px;
             width: 100%;
             max-width: 640px;
+            container-type: inline-size;
           }
+
           .glass-card {
             position: relative;
             border-radius: 32px;
