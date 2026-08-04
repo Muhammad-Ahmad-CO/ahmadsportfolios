@@ -83,6 +83,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             gap: 28px;
           }
           @media (min-width: 640px) {
+            .glass-card { padding: 32px 28px; }
             .gc-inner {
               flex-direction: row;
               align-items: center;
@@ -92,28 +93,29 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
           }
           .gc-left {
             width: 100%;
-            flex: 1;
+            flex: 1 1 auto;
             min-width: 0;
           }
           .gc-right {
-            flex-shrink: 0;
+            flex: 0 0 auto;
             display: flex;
             justify-content: center;
           }
           .gc-title {
-            font-size: 1.75rem;
+            font-size: clamp(1.25rem, 4.5vw, 1.75rem);
             font-weight: 800;
             letter-spacing: -0.01em;
             text-transform: uppercase;
             margin: 0 0 6px;
           }
           .gc-sub {
-            font-size: .85rem;
+            font-size: clamp(.7rem, 2vw, .85rem);
             letter-spacing: .12em;
             text-transform: uppercase;
             opacity: .6;
-            margin: 0 0 24px;
+            margin: 0 0 20px;
           }
+
           .gc-row {
             display: flex;
             align-items: center;
