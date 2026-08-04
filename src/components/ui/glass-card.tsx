@@ -1,16 +1,18 @@
 import * as React from "react";
 import { Mail, Phone, Linkedin, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
+import SocialCard from "./social-card";
 
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   email?: string;
+  emailUrl?: string;
   phone?: string;
   linkedin?: string;
   github?: string;
 }
 
 const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
-  ({ className, email, phone, linkedin, github, ...props }, ref) => {
+  ({ className, email, emailUrl, phone, linkedin, github, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("glass-card-wrap", className)} {...props}>
         <style>{`
@@ -20,12 +22,12 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             --c-text: #D7E2EA;
             perspective: 1200px;
             width: 100%;
-            max-width: 420px;
+            max-width: 640px;
           }
           .glass-card {
             position: relative;
-            border-radius: 28px;
-            padding: 28px 26px;
+            border-radius: 32px;
+            padding: 32px 28px;
             background: linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.55) 100%);
             border: 1px solid var(--c-border);
             backdrop-filter: blur(18px) saturate(140%);
@@ -71,32 +73,58 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             0%,100% { transform: translate3d(0,0,0); opacity: .85; }
             50% { transform: translate3d(-6px,8px,0); opacity: 1; }
           }
+          .gc-inner {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+          }
+          @media (min-width: 640px) {
+            .gc-inner {
+              flex-direction: row;
+              align-items: center;
+              justify-content: space-between;
+              gap: 32px;
+            }
+          }
+          .gc-left {
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+          }
+          .gc-right {
+            flex-shrink: 0;
+            display: flex;
+            justify-content: center;
+          }
           .gc-title {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: 800;
             letter-spacing: -0.01em;
             text-transform: uppercase;
             margin: 0 0 6px;
           }
           .gc-sub {
-            font-size: .8rem;
+            font-size: .85rem;
             letter-spacing: .12em;
             text-transform: uppercase;
             opacity: .6;
-            margin: 0 0 22px;
+            margin: 0 0 24px;
           }
           .gc-row {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 14px;
+            padding: 13px 15px;
             border-radius: 14px;
             background: rgba(215,226,234,0.04);
             border: 1px solid rgba(215,226,234,0.10);
             transition: transform .35s ease, background .35s ease, border-color .35s ease;
             text-decoration: none;
             color: var(--c-text);
-            font-size: .92rem;
+            font-size: .95rem;
           }
           .gc-row + .gc-row { margin-top: 10px; }
           .gc-row:hover {
@@ -124,6 +152,9 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             background: rgba(215,226,234,0.14);
             border-color: rgba(215,226,234,0.35);
           }
+          @media (prefers-reduced-motion: reduce) {
+            .glass-card, .glass-card:hover { transform: none; }
+          }
         `}</style>
 
         <div className="glass-card">
@@ -148,33 +179,47 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             ))}
           </div>
 
-          <h3 className="gc-title">Get in touch</h3>
-          <p className="gc-sub">Available for work</p>
+          <div className="gc-inner">
+            <div className="gc-left">
+              <h3 className="gc-title">Get in touch</h3>
+              <p className="gc-sub">Available for work</p>
 
-          {email && (
-            <a className="gc-row" href="https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB" target="_blank" rel="noopener noreferrer">
-              <Mail className="h-4 w-4" />
-              <span>{email}</span>
-            </a>
-          )}
-          {phone && (
-            <a className="gc-row" href={`tel:${phone}`}>
-              <Phone className="h-4 w-4" />
-              <span>{phone}</span>
-            </a>
-          )}
+              {email && (
+                <a className="gc-row" href={emailUrl || `mailto:${email}`} target="_blank" rel="noopener noreferrer">
+                  <Mail className="h-4 w-4" />
+                  <span>{email}</span>
+                </a>
+              )}
+              {phone && (
+                <a className="gc-row" href={`tel:${phone}`}>
+                  <Phone className="h-4 w-4" />
+                  <span>{phone}</span>
+                </a>
+              )}
 
-          <div className="gc-socials">
-            {linkedin && (
-              <a className="gc-icon" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <Linkedin className="h-4 w-4" />
-              </a>
-            )}
-            {github && (
-              <a className="gc-icon" href={github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <Github className="h-4 w-4" />
-              </a>
-            )}
+              <div className="gc-socials">
+                {linkedin && (
+                  <a className="gc-icon" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <Linkedin className="h-4 w-4" />
+                  </a>
+                )}
+                {github && (
+                  <a className="gc-icon" href={github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <Github className="h-4 w-4" />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div className="gc-right">
+              <SocialCard
+                email={email || ""}
+                emailUrl={emailUrl || `mailto:${email || ""}`}
+                phone={phone || ""}
+                linkedin={linkedin || ""}
+                github={github || ""}
+              />
+            </div>
           </div>
         </div>
       </div>

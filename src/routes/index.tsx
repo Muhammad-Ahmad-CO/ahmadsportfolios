@@ -9,14 +9,14 @@ import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
-import SocialCard from "@/components/ui/social-card";
+
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
-import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -547,14 +547,8 @@ function Footer() {
             © 2026 Muhammad Ahmed. All rights reserved.
           </p>
         </div>
-        <div className="flex flex-col items-center gap-8 md:items-end">
+        <div className="flex w-full max-w-[680px] md:max-w-none justify-center md:justify-end">
           <GlassCard
-            email={EMAIL}
-            phone={PHONE}
-            linkedin={LINKEDIN}
-            github={GITHUB}
-          />
-          <SocialCard
             email={EMAIL}
             emailUrl={EMAIL_URL}
             phone={PHONE}
@@ -570,18 +564,12 @@ function Footer() {
 
 function Index() {
   const [showClock, setShowClock] = useState(true);
-  const [theme, setTheme] = useState<ThemeMode>("dark");
   useEffect(() => {
     const onScroll = () => setShowClock(window.scrollY < window.innerHeight * 0.7);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  useEffect(() => {
-    const root = document.documentElement;
-    root.classList.toggle("light-mode", theme === "light");
-    root.classList.toggle("eye-mode", theme === "eye");
-  }, [theme]);
   return (
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
@@ -612,16 +600,9 @@ function Index() {
           <DockIcon href={GITHUB} label="GitHub">
             <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
-          <DockIcon
-            href={EMAIL_URL}
-            label="Email"
-          >
+          <DockIcon href={EMAIL_URL} label="Email">
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
-          <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
-          <div className="self-center pl-1">
-            <ThemeSwitch value={theme} onChange={setTheme} />
-          </div>
         </Dock>
       </div>
     </main>
