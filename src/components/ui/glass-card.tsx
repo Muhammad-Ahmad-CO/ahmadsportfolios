@@ -23,12 +23,15 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             perspective: 1200px;
             width: 100%;
             max-width: 640px;
+            container-type: inline-size;
           }
+
           .glass-card {
             position: relative;
             border-radius: 32px;
-            padding: 32px 28px;
+            padding: 24px 18px;
             background: linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.55) 100%);
+
             border: 1px solid var(--c-border);
             backdrop-filter: blur(18px) saturate(140%);
             -webkit-backdrop-filter: blur(18px) saturate(140%);
@@ -81,58 +84,74 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             align-items: center;
             gap: 28px;
           }
-          @media (min-width: 640px) {
+          @container (min-width: 560px) {
+            .glass-card { padding: 32px 28px; }
             .gc-inner {
               flex-direction: row;
               align-items: center;
               justify-content: space-between;
-              gap: 32px;
+              gap: 24px;
             }
+            .gc-left { min-width: 280px; }
+            .gc-row { font-size: .82rem; }
           }
+
           .gc-left {
             width: 100%;
-            flex: 1;
+            flex: 1 1 auto;
             min-width: 0;
           }
           .gc-right {
-            flex-shrink: 0;
+            flex: 0 0 auto;
             display: flex;
             justify-content: center;
           }
           .gc-title {
-            font-size: 1.75rem;
+            font-size: clamp(1.25rem, 4.5vw, 1.75rem);
             font-weight: 800;
             letter-spacing: -0.01em;
             text-transform: uppercase;
             margin: 0 0 6px;
           }
           .gc-sub {
-            font-size: .85rem;
+            font-size: clamp(.7rem, 2vw, .85rem);
             letter-spacing: .12em;
             text-transform: uppercase;
             opacity: .6;
-            margin: 0 0 24px;
+            margin: 0 0 20px;
           }
+
           .gc-row {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 13px 15px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
             border-radius: 14px;
             background: rgba(215,226,234,0.04);
             border: 1px solid rgba(215,226,234,0.10);
             transition: transform .35s ease, background .35s ease, border-color .35s ease;
             text-decoration: none;
             color: var(--c-text);
-            font-size: .95rem;
+            font-size: clamp(.78rem, 2.2vw, .95rem);
+          }
+          .gc-row span {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            line-height: 1.35;
           }
           .gc-row + .gc-row { margin-top: 10px; }
           .gc-row:hover {
-            transform: translateX(6px);
+            transform: translateX(4px);
             background: rgba(215,226,234,0.10);
             border-color: rgba(215,226,234,0.25);
           }
           .gc-row svg { flex-shrink: 0; opacity: .85; }
+
           .gc-socials {
             display: flex;
             gap: 10px;
