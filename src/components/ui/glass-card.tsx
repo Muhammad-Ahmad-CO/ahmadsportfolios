@@ -117,22 +117,33 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 13px 15px;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
             border-radius: 14px;
             background: rgba(215,226,234,0.04);
             border: 1px solid rgba(215,226,234,0.10);
             transition: transform .35s ease, background .35s ease, border-color .35s ease;
             text-decoration: none;
             color: var(--c-text);
-            font-size: .95rem;
+            font-size: clamp(.78rem, 2.2vw, .95rem);
+          }
+          .gc-row span {
+            min-width: 0;
+            flex: 1;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            line-height: 1.35;
           }
           .gc-row + .gc-row { margin-top: 10px; }
           .gc-row:hover {
-            transform: translateX(6px);
+            transform: translateX(4px);
             background: rgba(215,226,234,0.10);
             border-color: rgba(215,226,234,0.25);
           }
           .gc-row svg { flex-shrink: 0; opacity: .85; }
+
           .gc-socials {
             display: flex;
             gap: 10px;
