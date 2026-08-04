@@ -1,10 +1,9 @@
-import { Moon, Sun, Eye } from "lucide-react";
+import { Moon, Eye } from "lucide-react";
 
-export type ThemeMode = "dark" | "light" | "eye";
+export type ThemeMode = "dark" | "eye";
 
 const OPTIONS: { id: ThemeMode; label: string; icon: typeof Moon }[] = [
   { id: "dark", label: "Dark theme", icon: Moon },
-  { id: "light", label: "Light theme", icon: Sun },
   { id: "eye", label: "Eye protection theme", icon: Eye },
 ];
 
