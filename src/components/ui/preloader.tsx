@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
-import BoxLoader from "@/components/ui/box-loader";
 
 export interface PreloaderProps {
   /** Minimum visible duration on first load, in ms. Default 1800. */
@@ -124,7 +123,24 @@ export default function Preloader({
       <span role="status" aria-live="assertive" className="sr-only">
         Loading content, please wait.
       </span>
-      <BoxLoader />
+
+      <div className="flex flex-col items-center gap-8">
+        {/* Gray tapping hand */}
+        <div className="hand-loader" aria-hidden="true">
+          <div className="hand-palm" />
+          <div className="hand-thumb" />
+          <div className="hand-finger" />
+          <div className="hand-finger" />
+          <div className="hand-finger" />
+          <div className="hand-finger" />
+        </div>
+
+        {/* Loading text */}
+        <div className="loader" aria-hidden="true">
+          <span>L</span>
+          <span>oading</span>
+        </div>
+      </div>
     </div>
   );
 }
