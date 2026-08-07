@@ -48,123 +48,43 @@ main { overflow-x: clip; }
   to { opacity: 0; visibility: hidden; }
 }
 
-/* Gray tapping-hand preloader */
-.hand-loader {
-  --skin-color: #9CA3AF;
-  --tap-speed: 0.6s;
-  --tap-stagger: 0.1s;
-  position: relative;
-  width: 80px;
-  height: 60px;
+/* Tech / server floating preloader (Uiverse-inspired) */
+#svg_svg {
+  transform: scale(0.3);
+  transform-origin: center;
 }
-.hand-loader:before {
-  content: '';
-  display: block;
-  width: 180%;
-  height: 75%;
-  position: absolute;
-  top: 70%;
-  right: 20%;
-  background-color: #000000;
-  border-radius: 40px 10px;
-  filter: blur(10px);
-  opacity: 0.3;
+.estrobo_animation {
+  animation:
+    floatAndBounce 4s infinite ease-in-out,
+    strobe 0.8s infinite;
 }
-.hand-palm {
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: var(--skin-color);
-  border-radius: 10px 40px;
+.estrobo_animationV2 {
+  animation:
+    floatAndBounce 4s infinite ease-in-out,
+    strobev2 0.8s infinite;
 }
-.hand-thumb {
-  position: absolute;
-  width: 120%;
-  height: 38px;
-  background-color: var(--skin-color);
-  bottom: -18%;
-  right: 1%;
-  transform-origin: calc(100% - 20px) 20px;
-  transform: rotate(-20deg);
-  border-radius: 30px 20px 20px 10px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-  border-left: 2px solid rgba(0, 0, 0, 0.1);
+#float_server {
+  animation: floatAndBounce 4s infinite ease-in-out;
 }
-.hand-thumb:after {
-  width: 20%;
-  height: 60%;
-  content: '';
-  background-color: rgba(255, 255, 255, 0.3);
-  position: absolute;
-  bottom: -8%;
-  left: 5px;
-  border-radius: 60% 10% 10% 30%;
-  border-right: 2px solid rgba(0, 0, 0, 0.05);
+@keyframes floatAndBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
 }
-.hand-finger {
-  position: absolute;
-  width: 80%;
-  height: 35px;
-  background-color: var(--skin-color);
-  bottom: 32%;
-  right: 64%;
-  transform-origin: 100% 20px;
-  animation-duration: calc(var(--tap-speed) * 2);
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  transform: rotate(10deg);
+@keyframes strobe {
+  0%, 50%, 100% { fill: #17e300; }
+  25%, 75% { fill: #17e300b4; }
 }
-.hand-finger:before {
-  content: '';
-  position: absolute;
-  width: 140%;
-  height: 30px;
-  background-color: var(--skin-color);
-  bottom: 8%;
-  right: 65%;
-  transform-origin: calc(100% - 20px) 20px;
-  transform: rotate(-60deg);
-  border-radius: 20px;
+@keyframes strobev2 {
+  0%, 50%, 100% { fill: rgb(255, 95, 74); }
+  25%, 75% { fill: rgb(16, 53, 115); }
 }
-.hand-finger:nth-child(3) {
-  animation-delay: 0;
-  filter: brightness(70%);
-  animation-name: tap-upper-1;
+@keyframes animateGradient {
+  0% { stop-color: #313f8773; }
+  50% { stop-color: #040d3a; }
+  100% { stop-color: #313f8773; }
 }
-.hand-finger:nth-child(4) {
-  animation-delay: var(--tap-stagger);
-  filter: brightness(80%);
-  animation-name: tap-upper-2;
-}
-.hand-finger:nth-child(5) {
-  animation-delay: calc(var(--tap-stagger) * 2);
-  filter: brightness(90%);
-  animation-name: tap-upper-3;
-}
-.hand-finger:nth-child(6) {
-  animation-delay: calc(var(--tap-stagger) * 3);
-  filter: brightness(100%);
-  animation-name: tap-upper-4;
-}
-
-@keyframes tap-upper-1 {
-  0%, 50%, 100% { transform: rotate(10deg) scale(0.4); }
-  40% { transform: rotate(50deg) scale(0.4); }
-}
-@keyframes tap-upper-2 {
-  0%, 50%, 100% { transform: rotate(10deg) scale(0.6); }
-  40% { transform: rotate(50deg) scale(0.6); }
-}
-@keyframes tap-upper-3 {
-  0%, 50%, 100% { transform: rotate(10deg) scale(0.8); }
-  40% { transform: rotate(50deg) scale(0.8); }
-}
-@keyframes tap-upper-4 {
-  0%, 50%, 100% { transform: rotate(10deg) scale(1); }
-  40% { transform: rotate(50deg) scale(1); }
+#paint13_linear_163_1030 stop {
+  animation: animateGradient 4s infinite alternate;
 }
 
 /* Loading text reveal */

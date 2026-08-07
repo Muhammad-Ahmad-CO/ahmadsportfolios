@@ -124,16 +124,94 @@ export default function Preloader({
         Loading content, please wait.
       </span>
 
-      <div className="flex flex-col items-center gap-8">
-        {/* Gray tapping hand */}
-        <div className="hand-loader" aria-hidden="true">
-          <div className="hand-palm" />
-          <div className="hand-thumb" />
-          <div className="hand-finger" />
-          <div className="hand-finger" />
-          <div className="hand-finger" />
-          <div className="hand-finger" />
-        </div>
+      <div className="flex flex-col items-center gap-6">
+        {/* Floating server / tech SVG */}
+        <svg
+          id="svg_svg"
+          width="260"
+          height="260"
+          viewBox="0 0 260 260"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
+        >
+          <defs>
+            <linearGradient
+              id="paint13_linear_163_1030"
+              x1="30"
+              y1="30"
+              x2="230"
+              y2="230"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0" stopColor="#313f8773" />
+              <stop offset="1" stopColor="#040d3a" />
+            </linearGradient>
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="4" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          {/* Background orb */}
+          <circle
+            cx="130"
+            cy="130"
+            r="110"
+            fill="url(#paint13_linear_163_1030)"
+            opacity="0.6"
+          />
+
+          {/* Floating server rack */}
+          <g id="float_server">
+            <rect
+              x="70"
+              y="70"
+              width="120"
+              height="120"
+              rx="18"
+              fill="#0f1528"
+              stroke="#1e2a4a"
+              strokeWidth="2"
+            />
+            {/* Server slots */}
+            <rect x="85" y="90" width="90" height="14" rx="7" fill="#1a2542" />
+            <rect x="85" y="115" width="90" height="14" rx="7" fill="#1a2542" />
+            <rect x="85" y="140" width="90" height="14" rx="7" fill="#1a2542" />
+            <rect x="85" y="165" width="90" height="14" rx="7" fill="#1a2542" />
+
+            {/* Strobe indicator lights */}
+            <circle
+              className="estrobo_animation"
+              cx="100"
+              cy="97"
+              r="5"
+              filter="url(#glow)"
+            />
+            <circle
+              className="estrobo_animationV2"
+              cx="100"
+              cy="122"
+              r="5"
+              filter="url(#glow)"
+            />
+            <circle
+              className="estrobo_animation"
+              cx="100"
+              cy="147"
+              r="5"
+              filter="url(#glow)"
+            />
+            <circle
+              className="estrobo_animationV2"
+              cx="100"
+              cy="172"
+              r="5"
+              filter="url(#glow)"
+            />
+          </g>
+        </svg>
 
         {/* Loading text */}
         <div className="loader" aria-hidden="true">
