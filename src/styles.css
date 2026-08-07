@@ -50,8 +50,7 @@ main { overflow-x: clip; }
 
 /* Tech / server floating preloader (Uiverse-inspired) */
 #svg_svg {
-  transform: scale(0.3);
-  transform-origin: center;
+  zoom: 0.3;
 }
 .estrobo_animation {
   animation:
