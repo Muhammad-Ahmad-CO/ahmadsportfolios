@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, useVelocity, useMotionTemplate } from "framer-motion";
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
@@ -580,7 +580,7 @@ function Index() {
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
-        className={`fixed top-1/2 -translate-y-1/2 left-2 sm:top-4 sm:-translate-y-0 sm:left-5 md:top-5 md:left-6 z-50 scale-[0.72] sm:scale-90 transition-opacity duration-300 ${
+        className={`hidden sm:block fixed sm:top-4 sm:left-5 md:top-5 md:left-6 z-50 sm:scale-90 transition-opacity duration-300 ${
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
