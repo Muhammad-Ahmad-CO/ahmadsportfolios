@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView, useVelocity, useMotionTemplate } from "framer-motion";
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
@@ -475,16 +475,22 @@ function ProjectCard({
 }) {
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress, scrollY } = useScroll({
     target: ref,
     offset: ["start end", "start start"],
   });
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
+  // Motion blur based on scroll velocity
+  const velocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(velocity, { stiffness: 300, damping: 40, mass: 0.4 });
+  const blurAmount = useTransform(smoothVelocity, [-3000, 0, 3000], [8, 0, 8], { clamp: true });
+  const filter = useMotionTemplate`blur(${blurAmount}px)`;
+
   return (
     <div ref={ref} className="h-[85vh] flex items-start justify-center sticky" style={{ top: `${index * 28}px` }}>
       <motion.article
-        style={{ scale }}
+        style={{ scale, filter, willChange: "filter, transform" }}
         className="w-full rounded-[32px] md:rounded-[56px] border-2 border-[#D7E2EA] p-4 sm:p-6 md:p-8 bg-[#0C0C0C]"
       >
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -580,7 +586,7 @@ function Index() {
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
-        className={`fixed top-1/2 -translate-y-1/2 left-2 sm:top-4 sm:-translate-y-0 sm:left-5 md:top-5 md:left-6 z-50 scale-[0.72] sm:scale-90 transition-opacity duration-300 ${
+        className={`hidden sm:block fixed sm:top-4 sm:left-5 md:top-5 md:left-6 z-50 sm:scale-90 transition-opacity duration-300 ${
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
