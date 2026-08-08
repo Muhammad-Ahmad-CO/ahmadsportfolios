@@ -475,16 +475,22 @@ function ProjectCard({
 }) {
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress, scrollY } = useScroll({
     target: ref,
     offset: ["start end", "start start"],
   });
   const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
 
+  // Motion blur based on scroll velocity
+  const velocity = useVelocity(scrollY);
+  const smoothVelocity = useSpring(velocity, { stiffness: 300, damping: 40, mass: 0.4 });
+  const blurAmount = useTransform(smoothVelocity, [-3000, 0, 3000], [8, 0, 8], { clamp: true });
+  const filter = useMotionTemplate`blur(${blurAmount}px)`;
+
   return (
     <div ref={ref} className="h-[85vh] flex items-start justify-center sticky" style={{ top: `${index * 28}px` }}>
       <motion.article
-        style={{ scale }}
+        style={{ scale, filter, willChange: "filter, transform" }}
         className="w-full rounded-[32px] md:rounded-[56px] border-2 border-[#D7E2EA] p-4 sm:p-6 md:p-8 bg-[#0C0C0C]"
       >
         <div className="flex flex-wrap items-center justify-between gap-3">
