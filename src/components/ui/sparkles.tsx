@@ -1,9 +1,8 @@
-import React, { useId, useEffect, useState } from "react";
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import type { Container } from "@tsparticles/engine";
+import React, { useId } from "react";
+import { Particles, ParticlesProvider } from "@tsparticles/react";
+import type { Engine } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
-import { motion, useAnimation } from "framer-motion";
 
 type ParticlesProps = {
   id?: string;
@@ -14,6 +13,10 @@ type ParticlesProps = {
   speed?: number;
   particleColor?: string;
   particleDensity?: number;
+};
+
+const init = async (engine: Engine) => {
+  await loadSlim(engine);
 };
 
 export const SparklesCore = (props: ParticlesProps) => {
@@ -27,50 +30,23 @@ export const SparklesCore = (props: ParticlesProps) => {
     particleColor,
     particleDensity,
   } = props;
-  const [init, setInit] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      if (!cancelled) setInit(true);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  const controls = useAnimation();
-
-  const particlesLoaded = async (container?: Container) => {
-    if (container) {
-      controls.start({ opacity: 1, transition: { duration: 1 } });
-    }
-  };
 
   const generatedId = useId();
 
   return (
-    <motion.div animate={controls} className={cn("opacity-0", className)}>
-      {init && (
+    <div className={cn(className)}>
+      <ParticlesProvider init={init}>
         <Particles
-          id={id || generatedId}
+          id={(id || generatedId).replace(/[^a-zA-Z0-9_-]/g, "")}
           className="h-full w-full"
-          particlesLoaded={particlesLoaded}
           options={{
             background: { color: { value: background || "transparent" } },
             fullScreen: { enable: false, zIndex: 1 },
             fpsLimit: 120,
             interactivity: {
               events: {
-                onClick: { enable: false, mode: "push" },
-                onHover: { enable: false, mode: "repulse" },
-                resize: true as never,
-              },
-              modes: {
-                push: { quantity: 4 },
-                repulse: { distance: 200, duration: 0.4 },
+                onClick: { enable: false },
+                onHover: { enable: false },
               },
             },
             particles: {
@@ -103,8 +79,8 @@ export const SparklesCore = (props: ParticlesProps) => {
             detectRetina: true,
           }}
         />
-      )}
-    </motion.div>
+      </ParticlesProvider>
+    </div>
   );
 };
 
