@@ -311,6 +311,25 @@ function PortraitAvatar() {
           : "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
       }}
     >
+      {/* Sparkles fill the space when the portrait blasts away on hover */}
+      <div
+        aria-hidden
+        className={`pointer-events-none absolute inset-[10px] overflow-hidden rounded-[20px] transition-opacity duration-500 ease-out ${
+          blasted ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        {blasted && (
+          <SparklesCore
+            className="h-full w-full"
+            background="transparent"
+            minSize={0.6}
+            maxSize={1.6}
+            particleDensity={420}
+            particleColor="#D7E2EA"
+            speed={3}
+          />
+        )}
+      </div>
       <BlastPortrait
         src={portrait}
         alt="Muhammad Ahmed portrait"
@@ -318,7 +337,7 @@ function PortraitAvatar() {
         cols={7}
         radius="20px"
         blasted={blasted}
-        className="h-full w-full grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
+        className="relative z-10 h-full w-full grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
       />
       <GlyphMatrix
         color="#D7E2EA"
@@ -327,7 +346,7 @@ function PortraitAvatar() {
         interval={100}
         fadeBottom={0.5}
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-[10px] rounded-[20px] mix-blend-screen transition-opacity duration-500 ease-out ${
+        className={`pointer-events-none absolute inset-[10px] z-20 rounded-[20px] mix-blend-screen transition-opacity duration-500 ease-out ${
           blasted ? "opacity-0" : "opacity-40"
         }`}
       />
