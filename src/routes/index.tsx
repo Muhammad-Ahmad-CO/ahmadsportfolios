@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
-import { Compare } from "@/components/ui/compare";
+import { Cover } from "@/components/ui/cover";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
