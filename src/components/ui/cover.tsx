@@ -96,7 +96,8 @@ export const Cover = ({
           scale: hovered ? 0.85 : 1,
           x: hovered ? [0, -30, 30, -30, 30, 0] : 0,
           y: hovered ? [0, 30, -30, 30, -30, 0] : 0,
-ги      }}
+        }}
+
         transition={{
           duration: 0.3,
           repeat: hovered ? Infinity : 0,
