@@ -232,7 +232,7 @@ function Hero() {
             className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
             style={{ fontSize: "clamp(2rem, 11vw, 17.5vw)" }}
           >
-            Hi, I&rsquo;m Muhammad Ahmed
+            Hi, I&rsquo;m Muhammad <Cover>Ahmed</Cover>
           </h1>
         </FadeIn>
       </div>
