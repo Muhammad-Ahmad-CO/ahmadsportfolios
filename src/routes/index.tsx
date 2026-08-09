@@ -5,7 +5,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
-import { Compare } from "@/components/ui/compare";
+import { Cover } from "@/components/ui/cover";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
@@ -232,7 +232,7 @@ function Hero() {
             className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
             style={{ fontSize: "clamp(2rem, 11vw, 17.5vw)" }}
           >
-            Hi, I&rsquo;m Muhammad Ahmed
+            Hi, I&rsquo;m Muhammad <Cover>Ahmed</Cover>
           </h1>
         </FadeIn>
       </div>
@@ -290,52 +290,22 @@ function Hero() {
 }
 
 function PortraitAvatar() {
-  const [blasted, setBlasted] = useState(false);
-
   return (
     <div
-      className="group relative rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px] transition-[background,border-color,box-shadow] duration-500 ease-out"
-      onMouseEnter={() => setBlasted(true)}
-      onMouseLeave={() => setBlasted(false)}
-      onPointerDown={(e) => {
-        if (e.pointerType !== "mouse") setBlasted((v) => !v);
-      }}
+      className="group relative rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px]"
       style={{
-        touchAction: "manipulation",
-        border: `1px solid ${blasted ? "transparent" : "rgba(215,226,234,0.22)"}`,
+        border: "1px solid rgba(215,226,234,0.22)",
         padding: "10px",
-        background: blasted
-          ? "transparent"
-          : "linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.35) 100%)",
-        boxShadow: blasted
-          ? "none"
-          : "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
+        background:
+          "linear-gradient(160deg, rgba(215,226,234,0.10) 0%, rgba(187,204,215,0.04) 60%, rgba(12,12,12,0.35) 100%)",
+        boxShadow:
+          "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
       }}
     >
-      {/* Compare slider takes the portrait's place on hover */}
-      <div
-        className={`absolute inset-[10px] overflow-hidden rounded-[20px] transition-opacity duration-500 ease-out ${
-          blasted ? "opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      >
-        {blasted && (
-          <Compare
-            firstImage={portrait}
-            secondImage={portrait}
-            firstImageClassName="object-cover"
-            secondImageClassname="object-cover grayscale contrast-125"
-            className="h-full w-full rounded-[20px]"
-            slideMode="hover"
-            initialSliderPercentage={50}
-          />
-        )}
-      </div>
       <img
         src={portrait}
         alt="Muhammad Ahmed portrait"
-        className={`relative z-10 h-full w-full rounded-[20px] object-cover grayscale transition-opacity duration-500 ease-out ${
-          blasted ? "opacity-0" : "opacity-100"
-        }`}
+        className="relative z-10 h-full w-full rounded-[20px] object-cover grayscale transition-all duration-500 ease-out group-hover:grayscale-0"
       />
       <GlyphMatrix
         color="#D7E2EA"
@@ -344,13 +314,12 @@ function PortraitAvatar() {
         interval={100}
         fadeBottom={0.5}
         aria-hidden="true"
-        className={`pointer-events-none absolute inset-[10px] z-20 rounded-[20px] mix-blend-screen transition-opacity duration-500 ease-out ${
-          blasted ? "opacity-0" : "opacity-40"
-        }`}
+        className="pointer-events-none absolute inset-[10px] z-20 rounded-[20px] mix-blend-screen opacity-40 transition-opacity duration-500 ease-out group-hover:opacity-0"
       />
     </div>
   );
 }
+
 
 
 
