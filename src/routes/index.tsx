@@ -5,14 +5,14 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
-import { BlastPortrait } from "@/components/ui/blast-portrait";
+import { Compare } from "@/components/ui/compare";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
 
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
-import { SparklesCore } from "@/components/ui/sparkles";
+
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
@@ -312,33 +312,30 @@ function PortraitAvatar() {
           : "inset 0 1px 0 rgba(255,255,255,0.08), 0 30px 60px -20px rgba(0,0,0,0.6)",
       }}
     >
-      {/* Sparkles fill the space when the portrait blasts away on hover */}
+      {/* Compare slider takes the portrait's place on hover */}
       <div
-        aria-hidden
-        className={`pointer-events-none absolute inset-[10px] overflow-hidden rounded-[20px] transition-opacity duration-500 ease-out ${
-          blasted ? "opacity-100" : "opacity-0"
+        className={`absolute inset-[10px] overflow-hidden rounded-[20px] transition-opacity duration-500 ease-out ${
+          blasted ? "opacity-100" : "pointer-events-none opacity-0"
         }`}
       >
         {blasted && (
-          <SparklesCore
-            className="h-full w-full"
-            background="transparent"
-            minSize={0.6}
-            maxSize={1.6}
-            particleDensity={420}
-            particleColor="#D7E2EA"
-            speed={3}
+          <Compare
+            firstImage={portrait}
+            secondImage={portrait}
+            firstImageClassName="object-cover"
+            secondImageClassname="object-cover grayscale contrast-125"
+            className="h-full w-full rounded-[20px]"
+            slideMode="hover"
+            initialSliderPercentage={50}
           />
         )}
       </div>
-      <BlastPortrait
+      <img
         src={portrait}
         alt="Muhammad Ahmed portrait"
-        rows={9}
-        cols={7}
-        radius="20px"
-        blasted={blasted}
-        className="relative z-10 h-full w-full grayscale transition-[filter] duration-700 ease-out group-hover:grayscale-0"
+        className={`relative z-10 h-full w-full rounded-[20px] object-cover grayscale transition-opacity duration-500 ease-out ${
+          blasted ? "opacity-0" : "opacity-100"
+        }`}
       />
       <GlyphMatrix
         color="#D7E2EA"
