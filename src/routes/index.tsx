@@ -349,10 +349,32 @@ function Marquee() {
 const BIO =
   "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
 
+function ScrollRevealWord({
+  word,
+  progress,
+  range,
+}: {
+  word: string;
+  progress: MotionValue<number>;
+  range: [number, number];
+}) {
+  const opacity = useTransform(progress, range, [0.15, 1]);
+  return (
+    <span className="relative mr-[0.28em] inline-block">
+      <span className="absolute inset-0 opacity-15">{word}</span>
+      <motion.span style={{ opacity }}>{word}</motion.span>
+    </span>
+  );
+}
+
 function About() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const [replay, setReplay] = useState(true);
-  const inView = useInView(targetRef, { once: !replay, amount: 0.15 });
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: textRef,
+    offset: ["start 0.85", "end 0.45"],
+  });
+  const words = BIO.split(" ");
 
   return (
     <section
@@ -370,32 +392,24 @@ function About() {
           </h2>
         </FadeIn>
 
-        <button
-          type="button"
-          onClick={() => setReplay((v) => !v)}
-          aria-pressed={replay}
-          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#D7E2EA]/30 px-4 py-1.5 text-[0.7rem] uppercase tracking-wider text-[#D7E2EA]/70 transition-colors hover:border-[#D7E2EA]/60 hover:text-[#D7E2EA]"
-        >
-          <span
-            className={`h-2 w-2 rounded-full transition-colors ${
-              replay ? "bg-[#BBCCD7]" : "bg-[#D7E2EA]/25"
-            }`}
-          />
-          Replay on scroll {replay ? "On" : "Off"}
-        </button>
-
         <div className="mt-8 w-full md:mt-12">
-          <TextEffect
-            key={replay ? "replay" : "once"}
-            per="word"
-            preset="blur"
-            trigger={inView}
-            delay={0.2}
-            as="p"
-            className="mx-auto max-w-[900px] text-center font-medium leading-[1.55] text-[#D7E2EA] text-[clamp(1.15rem,2.6vw,2rem)]"
+          <p
+            ref={textRef}
+            className="mx-auto flex max-w-[900px] flex-wrap justify-center text-center font-medium uppercase leading-[1.55] text-[#D7E2EA] text-[clamp(1.15rem,2.6vw,2rem)]"
           >
-            {BIO}
-          </TextEffect>
+            {words.map((w, i) => {
+              const start = i / words.length;
+              const end = Math.min(start + 1.6 / words.length, 1);
+              return (
+                <ScrollRevealWord
+                  key={`${w}-${i}`}
+                  word={w}
+                  progress={scrollYProgress}
+                  range={[start, end]}
+                />
+              );
+            })}
+          </p>
         </div>
       </div>
     </section>
