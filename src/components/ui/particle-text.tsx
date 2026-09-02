@@ -38,7 +38,7 @@ export function ParticleText({
     let height = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const pointer = { x: -9999, y: -9999, active: false };
-    let intro = 1; // 1 -> 0, initial scatter settle
+
 
     const build = () => {
       width = wrap.clientWidth;
@@ -79,8 +79,8 @@ export function ParticleText({
             const hx = x / dpr;
             const hy = y / dpr;
             next.push({
-              x: hx + (Math.random() - 0.5) * width,
-              y: hy + (Math.random() - 0.5) * height * 2,
+              x: hx,
+              y: hy,
               hx,
               hy,
               vx: 0,
@@ -92,16 +92,14 @@ export function ParticleText({
         }
       }
       particles = next;
-      intro = 1;
     };
 
     const tick = () => {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.scale(dpr, dpr);
-      intro *= 0.97;
 
-      const R = 90;
+      const R = 130;
       for (const p of particles) {
         // repel from pointer
         if (pointer.active) {
@@ -110,7 +108,7 @@ export function ParticleText({
           const d2 = dx * dx + dy * dy;
           if (d2 < R * R) {
             const d = Math.max(Math.sqrt(d2), 0.001);
-            const f = (1 - d / R) * 6;
+            const f = (1 - d / R) * 14;
             p.vx += (dx / d) * f;
             p.vy += (dy / d) * f;
           }
@@ -123,14 +121,8 @@ export function ParticleText({
         p.x += p.vx;
         p.y += p.vy;
 
-        const j = intro * 6;
         ctx.fillStyle = p.color;
-        ctx.fillRect(
-          p.x + (j ? (Math.random() - 0.5) * j : 0),
-          p.y + (j ? (Math.random() - 0.5) * j : 0),
-          p.size,
-          p.size,
-        );
+        ctx.fillRect(p.x, p.y, p.size, p.size);
       }
       raf = requestAnimationFrame(tick);
     };
