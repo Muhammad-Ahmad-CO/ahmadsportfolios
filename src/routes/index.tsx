@@ -16,6 +16,7 @@ import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
+import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 
 
@@ -227,12 +228,11 @@ function Hero() {
       {/* Heading */}
       <div className="mt-20 sm:mt-8 md:-mt-5 px-4">
         <FadeIn y={40} delay={0.15}>
-          <h1
-            className="hero-heading font-black uppercase tracking-tight leading-[0.95] text-center break-words"
-            style={{ fontSize: "clamp(2rem, 11vw, 17.5vw)" }}
-          >
-            Hi, I&rsquo;m Muhammad Ahmed
-          </h1>
+          <h1 className="hero-heading sr-only">Hi, I&rsquo;m Muhammad Ahmed</h1>
+          <div className="mx-auto w-full max-w-[1400px]">
+            <ParticleText text="HI, I'M" className="h-[13vw] max-h-[130px] w-full" />
+            <ParticleText text="MUHAMMAD AHMED" className="h-[16vw] max-h-[190px] w-full" />
+          </div>
         </FadeIn>
       </div>
 
