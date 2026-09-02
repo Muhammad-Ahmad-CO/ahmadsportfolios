@@ -14,13 +14,15 @@ type Particle = {
 export function ParticleText({
   text,
   className = "",
-  colors = ["#FFFFFF", "#D7E2EA", "#BBCCD7"],
+  colors = ["#E8F1F6", "#D7E2EA", "#BBCCD7", "#9FB4C2"],
   density = 3,
+  cursorRadius = 55,
 }: {
   text: string;
   className?: string;
   colors?: string[];
   density?: number;
+  cursorRadius?: number;
 }) {
   const wrapRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -38,7 +40,6 @@ export function ParticleText({
     let height = 0;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     const pointer = { x: -9999, y: -9999, active: false };
-
 
     const build = () => {
       width = wrap.clientWidth;
@@ -85,7 +86,7 @@ export function ParticleText({
               hy,
               vx: 0,
               vy: 0,
-              size: Math.random() < 0.15 ? 1.8 : 1,
+              size: Math.random() < 0.2 ? 2.2 : 1.4,
               color: colors[(Math.random() * colors.length) | 0],
             });
           }
@@ -99,7 +100,7 @@ export function ParticleText({
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.scale(dpr, dpr);
 
-      const R = 130;
+      const R = cursorRadius;
       for (const p of particles) {
         // repel from pointer
         if (pointer.active) {
@@ -108,7 +109,7 @@ export function ParticleText({
           const d2 = dx * dx + dy * dy;
           if (d2 < R * R) {
             const d = Math.max(Math.sqrt(d2), 0.001);
-            const f = (1 - d / R) * 14;
+            const f = (1 - d / R) * 16;
             p.vx += (dx / d) * f;
             p.vy += (dy / d) * f;
           }
@@ -152,7 +153,7 @@ export function ParticleText({
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
     };
-  }, [text, density, colors]);
+  }, [text, density, colors, cursorRadius]);
 
   return (
     <div ref={wrapRef} className={className} aria-hidden="true">
