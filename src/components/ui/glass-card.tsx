@@ -104,10 +104,13 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             min-width: 0;
           }
           .gc-right {
-            flex: 0 0 auto;
+            flex: 1 1 340px;
+            min-width: 0;
+            width: 100%;
             display: flex;
             justify-content: center;
           }
+
           .gc-title {
             font-size: clamp(1.25rem, 4.5vw, 1.75rem);
             font-weight: 800;
@@ -233,14 +236,18 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             </div>
 
             <div className="gc-right">
-              <SocialCard
-                email={email || ""}
-                emailUrl={emailUrl || `mailto:${email || ""}`}
-                phone={phone || ""}
-                linkedin={linkedin || ""}
-                github={github || ""}
-              />
+              <div style={{ display: "grid", gap: 18, width: "100%", minWidth: 0 }}>
+                <ContactForm />
+                <SocialCard
+                  email={email || ""}
+                  emailUrl={emailUrl || `mailto:${email || ""}`}
+                  phone={phone || ""}
+                  linkedin={linkedin || ""}
+                  github={github || ""}
+                />
+              </div>
             </div>
+
           </div>
         </div>
       </div>
