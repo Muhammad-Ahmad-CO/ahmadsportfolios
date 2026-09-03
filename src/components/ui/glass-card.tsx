@@ -2,6 +2,8 @@ import * as React from "react";
 import { Mail, Phone, Linkedin, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import SocialCard from "./social-card";
+import ContactForm from "./contact-form";
+
 
 export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   email?: string;
