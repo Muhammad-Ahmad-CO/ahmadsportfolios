@@ -231,7 +231,7 @@ function Hero() {
           <h1 className="hero-heading sr-only">Hi, I&rsquo;m Muhammad Ahmed</h1>
           <div className="mx-auto w-full max-w-[1400px]">
             <ParticleText text="HI, I'M" className="h-[18vw] max-h-[185px] w-full" cursorRadius={45} />
-            <ParticleText text="MUHAMMAD AHMED" className="h-[13vw] max-h-[130px] w-full" cursorRadius={55} />
+            <ParticleText text="MUHAMMAD AHMED" className="h-[18vw] max-h-[185px] w-full" cursorRadius={55} />
           </div>
         </FadeIn>
       </div>
