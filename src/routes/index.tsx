@@ -208,7 +208,7 @@ function Hero() {
       {/* Navbar */}
       <FadeIn y={-20} delay={0}>
         <nav className="flex items-center justify-end gap-3 px-4 sm:px-6 md:px-10 pt-6 md:pt-8">
-          <ul className="flex min-w-0 flex-wrap justify-end gap-x-3 gap-y-1 sm:gap-5 md:gap-10 text-[0.7rem] sm:text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
+          <ul className="flex min-w-0 flex-wrap justify-end gap-x-2 gap-y-1 sm:gap-x-4 md:gap-x-6 text-[0.7rem] sm:text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
             {[
               { l: "About", h: "#about" },
               { l: "Price", h: "#services" },
@@ -218,7 +218,7 @@ function Hero() {
               <li key={n.l}>
                 <a
                   href={n.h}
-                  className="inline-block rounded-full border border-transparent px-3 py-1.5 transition-colors duration-300 hover:border-white/10 hover:bg-[#0C0C0C] hover:text-[#D7E2EA]"
+                  className="inline-block rounded-full border border-transparent px-2 py-1 sm:px-3 sm:py-1.5 transition-colors duration-300 hover:border-white/10 hover:bg-[#0C0C0C] hover:text-[#D7E2EA]"
                 >
                   <TextRoll>{n.l}</TextRoll>
                 </a>
