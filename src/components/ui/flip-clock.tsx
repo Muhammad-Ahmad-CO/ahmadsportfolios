@@ -23,7 +23,13 @@ const Digit = ({ value }: { value: number }) => {
   );
 };
 
-export default function FlipClock() {
+export default function FlipClock({
+  mode = "digital",
+  onToggle,
+}: {
+  mode?: "digital" | "analog";
+  onToggle?: () => void;
+}) {
   const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -48,8 +54,62 @@ export default function FlipClock() {
     </span>
   );
 
+  if (mode === "analog") {
+    const h = time.getHours() % 12;
+    const m = time.getMinutes();
+    const sec = time.getSeconds();
+    const hand = (angle: number, length: number, width: number, opacity: number) => (
+      <line
+        x1="50"
+        y1="50"
+        x2={50 + length * Math.sin((angle * Math.PI) / 180)}
+        y2={50 - length * Math.cos((angle * Math.PI) / 180)}
+        stroke="#D7E2EA"
+        strokeOpacity={opacity}
+        strokeWidth={width}
+        strokeLinecap="round"
+      />
+    );
+    return (
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-label="Switch to digital clock"
+        className="rounded-full border border-white/[0.06] bg-[#0C0C0C]/50 p-1.5 backdrop-blur-md transition-colors hover:bg-white/[0.06]"
+      >
+        <svg viewBox="0 0 100 100" className="h-[46px] w-[46px] sm:h-[54px] sm:w-[54px]">
+          <circle cx="50" cy="50" r="47" fill="none" stroke="#D7E2EA" strokeOpacity="0.18" strokeWidth="2" />
+          {Array.from({ length: 12 }).map((_, i) => {
+            const a = (i * 30 * Math.PI) / 180;
+            return (
+              <line
+                key={i}
+                x1={50 + 40 * Math.sin(a)}
+                y1={50 - 40 * Math.cos(a)}
+                x2={50 + 45 * Math.sin(a)}
+                y2={50 - 45 * Math.cos(a)}
+                stroke="#D7E2EA"
+                strokeOpacity={i % 3 === 0 ? 0.6 : 0.25}
+                strokeWidth={i % 3 === 0 ? 3 : 1.5}
+                strokeLinecap="round"
+              />
+            );
+          })}
+          {hand(h * 30 + m * 0.5, 22, 4, 0.85)}
+          {hand(m * 6 + sec * 0.1, 32, 3, 0.7)}
+          {hand(sec * 6, 36, 1.5, 0.5)}
+          <circle cx="50" cy="50" r="3" fill="#D7E2EA" fillOpacity="0.8" />
+        </svg>
+      </button>
+    );
+  }
+
   return (
-    <div className="flex items-center gap-[3px] rounded-xl border border-white/[0.06] bg-[#0C0C0C]/50 px-2 py-1 backdrop-blur-md sm:gap-1 sm:px-2.5 sm:py-1.5">
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label="Switch to analog clock"
+      className="flex items-center gap-[3px] rounded-xl border border-white/[0.06] bg-[#0C0C0C]/50 px-2 py-1 backdrop-blur-md sm:gap-1 sm:px-2.5 sm:py-1.5">
       {hours.split("").map((digit, i) => (
         <Digit key={`h-${i}`} value={Number(digit)} />
       ))}
@@ -61,6 +121,6 @@ export default function FlipClock() {
       {seconds.split("").map((digit, i) => (
         <Digit key={`s-${i}`} value={Number(digit)} />
       ))}
-    </div>
+    </button>
   );
 }

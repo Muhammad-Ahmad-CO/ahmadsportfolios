@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
-import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Clock } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
@@ -216,7 +216,10 @@ function Hero() {
               { l: "Contact", h: "#footer" },
             ].map((n) => (
               <li key={n.l}>
-                <a href={n.h} className="inline-block transition-opacity hover:opacity-90">
+                <a
+                  href={n.h}
+                  className="inline-block rounded-full border border-transparent px-3 py-1.5 transition-colors duration-300 hover:border-white/10 hover:bg-[#0C0C0C] hover:text-[#D7E2EA]"
+                >
                   <TextRoll>{n.l}</TextRoll>
                 </a>
               </li>
@@ -566,6 +569,8 @@ function Footer() {
 function Index() {
   const [showClock, setShowClock] = useState(true);
   const [theme, setTheme] = useState<ThemeMode>("dark");
+  const [clockMode, setClockMode] = useState<"digital" | "analog">("digital");
+  const toggleClock = () => setClockMode((m) => (m === "digital" ? "analog" : "digital"));
   useEffect(() => {
     const onScroll = () => setShowClock(window.scrollY < window.innerHeight * 0.7);
     onScroll();
@@ -584,7 +589,7 @@ function Index() {
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <FlipClock />
+        <FlipClock mode={clockMode} onToggle={toggleClock} />
       </div>
       
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
@@ -610,6 +615,9 @@ function Index() {
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
+          <DockIcon onClick={toggleClock} label={clockMode === "digital" ? "Analog clock" : "Digital clock"}>
+            <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
+          </DockIcon>
           <div className="self-center pl-1">
             <ThemeSwitch value={theme} onChange={setTheme} />
           </div>
