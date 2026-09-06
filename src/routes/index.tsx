@@ -18,6 +18,7 @@ import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
 import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
+import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 
 
 export const Route = createFileRoute("/")({
