@@ -616,9 +616,9 @@ function Index() {
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
-          <DockIcon onClick={toggleClock} label={clockMode === "digital" ? "Analog clock" : "Digital clock"}>
-            <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
-          </DockIcon>
+          <div className="self-center">
+            <ClockSwitch value={clockMode} onChange={setClockMode} />
+          </div>
           <div className="self-center pl-1">
             <ThemeSwitch value={theme} onChange={setTheme} />
           </div>
