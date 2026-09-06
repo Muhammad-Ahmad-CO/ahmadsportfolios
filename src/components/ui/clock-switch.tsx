@@ -1,8 +1,14 @@
+import type { ComponentType } from "react";
 import { Clock } from "lucide-react";
 
 export type ClockMode = "digital" | "analog";
 
-function DigitalIcon({ className, strokeWidth = 2.5 }: { className?: string; strokeWidth?: number }) {
+interface IconProps {
+  className?: string;
+  strokeWidth?: number;
+}
+
+function DigitalIcon({ className, strokeWidth = 2.5 }: IconProps) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -21,7 +27,7 @@ function DigitalIcon({ className, strokeWidth = 2.5 }: { className?: string; str
   );
 }
 
-const OPTIONS: { id: ClockMode; label: string; icon: typeof Clock }[] = [
+const OPTIONS: { id: ClockMode; label: string; icon: ComponentType<IconProps> }[] = [
   { id: "digital", label: "Digital clock", icon: DigitalIcon },
   { id: "analog", label: "Analog clock", icon: Clock },
 ];
