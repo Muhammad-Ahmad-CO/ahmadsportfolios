@@ -2,13 +2,13 @@ import { Clock } from "lucide-react";
 
 export type ClockMode = "digital" | "analog";
 
-function DigitalIcon({ className }: { className?: string }) {
+function DigitalIcon({ className, strokeWidth = 2.5 }: { className?: string; strokeWidth?: number }) {
   return (
     <svg
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2.5"
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
