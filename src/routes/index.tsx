@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
-import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home, Clock } from "lucide-react";
+import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
@@ -18,6 +18,7 @@ import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
 import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
+import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 
 
 export const Route = createFileRoute("/")({
@@ -615,9 +616,9 @@ function Index() {
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
-          <DockIcon onClick={toggleClock} label={clockMode === "digital" ? "Analog clock" : "Digital clock"}>
-            <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
-          </DockIcon>
+          <div className="self-center">
+            <ClockSwitch value={clockMode} onChange={setClockMode} />
+          </div>
           <div className="self-center pl-1">
             <ThemeSwitch value={theme} onChange={setTheme} />
           </div>
