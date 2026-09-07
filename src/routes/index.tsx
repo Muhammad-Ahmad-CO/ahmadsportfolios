@@ -14,6 +14,7 @@ import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
+import { CodeBlast } from "@/components/ui/code-blast";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
 import { ParticleText } from "@/components/ui/particle-text";
