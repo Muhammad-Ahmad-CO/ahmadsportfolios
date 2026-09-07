@@ -4,6 +4,13 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
+import projWoblo from "@/assets/proj-woblo.jpg";
+import projMonolith from "@/assets/proj-monolith.jpg";
+import projRoyal from "@/assets/proj-royal.jpg";
+import projCement from "@/assets/proj-cement.jpg";
+import projHearth from "@/assets/proj-hearth.jpg";
+import projBloom from "@/assets/proj-bloom.jpg";
+import projAlfjr from "@/assets/proj-alfjr.jpg";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
