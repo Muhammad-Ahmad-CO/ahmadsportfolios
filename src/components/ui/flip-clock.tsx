@@ -77,7 +77,7 @@ export default function FlipClock({
         aria-label="Switch to digital clock"
         className="rounded-full border border-white/[0.06] bg-[#0C0C0C]/50 p-1.5 backdrop-blur-md transition-colors hover:bg-white/[0.06]"
       >
-        <svg viewBox="0 0 100 100" className="h-[54px] w-[54px] sm:h-[62px] sm:w-[62px]">
+        <svg viewBox="0 0 100 100" className="h-[64px] w-[64px] sm:h-[72px] sm:w-[72px]">
           <circle cx="50" cy="50" r="47" fill="none" stroke="#D7E2EA" strokeOpacity="0.18" strokeWidth="2" />
           {Array.from({ length: 12 }).map((_, i) => {
             const a = (i * 30 * Math.PI) / 180;

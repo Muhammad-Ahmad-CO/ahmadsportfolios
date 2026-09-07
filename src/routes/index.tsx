@@ -14,6 +14,7 @@ import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
+import { CodeBlast } from "@/components/ui/code-blast";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { TextEffect } from "@/components/ui/text-effect";
 import { ParticleText } from "@/components/ui/particle-text";
@@ -217,12 +218,23 @@ function Hero() {
               { l: "Contact", h: "#footer" },
             ].map((n) => (
               <li key={n.l}>
-                <a
-                  href={n.h}
-                  className="inline-block rounded-full border border-transparent px-2 py-1 sm:px-3 sm:py-1.5 transition-colors duration-300 hover:border-white/10 hover:bg-[#0C0C0C] hover:text-[#D7E2EA]"
-                >
-                  <TextRoll>{n.l}</TextRoll>
-                </a>
+                {n.l === "Contact" ? (
+                  <CodeBlast enabled density={95}>
+                    <a
+                      href={n.h}
+                      className="inline-block rounded-full border border-transparent px-2 py-1 sm:px-3 sm:py-1.5 transition-colors duration-300 hover:border-white/10 hover:bg-[#0C0C0C] hover:text-[#D7E2EA]"
+                    >
+                      <TextRoll>{n.l}</TextRoll>
+                    </a>
+                  </CodeBlast>
+                ) : (
+                  <a
+                    href={n.h}
+                    className="inline-block rounded-full border border-transparent px-2 py-1 sm:px-3 sm:py-1.5 transition-colors duration-300 hover:border-white/10 hover:bg-[#0C0C0C] hover:text-[#D7E2EA]"
+                  >
+                    <TextRoll>{n.l}</TextRoll>
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -254,7 +266,9 @@ function Hero() {
           </p>
         </FadeIn>
         <FadeIn y={20} delay={0.5} className="relative flex flex-col items-end gap-1">
-          <ContactButton />
+          <CodeBlast enabled density={85}>
+            <ContactButton />
+          </CodeBlast>
         </FadeIn>
       </div>
 
