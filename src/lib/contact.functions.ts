@@ -9,6 +9,7 @@ const contactSchema = z.object({
 });
 
 const OWNER_EMAIL = "ahmadkaimkhani40@gmail.com";
+const OWNER_EMAIL_ALT = "kaim953@gmail.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
 
 function esc(v: string) {
@@ -53,7 +54,10 @@ export const sendContactMessage = createServerFn({ method: "POST" })
           },
           body: JSON.stringify({
             sender: { name: "Portfolio Contact Form", email: OWNER_EMAIL },
-            to: [{ email: OWNER_EMAIL, name: "Muhammad Ahmed" }],
+            to: [
+              { email: OWNER_EMAIL, name: "Muhammad Ahmed" },
+              { email: OWNER_EMAIL_ALT, name: "Muhammad Ahmed" },
+            ],
             replyTo: { email: data.email, name: data.name },
             subject: data.subject
               ? `Portfolio: ${data.subject}`
