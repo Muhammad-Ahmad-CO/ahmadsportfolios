@@ -4,13 +4,19 @@ import { useCallback, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Code, Terminal, Cpu, Braces, Hash } from "lucide-react";
 
-const COLORS = ["#D7E2EA", "#BBCCD7", "#9CA3AF", "#4ade80", "#60a5fa"];
+const COLORS = ["#FFFFFF", "#E8F1F7", "#BBCCD7", "#7CF7A0", "#7CC4FF"];
 
 const TEXT_SYMBOLS = ["</>", "{ }", ";", "#", "01", "()", "/", "/*", "=>"];
 
 function RandomSymbol({ size, color }: { size: number; color: string }) {
   const kind = Math.random();
-  const style = { width: size, height: size, color };
+  const style = {
+    width: size,
+    height: size,
+    color,
+    strokeWidth: 2.4,
+    filter: "drop-shadow(0 0 4px rgba(0,0,0,0.9))",
+  } as React.CSSProperties;
   if (kind < 0.2) return <Code style={style} />;
   if (kind < 0.4) return <Terminal style={style} />;
   if (kind < 0.6) return <Cpu style={style} />;
@@ -25,11 +31,12 @@ function RandomSymbol({ size, color }: { size: number; color: string }) {
         justifyContent: "center",
         width: size,
         height: size,
-        fontSize: size * 0.75,
+        fontSize: size * 0.85,
         fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
         fontWeight: 700,
         color,
         lineHeight: 1,
+        textShadow: "0 0 8px rgba(0,0,0,0.85), 0 0 3px rgba(0,0,0,0.9)",
       }}
     >
       {text}
@@ -72,8 +79,8 @@ export function CodeBlast({
     const x = mouseRef.current.x;
     const y = mouseRef.current.y;
     const angle = Math.random() * Math.PI * 2;
-    const distance = 30 + Math.random() * 70;
-    const size = 10 + Math.random() * 14;
+    const distance = 45 + Math.random() * 85;
+    const size = 18 + Math.random() * 20;
     const color = COLORS[Math.floor(Math.random() * COLORS.length)];
     const id = ++idRef.current;
     const particle: Particle = {
@@ -86,10 +93,10 @@ export function CodeBlast({
       color,
       rotate: (Math.random() - 0.5) * 180,
     };
-    setParticles((prev) => [...prev.slice(-22), particle]);
+    setParticles((prev) => [...prev.slice(-28), particle]);
     setTimeout(() => {
       setParticles((prev) => prev.filter((p) => p.id !== id));
-    }, 950);
+    }, 1250);
   }, []);
 
   const onMouseEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -136,16 +143,16 @@ export function CodeBlast({
           {particles.map((p) => (
             <motion.span
               key={p.id}
-              initial={{ opacity: 0.85, scale: 0.4, x: 0, y: 0, rotate: 0 }}
+              initial={{ opacity: 1, scale: 0.6, x: 0, y: 0, rotate: 0 }}
               animate={{
-                opacity: 0,
-                scale: 1,
+                opacity: [1, 1, 0],
+                scale: 1.15,
                 x: Math.cos(p.angle) * p.distance,
                 y: Math.sin(p.angle) * p.distance,
                 rotate: p.rotate,
               }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.95, ease: "easeOut" }}
+              transition={{ duration: 1.2, ease: "easeOut", opacity: { times: [0, 0.55, 1] } }}
               style={{
                 position: "absolute",
                 left: p.x,
