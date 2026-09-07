@@ -4,6 +4,13 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
+import projWoblo from "@/assets/proj-woblo.jpg";
+import projMonolith from "@/assets/proj-monolith.jpg";
+import projRoyal from "@/assets/proj-royal.jpg";
+import projCement from "@/assets/proj-cement.jpg";
+import projHearth from "@/assets/proj-hearth.jpg";
+import projBloom from "@/assets/proj-bloom.jpg";
+import projAlfjr from "@/assets/proj-alfjr.jpg";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
@@ -475,11 +482,69 @@ function Services() {
 }
 
 const PROJECTS = [
-  { n: "01", name: "Car Customization", category: "Personal", url: "https://019dcdd0-0d09-78ea-9fbe-3a1083806ed1.arena.site/", g1: "from-red-500 to-orange-600", g2: "from-zinc-700 to-zinc-900", g3: "from-orange-400 via-red-500 to-rose-700" },
-  { n: "02", name: "Skin Care Routine", category: "Personal", url: "https://019dcd3f-e3e6-77e7-bf0e-82469eff1a73.arena.site/", g1: "from-pink-300 to-rose-400", g2: "from-amber-200 to-pink-300", g3: "from-rose-300 via-pink-400 to-fuchsia-500" },
-  { n: "03", name: "Neural Hands Tracking", category: "Personal", url: "https://019dca8c-d485-73cb-a8fe-a9f6eeef26c0.arena.site/", g1: "from-cyan-400 to-blue-600", g2: "from-indigo-500 to-purple-700", g3: "from-sky-400 via-cyan-500 to-blue-700" },
-  { n: "04", name: "Study Mentor", category: "Personal", url: "https://019dc13a-492a-7dc7-afeb-8b6c41175485.arena.site/", g1: "from-emerald-400 to-teal-600", g2: "from-lime-400 to-emerald-600", g3: "from-teal-400 via-emerald-500 to-green-700" },
-  { n: "05", name: "Sample Portfolio Design", category: "Personal", url: "https://019da0da-59ed-754a-8ca6-05f228d4c1d4.arena.site/", g1: "from-slate-400 to-slate-700", g2: "from-zinc-300 to-slate-500", g3: "from-slate-500 via-zinc-600 to-slate-900" },
+  {
+    n: "01",
+    name: "Woblo Creative Studio",
+    category: "WebGL / 3D",
+    url: "https://woblo.lovable.app",
+    img: projWoblo,
+    desc: "A creative digital studio site built around motion, WebGL and 3D storytelling — immersive scroll sequences, a showreel moment and case studies that keep visitors exploring.",
+    tags: ["WebGL", "3D", "Motion"],
+  },
+  {
+    n: "02",
+    name: "Monolith Studio",
+    category: "Brand Site",
+    url: "https://monolithstudio.lovable.app",
+    img: projMonolith,
+    desc: "A contemporary Brooklyn tattoo studio site: 25 resident artists with individual booking, a live local clock, editorial typography and a stark black-and-white identity.",
+    tags: ["Editorial", "Booking", "Dark UI"],
+  },
+  {
+    n: "03",
+    name: "Royal Beverage",
+    category: "Corporate",
+    url: "https://royal-beverages.lovable.app",
+    img: projRoyal,
+    desc: "Corporate site for a beverage producer running since 1994 — company story, product range, production process and news, presented with a clean, trust-building layout.",
+    tags: ["Products", "Company", "Multi-page"],
+  },
+  {
+    n: "04",
+    name: "CURA Climate",
+    category: "Climate Tech",
+    url: "https://cement-zen.lovable.app",
+    img: projCement,
+    desc: "A climate-tech landing page for decarbonized cement technology, translating heavy industrial data into a sharp scroll narrative with clear proof points and a strong CTA.",
+    tags: ["Landing", "Data Story", "Scroll"],
+  },
+  {
+    n: "05",
+    name: "Maison Home Store",
+    category: "E-commerce",
+    url: "https://home-hearth-store.lovable.app",
+    img: projHearth,
+    desc: "A calm e-commerce experience for handcrafted home goods: featured collections, product cards with pricing and materials, and a warm, minimal shopping flow.",
+    tags: ["Shop", "Catalog", "Minimal"],
+  },
+  {
+    n: "06",
+    name: "Verdant Studio",
+    category: "Agency",
+    url: "https://cinematic-bloom-design.lovable.app",
+    img: projBloom,
+    desc: "A cinematic agency portfolio blending nature and technology — philosophy, capabilities and process sections composed with restrained motion and generous space.",
+    tags: ["Cinematic", "Portfolio", "Brand"],
+  },
+  {
+    n: "07",
+    name: "Al Fajr Foods",
+    category: "Restaurant",
+    url: "https://al-fjrfoods.lovable.app",
+    img: projAlfjr,
+    desc: "A restaurant site for a Latifabad favourite — full menu by category, cart and sign-in, opening hours and location, built for hungry visitors on mobile.",
+    tags: ["Menu", "Cart", "Local SEO"],
+  },
 ];
 
 function ProjectCard({
@@ -493,7 +558,7 @@ function ProjectCard({
 }) {
   const targetScale = 1 - (total - 1 - index) * 0.03;
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress, scrollY } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "start start"],
   });
@@ -515,13 +580,30 @@ function ProjectCard({
           </div>
           <LiveProjectButton href={p.url} />
         </div>
-        <div className="mt-5 md:mt-8 grid grid-cols-5 gap-3 md:gap-4 h-[45vh] md:h-[55vh]">
-          <div className="col-span-2 flex flex-col gap-3 md:gap-4">
-            <div className={`keep-color flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g1}`} />
-            <div className={`keep-color flex-1 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g2}`} />
+        <div className="mt-5 md:mt-8 grid gap-4 md:gap-6 md:grid-cols-5 h-auto md:h-[55vh]">
+          <div className="md:col-span-3 keep-color overflow-hidden rounded-2xl md:rounded-3xl border border-white/10">
+            <img
+              src={p.img}
+              alt={`${p.name} website preview`}
+              loading="lazy"
+              className="h-[28vh] md:h-full w-full object-cover object-top"
+            />
           </div>
-          <div className={`keep-color col-span-3 rounded-2xl md:rounded-3xl bg-gradient-to-br ${p.g3}`} />
+          <div className="md:col-span-2 flex flex-col justify-between gap-4 text-[#D7E2EA]">
+            <p className="text-sm md:text-base leading-relaxed opacity-80">{p.desc}</p>
+            <div className="flex flex-wrap gap-2">
+              {p.tags.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] md:text-xs uppercase tracking-wider opacity-70"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
+
       </motion.article>
     </div>
   );
