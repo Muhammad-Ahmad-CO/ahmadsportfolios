@@ -1,16 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
 import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
-import projWoblo from "@/assets/proj-woblo.jpg";
-import projMonolith from "@/assets/proj-monolith.jpg";
-import projRoyal from "@/assets/proj-royal.jpg";
-import projCement from "@/assets/proj-cement.jpg";
-import projHearth from "@/assets/proj-hearth.jpg";
-import projBloom from "@/assets/proj-bloom.jpg";
-import projAlfjr from "@/assets/proj-alfjr.jpg";
+import { PROJECTS } from "@/data/projects";
+
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
@@ -29,9 +24,35 @@ import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 
 
+const OG_IMAGE =
+  "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Muhammad Ahmed — AI Specialist & Web Developer" },
+      {
+        name: "description",
+        content:
+          "AI Specialist Muhammad Ahmed builds AI-powered products and modern web experiences. See services, skills and seven live client projects.",
+      },
+      { property: "og:title", content: "Muhammad Ahmed — AI Specialist & Web Developer" },
+      {
+        property: "og:description",
+        content:
+          "AI-powered products and modern web experiences — services, skills and seven live client projects.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://ahmadsportfolios.lovable.app/" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [{ rel: "canonical", href: "https://ahmadsportfolios.lovable.app/" }],
+  }),
 });
+
 
 const EMAIL = "ahmadkaimkhani40@gmail.com";
 const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
@@ -481,71 +502,8 @@ function Services() {
   );
 }
 
-const PROJECTS = [
-  {
-    n: "01",
-    name: "Woblo Creative Studio",
-    category: "WebGL / 3D",
-    url: "https://woblo.lovable.app",
-    img: projWoblo,
-    desc: "A creative digital studio site built around motion, WebGL and 3D storytelling — immersive scroll sequences, a showreel moment and case studies that keep visitors exploring.",
-    tags: ["WebGL", "3D", "Motion"],
-  },
-  {
-    n: "02",
-    name: "Monolith Studio",
-    category: "Brand Site",
-    url: "https://monolithstudio.lovable.app",
-    img: projMonolith,
-    desc: "A contemporary Brooklyn tattoo studio site: 25 resident artists with individual booking, a live local clock, editorial typography and a stark black-and-white identity.",
-    tags: ["Editorial", "Booking", "Dark UI"],
-  },
-  {
-    n: "03",
-    name: "Royal Beverage",
-    category: "Corporate",
-    url: "https://royal-beverages.lovable.app",
-    img: projRoyal,
-    desc: "Corporate site for a beverage producer running since 1994 — company story, product range, production process and news, presented with a clean, trust-building layout.",
-    tags: ["Products", "Company", "Multi-page"],
-  },
-  {
-    n: "04",
-    name: "CURA Climate",
-    category: "Climate Tech",
-    url: "https://cement-zen.lovable.app",
-    img: projCement,
-    desc: "A climate-tech landing page for decarbonized cement technology, translating heavy industrial data into a sharp scroll narrative with clear proof points and a strong CTA.",
-    tags: ["Landing", "Data Story", "Scroll"],
-  },
-  {
-    n: "05",
-    name: "Maison Home Store",
-    category: "E-commerce",
-    url: "https://home-hearth-store.lovable.app",
-    img: projHearth,
-    desc: "A calm e-commerce experience for handcrafted home goods: featured collections, product cards with pricing and materials, and a warm, minimal shopping flow.",
-    tags: ["Shop", "Catalog", "Minimal"],
-  },
-  {
-    n: "06",
-    name: "Verdant Studio",
-    category: "Agency",
-    url: "https://cinematic-bloom-design.lovable.app",
-    img: projBloom,
-    desc: "A cinematic agency portfolio blending nature and technology — philosophy, capabilities and process sections composed with restrained motion and generous space.",
-    tags: ["Cinematic", "Portfolio", "Brand"],
-  },
-  {
-    n: "07",
-    name: "Al Fajr Foods",
-    category: "Restaurant",
-    url: "https://al-fjrfoods.lovable.app",
-    img: projAlfjr,
-    desc: "A restaurant site for a Latifabad favourite — full menu by category, cart and sign-in, opening hours and location, built for hungry visitors on mobile.",
-    tags: ["Menu", "Cart", "Local SEO"],
-  },
-];
+
+
 
 function ProjectCard({
   p,
@@ -628,7 +586,17 @@ function Projects() {
           <ProjectCard key={p.n} p={p} index={i} total={PROJECTS.length} />
         ))}
       </div>
+      <div className="mt-16 flex justify-center">
+        <Link
+          to="/portfolio"
+          className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-sm md:text-base uppercase tracking-wider text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+        >
+          View full portfolio
+          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+        </Link>
+      </div>
     </section>
+
   );
 }
 
