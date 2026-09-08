@@ -560,7 +560,17 @@ function Projects() {
           <ProjectCard key={p.n} p={p} index={i} total={PROJECTS.length} />
         ))}
       </div>
+      <div className="mt-16 flex justify-center">
+        <Link
+          to="/portfolio"
+          className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-sm md:text-base uppercase tracking-wider text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+        >
+          View full portfolio
+          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+        </Link>
+      </div>
     </section>
+
   );
 }
 
