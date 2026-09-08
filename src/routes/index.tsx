@@ -24,9 +24,35 @@ import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 
 
+const OG_IMAGE =
+  "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
+
 export const Route = createFileRoute("/")({
   component: Index,
+  head: () => ({
+    meta: [
+      { title: "Muhammad Ahmed — AI Specialist & Web Developer" },
+      {
+        name: "description",
+        content:
+          "AI Specialist Muhammad Ahmed builds AI-powered products and modern web experiences. See services, skills and seven live client projects.",
+      },
+      { property: "og:title", content: "Muhammad Ahmed — AI Specialist & Web Developer" },
+      {
+        property: "og:description",
+        content:
+          "AI-powered products and modern web experiences — services, skills and seven live client projects.",
+      },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://ahmadsportfolios.lovable.app/" },
+      { property: "og:image", content: OG_IMAGE },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
+    ],
+    links: [{ rel: "canonical", href: "https://ahmadsportfolios.lovable.app/" }],
+  }),
 });
+
 
 const EMAIL = "ahmadkaimkhani40@gmail.com";
 const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
