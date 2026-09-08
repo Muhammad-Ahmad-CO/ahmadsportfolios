@@ -481,71 +481,8 @@ function Services() {
   );
 }
 
-const PROJECTS = [
-  {
-    n: "01",
-    name: "Woblo Creative Studio",
-    category: "WebGL / 3D",
-    url: "https://woblo.lovable.app",
-    img: projWoblo,
-    desc: "A creative digital studio site built around motion, WebGL and 3D storytelling — immersive scroll sequences, a showreel moment and case studies that keep visitors exploring.",
-    tags: ["WebGL", "3D", "Motion"],
-  },
-  {
-    n: "02",
-    name: "Monolith Studio",
-    category: "Brand Site",
-    url: "https://monolithstudio.lovable.app",
-    img: projMonolith,
-    desc: "A contemporary Brooklyn tattoo studio site: 25 resident artists with individual booking, a live local clock, editorial typography and a stark black-and-white identity.",
-    tags: ["Editorial", "Booking", "Dark UI"],
-  },
-  {
-    n: "03",
-    name: "Royal Beverage",
-    category: "Corporate",
-    url: "https://royal-beverages.lovable.app",
-    img: projRoyal,
-    desc: "Corporate site for a beverage producer running since 1994 — company story, product range, production process and news, presented with a clean, trust-building layout.",
-    tags: ["Products", "Company", "Multi-page"],
-  },
-  {
-    n: "04",
-    name: "CURA Climate",
-    category: "Climate Tech",
-    url: "https://cement-zen.lovable.app",
-    img: projCement,
-    desc: "A climate-tech landing page for decarbonized cement technology, translating heavy industrial data into a sharp scroll narrative with clear proof points and a strong CTA.",
-    tags: ["Landing", "Data Story", "Scroll"],
-  },
-  {
-    n: "05",
-    name: "Maison Home Store",
-    category: "E-commerce",
-    url: "https://home-hearth-store.lovable.app",
-    img: projHearth,
-    desc: "A calm e-commerce experience for handcrafted home goods: featured collections, product cards with pricing and materials, and a warm, minimal shopping flow.",
-    tags: ["Shop", "Catalog", "Minimal"],
-  },
-  {
-    n: "06",
-    name: "Verdant Studio",
-    category: "Agency",
-    url: "https://cinematic-bloom-design.lovable.app",
-    img: projBloom,
-    desc: "A cinematic agency portfolio blending nature and technology — philosophy, capabilities and process sections composed with restrained motion and generous space.",
-    tags: ["Cinematic", "Portfolio", "Brand"],
-  },
-  {
-    n: "07",
-    name: "Al Fajr Foods",
-    category: "Restaurant",
-    url: "https://al-fjrfoods.lovable.app",
-    img: projAlfjr,
-    desc: "A restaurant site for a Latifabad favourite — full menu by category, cart and sign-in, opening hours and location, built for hungry visitors on mobile.",
-    tags: ["Menu", "Cart", "Local SEO"],
-  },
-];
+
+
 
 function ProjectCard({
   p,
