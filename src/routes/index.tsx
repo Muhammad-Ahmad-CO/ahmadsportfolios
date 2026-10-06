@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
-import { ArrowUpRight, Mail, Phone, Linkedin, Github, Home } from "lucide-react";
+import { ArrowUpRight, Mail, Home } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
 
@@ -602,19 +602,28 @@ function Projects() {
 
 function Footer() {
   return (
-    <footer id="footer" className="relative overflow-hidden bg-[#0C0C0C] pt-16 md:pt-24 pb-32 md:pb-32 px-6 border-t border-white/10">
+    <footer id="footer" className="relative overflow-hidden bg-[#0C0C0C] pt-16 md:pt-24 pb-44 sm:pb-40 md:pb-48 px-6 border-t border-white/10">
       <DottedSurface className="opacity-40" />
       <div className="relative z-10 max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
         <div className="text-center md:text-left space-y-4">
-          <h2 className="hero-heading font-black uppercase text-3xl md:text-5xl">
+          <h2
+            className="hero-heading font-black uppercase break-words"
+            style={{ fontSize: "clamp(1.9rem, 5.5vw, 3rem)", lineHeight: 1.15 }}
+          >
             Let&rsquo;s build with AI
           </h2>
           <p className="text-sm md:text-base text-[#D7E2EA]/60 max-w-md mx-auto md:mx-0">
             Reach out for collaborations, projects, or just to say hi.
           </p>
-          <p className="text-xs text-[#D7E2EA]/40 pt-4">
-            © 2026 Muhammad Ahmed. All rights reserved.
-          </p>
+          <a
+            href={EMAIL_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hero-heading inline-block font-bold break-all transition-opacity hover:opacity-80"
+            style={{ fontSize: "clamp(1.25rem, 4vw, 1.5rem)", lineHeight: 1.2 }}
+          >
+            {EMAIL}
+          </a>
         </div>
         <div className="flex w-full max-w-[680px] md:max-w-none justify-center md:justify-end">
           <GlassCard
@@ -626,6 +635,9 @@ function Footer() {
           />
         </div>
       </div>
+      <p className="relative z-10 mt-14 text-center text-xs text-[#D7E2EA]/40">
+        © 2026 Muhammad Ahmed. All rights reserved.
+      </p>
     </footer>
   );
 }
@@ -672,9 +684,6 @@ function Index() {
         <Dock>
           <DockIcon href="#top" label="Home">
             <Home className="h-4 w-4 sm:h-5 sm:w-5" />
-          </DockIcon>
-          <DockIcon href={GITHUB} label="GitHub">
-            <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon href={EMAIL_URL} label="Email">
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
