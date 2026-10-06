@@ -1,7 +1,6 @@
 import * as React from "react";
 import { Mail, Phone, Linkedin, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
-import SocialCard from "./social-card";
 import ContactForm from "./contact-form";
 
 
@@ -236,16 +235,7 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
             </div>
 
             <div className="gc-right">
-              <div style={{ display: "grid", gap: 18, width: "100%", minWidth: 0 }}>
-                <ContactForm />
-                <SocialCard
-                  email={email || ""}
-                  emailUrl={emailUrl || `mailto:${email || ""}`}
-                  phone={phone || ""}
-                  linkedin={linkedin || ""}
-                  github={github || ""}
-                />
-              </div>
+              <ContactForm />
             </div>
 
           </div>
