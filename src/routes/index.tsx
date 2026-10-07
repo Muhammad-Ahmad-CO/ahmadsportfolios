@@ -26,6 +26,21 @@ import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 
 const OG_IMAGE =
   "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
+const HOME_DESC =
+  "Muhammad Ahmed, AI specialist and web developer in Pakistan, delivering AI integration, computer vision and modern websites. Explore services and live projects.";
+
+const FAQS = [
+  { q: "What services do you offer?", a: "AI integration (chatbots, LLM features, speech and automation), computer vision solutions, and custom, fast websites and web apps — from landing pages to full multi-page products." },
+  { q: "Are you available for freelance or full-time work?", a: "Yes. I take on freelance projects and I'm open to remote contract or full-time roles. Send a message through the contact form with a short brief." },
+  { q: "What are typical project timelines?", a: "A landing page usually takes 1–2 weeks, a multi-page website 2–4 weeks, and AI-powered features or apps 3–8 weeks depending on scope." },
+  { q: "What is your tech stack?", a: "React, TypeScript, Tailwind CSS, Framer Motion and Three.js/WebGL on the front-end, plus Python, LLM APIs, Whisper, TensorFlow and PyTorch for AI work." },
+  { q: "How does the collaboration process work?", a: "Discovery call → written scope and timeline → design and build with regular previews → feedback rounds → launch and handover with support." },
+  { q: "How can I request a quote?", a: "Use the “Get in touch” form below with your goals, timeline and budget range. I'll reply by email with an estimate, usually within 1–2 days." },
+];
+
+// TODO(owner): Add 2–3 REAL client testimonials (quote, full name, role/company).
+// Leave this empty until you have real ones — the section stays hidden while empty.
+const TESTIMONIALS: { quote: string; name: string; role: string }[] = [];
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -34,19 +49,16 @@ export const Route = createFileRoute("/")({
       { title: "Muhammad Ahmed — AI Specialist & Web Developer" },
       {
         name: "description",
-        content:
-          "AI Specialist Muhammad Ahmed builds AI-powered products and modern web experiences. See services, skills and seven live client projects.",
+        content: HOME_DESC,
       },
       { property: "og:title", content: "Muhammad Ahmed — AI Specialist & Web Developer" },
-      {
-        property: "og:description",
-        content:
-          "AI-powered products and modern web experiences — services, skills and seven live client projects.",
-      },
+      { property: "og:description", content: HOME_DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://ahmadsportfolios.lovable.app/" },
       { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Muhammad Ahmed — AI Specialist & Web Developer" },
+      { name: "twitter:description", content: HOME_DESC },
       { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: "https://ahmadsportfolios.lovable.app/" }],
@@ -243,6 +255,7 @@ function Hero() {
               { l: "About", h: "#about" },
               { l: "Price", h: "#services" },
               { l: "Projects", h: "#projects" },
+              { l: "FAQ", h: "#faq" },
               { l: "Contact", h: "#footer" },
             ].map((n) => (
               <li key={n.l}>
@@ -542,13 +555,20 @@ function ProjectCard({
           <div className="md:col-span-3 keep-color overflow-hidden rounded-2xl md:rounded-3xl border border-white/10">
             <img
               src={p.img}
-              alt={`${p.name} website preview`}
+              alt={`${p.name} website preview — ${p.category} project`}
               loading="lazy"
               className="h-[28vh] md:h-full w-full object-cover object-top"
             />
           </div>
           <div className="md:col-span-2 flex flex-col justify-between gap-4 text-[#D7E2EA]">
             <p className="text-sm md:text-base leading-relaxed opacity-80">{p.desc}</p>
+            <Link
+              to="/portfolio/$slug"
+              params={{ slug: p.slug }}
+              className="inline-flex w-fit items-center gap-2 text-sm uppercase tracking-wider underline-offset-4 hover:underline"
+            >
+              View case study <ArrowUpRight className="h-4 w-4" />
+            </Link>
             <div className="flex flex-wrap gap-2">
               {p.tags.map((t) => (
                 <span
@@ -635,10 +655,54 @@ function Footer() {
           />
         </div>
       </div>
-      <p className="relative z-10 mt-14 text-center text-xs text-[#D7E2EA]/40">
+      <nav aria-label="Footer" className="relative z-10 mt-14 flex flex-wrap justify-center gap-x-6 gap-y-2 text-xs uppercase tracking-wider text-[#D7E2EA]/60">
+        <a href="#about" className="hover:text-[#D7E2EA]">About</a>
+        <a href="#services" className="hover:text-[#D7E2EA]">Services</a>
+        <a href="#projects" className="hover:text-[#D7E2EA]">Projects</a>
+        <Link to="/portfolio" className="hover:text-[#D7E2EA]">Portfolio</Link>
+        <a href="#faq" className="hover:text-[#D7E2EA]">FAQ</a>
+        <Link to="/privacy" className="hover:text-[#D7E2EA]">Privacy Policy</Link>
+      </nav>
+      <p className="relative z-10 mt-6 text-center text-xs text-[#D7E2EA]/40">
         © 2026 Muhammad Ahmed. All rights reserved.
       </p>
     </footer>
+  );
+}
+
+function Testimonials() {
+  if (TESTIMONIALS.length === 0) return null;
+  return (
+    <section id="testimonials" className="relative bg-[#0C0C0C] px-6 py-24 text-[#D7E2EA]">
+      <h2 className="hero-heading mb-12 text-center font-black uppercase" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>Testimonials</h2>
+      <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+        {TESTIMONIALS.map((t) => (
+          <figure key={t.name} className="rounded-3xl border border-white/10 p-6">
+            <blockquote className="opacity-85">“{t.quote}”</blockquote>
+            <figcaption className="mt-4 text-sm"><strong>{t.name}</strong><span className="opacity-60"> — {t.role}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Faq() {
+  return (
+    <section id="faq" className="relative bg-[#0C0C0C] px-6 py-24 text-[#D7E2EA]">
+      <h2 className="hero-heading mb-12 text-center font-black uppercase" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>FAQ</h2>
+      <div className="mx-auto max-w-3xl divide-y divide-white/10 border-y border-white/10">
+        {FAQS.map((f) => (
+          <details key={f.q} className="group py-5">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg md:text-xl font-medium">
+              {f.q}
+              <span className="text-2xl transition-transform group-open:rotate-45" aria-hidden>+</span>
+            </summary>
+            <p className="mt-3 leading-relaxed opacity-75">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -678,6 +742,8 @@ function Index() {
         <About />
         <Services />
         <Projects />
+        <Testimonials />
+        <Faq />
         <Footer />
       </div>
       <div className="fixed bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 px-3 max-w-[calc(100vw-1.5rem)]">

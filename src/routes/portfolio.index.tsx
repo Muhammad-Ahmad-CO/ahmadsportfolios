@@ -82,7 +82,7 @@ function PortfolioPage() {
               <div className="keep-color overflow-hidden">
                 <img
                   src={p.img}
-                  alt={`${p.name} website preview`}
+                  alt={`${p.name} website preview — ${p.category} project`}
                   loading="lazy"
                   className="h-52 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />

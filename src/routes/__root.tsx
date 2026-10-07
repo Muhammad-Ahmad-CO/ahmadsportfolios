@@ -6,33 +6,40 @@ import {
   useRouter,
   HeadContent,
   Scripts,
+  type ErrorComponentProps,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
 
+// TODO(owner): replace "G-XXXXXXX" with your real GA4 Measurement ID
+// (Google Analytics → Admin → Data streams → your web stream → Measurement ID).
+const GA_ID = "G-XXXXXXX";
+
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+    <main className="flex min-h-screen items-center justify-center bg-[#0C0C0C] px-6 text-[#D7E2EA]">
+      <div className="max-w-xl text-center">
+        <p className="text-sm uppercase tracking-[0.3em] opacity-50">Error 404</p>
+        <h1 className="hero-heading mt-4 font-black uppercase" style={{ fontSize: "clamp(4rem, 18vw, 10rem)", lineHeight: 1 }}>
+          404
+        </h1>
+        <p className="mt-6 text-lg md:text-xl opacity-80">
+          This page wandered off like an untrained model.
         </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
+        <div className="mt-10 flex flex-wrap justify-center gap-3">
+          <Link to="/" className="rounded-full bg-[#D7E2EA] px-6 py-3 text-sm font-semibold uppercase tracking-wider text-[#0C0C0C] transition-opacity hover:opacity-85">
+            Back to Home
+          </Link>
+          <Link to="/portfolio" className="rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-sm font-semibold uppercase tracking-wider transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]">
+            View Projects
           </Link>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
-function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
+function ErrorComponent({ error, reset }: ErrorComponentProps) {
   console.error(error);
   const router = useRouter();
 
@@ -72,18 +79,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Muhammad Ahmed – AI Specialist" },
-      { name: "description", content: "Portfolio of Muhammad Ahmed, AI Specialist orchestrating intelligent, efficient solutions with modern AI tools and frameworks." },
       { name: "author", content: "Muhammad Ahmed" },
-      { property: "og:title", content: "Muhammad Ahmed – AI Specialist" },
-      { property: "og:description", content: "Portfolio of Muhammad Ahmed, AI Specialist orchestrating intelligent, efficient solutions with modern AI tools and frameworks." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Muhammad Ahmed – AI Specialist" },
-      { name: "twitter:description", content: "Portfolio of Muhammad Ahmed, AI Specialist orchestrating intelligent, efficient solutions with modern AI tools and frameworks." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6561983f-e87e-463f-a9b6-b4295c8ea2de" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/6561983f-e87e-463f-a9b6-b4295c8ea2de" },
+      { property: "og:site_name", content: "Muhammad Ahmed — Portfolio" },
+    ],
+    scripts: [
+      { src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`, async: true },
+      {
+        children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`,
+      },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

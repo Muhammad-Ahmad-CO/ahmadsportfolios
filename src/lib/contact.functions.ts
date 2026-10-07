@@ -6,11 +6,14 @@ const contactSchema = z.object({
   email: z.string().trim().email("Invalid email address").max(255),
   subject: z.string().trim().max(150).optional().default(""),
   message: z.string().trim().min(5, "Message is too short").max(2000),
+  website: z.string().max(200).optional().default(""), // honeypot
 });
 
 const OWNER_EMAIL = "ahmadkaimkhani40@gmail.com";
 const OWNER_EMAIL_ALT = "kaim953@gmail.com";
 const GATEWAY_URL = "https://connector-gateway.lovable.dev/brevo";
+const RATE_LIMIT = 3; // max messages per email
+const RATE_WINDOW_MIN = 60;
 
 function esc(v: string) {
   return v.replace(/[&<>"']/g, (c) =>
@@ -21,7 +24,20 @@ function esc(v: string) {
 export const sendContactMessage = createServerFn({ method: "POST" })
   .inputValidator((data: unknown) => contactSchema.parse(data))
   .handler(async ({ data }) => {
+    // Honeypot filled → bot. Pretend success, store nothing.
+    if (data.website) return { ok: true, emailed: false };
+
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+    const since = new Date(Date.now() - RATE_WINDOW_MIN * 60_000).toISOString();
+    const { count } = await supabaseAdmin
+      .from("contact_messages")
+      .select("id", { count: "exact", head: true })
+      .eq("email", data.email)
+      .gte("created_at", since);
+    if ((count ?? 0) >= RATE_LIMIT) {
+      throw new Error("Too many messages sent. Please try again in an hour.");
+    }
 
     const { data: row, error } = await supabaseAdmin
       .from("contact_messages")

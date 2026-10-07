@@ -94,7 +94,7 @@ function ProjectPage() {
       <div className="keep-color mt-12 overflow-hidden rounded-3xl border border-white/12">
         <img
           src={p.img}
-          alt={`${p.name} homepage`}
+          alt={`${p.name} homepage preview — ${p.category} project`}
           width={1280}
           height={800}
           className="w-full object-cover object-top"
@@ -153,7 +153,7 @@ function ProjectPage() {
             >
               <img
                 src={src}
-                alt={`${p.name} screen ${i + 1}`}
+                alt={`${p.name} gallery screenshot ${i + 1} — ${p.category}`}
                 loading="lazy"
                 className="w-full object-cover object-top"
               />

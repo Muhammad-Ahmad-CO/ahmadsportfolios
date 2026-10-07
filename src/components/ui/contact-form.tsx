@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useServerFn } from "@tanstack/react-start";
+import { useNavigate } from "@tanstack/react-router";
 import { Send, Loader2, CheckCircle2 } from "lucide-react";
 import { sendContactMessage } from "@/lib/contact.functions";
 
@@ -7,13 +8,20 @@ type Status = "idle" | "sending" | "sent" | "error";
 
 export default function ContactForm() {
   const send = useServerFn(sendContactMessage);
+  const navigate = useNavigate();
   const [status, setStatus] = React.useState<Status>("idle");
   const [error, setError] = React.useState<string>("");
+  const lastSent = React.useRef(0);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
+    if (Date.now() - lastSent.current < 30_000) {
+      setStatus("error");
+      setError("Please wait a few seconds before sending another message.");
+      return;
+    }
     setStatus("sending");
     setError("");
     try {
@@ -23,10 +31,13 @@ export default function ContactForm() {
           email: String(fd.get("email") ?? ""),
           subject: String(fd.get("subject") ?? ""),
           message: String(fd.get("message") ?? ""),
+          website: String(fd.get("website") ?? ""),
         },
       });
+      lastSent.current = Date.now();
       setStatus("sent");
       form.reset();
+      navigate({ to: "/thank-you" });
     } catch (err) {
       setStatus("error");
       setError(
@@ -97,6 +108,10 @@ export default function ContactForm() {
         />
       </div>
       <input name="subject" maxLength={150} placeholder="Subject (optional)" aria-label="Subject" />
+      {/* Honeypot: hidden from people, bots fill it */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+        <label>Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
+      </div>
       <textarea
         name="message"
         required
