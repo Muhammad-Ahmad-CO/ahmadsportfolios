@@ -1,5 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import {
+  ClientOnly,
   Outlet,
   Link,
   createRootRouteWithContext,
@@ -10,6 +12,8 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+
+const PortfolioMascot = lazy(() => import("@/components/portfolio-mascot"));
 
 // TODO(owner): replace "G-XXXXXXX" with your real GA4 Measurement ID
 // (Google Analytics → Admin → Data streams → your web stream → Measurement ID).
@@ -128,6 +132,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <ClientOnly fallback={null}>
+        <Suspense fallback={null}><PortfolioMascot /></Suspense>
+      </ClientOnly>
     </QueryClientProvider>
   );
 }
