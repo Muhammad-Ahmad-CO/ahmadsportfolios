@@ -19,6 +19,7 @@ export default function ContactForm() {
     const form = e.currentTarget;
     const fd = new FormData(form);
     if (Date.now() - lastSent.current < 30_000) {
+      notifyMascot("error");
       setStatus("error");
       setError("Please wait a few seconds before sending another message.");
       return;
