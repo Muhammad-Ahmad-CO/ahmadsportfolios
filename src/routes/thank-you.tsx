@@ -8,6 +8,8 @@ export const Route = createFileRoute("/thank-you")({
       { name: "description", content: "Thanks for reaching out to Muhammad Ahmed. Your message was received and you will get a reply by email soon." },
       { property: "og:title", content: "Message Sent — Muhammad Ahmed" },
       { property: "og:description", content: "Thanks for reaching out. Your message was received." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),

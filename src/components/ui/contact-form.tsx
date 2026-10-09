@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useNavigate } from "@tanstack/react-router";
 import { Send, Loader2, CheckCircle2 } from "lucide-react";
 import { sendContactMessage } from "@/lib/contact.functions";
+import { notifyMascot } from "@/lib/mascot-events";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -36,9 +37,11 @@ export default function ContactForm() {
       });
       lastSent.current = Date.now();
       setStatus("sent");
+      notifyMascot("celebrate");
       form.reset();
       navigate({ to: "/thank-you" });
     } catch (err) {
+      notifyMascot("error");
       setStatus("error");
       setError(
         err instanceof Error && err.message
@@ -49,7 +52,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="cf-form">
+    <form onSubmit={onSubmit} onInvalidCapture={() => notifyMascot("error")} className="cf-form">
       <style>{`
         .cf-form { display: grid; gap: 10px; width: 100%; }
         .cf-form input, .cf-form textarea {
