@@ -8,7 +8,7 @@ import "@bible-strong/avatar-react/styles.css";
 import mascotDefinition from "@/assets/mascot.avatar.json";
 import { MASCOT_REACTION_EVENT } from "@/lib/mascot-events";
 
-const definition = mascotDefinition as AvatarProps["definition"];
+const definition = mascotDefinition as unknown as AvatarProps["definition"];
 type Animation =
   | "idle"
   | "sleeping"
