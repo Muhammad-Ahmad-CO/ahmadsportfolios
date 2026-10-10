@@ -432,13 +432,13 @@ function About() {
       <div className="mx-auto flex w-full max-w-[1000px] flex-col items-center">
           <h2
             className="about-heading text-center font-bold uppercase"
-            style={{ fontSize: "clamp(2.5rem, 10vw, 130px)" }}
+            style={{ fontSize: "clamp(1.75rem, 5vw, 56px)" }}
           >
             <DecodeText text="About me" active={decode} />
           </h2>
 
         <div className="mt-8 w-full md:mt-12">
-          <p className="about-description mx-auto max-w-[900px] text-center text-[15px] font-normal leading-[1.6] sm:text-[17px]">
+          <p className="about-description mx-auto max-w-[900px] text-center text-[17px] font-normal leading-[1.7] sm:text-[19px] md:text-[20px]">
             <DecodeText text={BIO} active={decode} delay={510} />
           </p>
         </div>
