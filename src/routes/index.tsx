@@ -9,6 +9,7 @@ import { PROJECTS } from "@/data/projects";
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
+import { RollingCounter } from "@/components/ui/rolling-counter";
 
 import GlassCard from "@/components/ui/glass-card";
 
@@ -730,7 +731,12 @@ function Index() {
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <FlipClock mode={clockMode} onToggle={toggleClock} />
+        <div className="relative w-max">
+          <FlipClock mode={clockMode} onToggle={toggleClock} />
+          <div className="absolute left-0 top-full mt-2 w-full">
+            <RollingCounter />
+          </div>
+        </div>
       </div>
       
       <div className="pointer-events-none fixed inset-0 z-0 opacity-30">

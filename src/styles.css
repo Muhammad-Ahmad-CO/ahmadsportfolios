@@ -208,6 +208,12 @@ html.light-mode .hero-heading {
 
 :root {
   --mascot-shadow: oklch(0 0 0 / 0.32);
+  --counter-housing: oklch(0.16 0 0);
+  --counter-border: oklch(0.3 0 0);
+  --counter-paper: oklch(0.96 0.005 90);
+  --counter-ink: oklch(0.12 0 0);
+  --counter-shade: oklch(0 0 0 / 0.8);
+  --counter-highlight: oklch(1 0 0 / 0.28);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -377,6 +383,58 @@ html.eye-mode {
 }
 
 /* Persistent decoration only: all content behind it remains clickable. */
+.rolling-counter {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 2px;
+  overflow: hidden;
+  border: 1px solid var(--counter-border);
+  border-radius: 5px;
+  background: var(--counter-housing);
+  box-shadow: inset 0 2px 5px var(--counter-shade);
+  transition: border-color 300ms cubic-bezier(.22, 1.28, .42, 1);
+}
+.rolling-counter:hover { background: var(--counter-housing); border-color: var(--counter-paper); }
+.rolling-counter-window {
+  --drum-face-height: 24px;
+  display: flex;
+  gap: 1px;
+  width: 100%;
+  height: calc(var(--drum-face-height) * 1.62);
+}
+.rolling-counter-cell {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--counter-paper);
+}
+.rolling-counter-cell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--counter-shade), transparent 14%, transparent 86%, var(--counter-shade)), linear-gradient(180deg, var(--counter-shade), transparent 40%, var(--counter-highlight) 50%, transparent 60%, var(--counter-shade));
+}
+.rolling-counter-face {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: var(--drum-face-height);
+  margin-top: calc(var(--drum-face-height) / -2);
+  font-family: var(--font-sans);
+  font-size: calc(var(--drum-face-height) * .9);
+  font-weight: 600;
+  line-height: var(--drum-face-height);
+  text-align: center;
+  color: var(--counter-ink);
+  background: var(--counter-paper);
+  backface-visibility: hidden;
+}
+
 .portfolio-mascot {
   position: fixed;
   right: max(20px, env(safe-area-inset-right));
