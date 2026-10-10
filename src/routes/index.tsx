@@ -18,7 +18,7 @@ import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { CodeBlast } from "@/components/ui/code-blast";
 import { DottedSurface } from "@/components/ui/dotted-surface";
-import { TextEffect } from "@/components/ui/text-effect";
+import { DecodeText } from "@/components/ui/decode-text";
 import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
@@ -410,8 +410,18 @@ const BIO =
 
 function About() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const [replay, setReplay] = useState(true);
-  const inView = useInView(targetRef, { once: !replay, amount: 0.15 });
+  const [decode, setDecode] = useState(false);
+  useEffect(() => {
+    const section = targetRef.current;
+    if (!section) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry?.isIntersecting) return;
+      setDecode(true);
+      observer.disconnect();
+    }, { threshold: 0.15 });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -420,41 +430,17 @@ function About() {
       className="relative w-full px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36"
     >
       <div className="mx-auto flex w-full max-w-[1000px] flex-col items-center">
-        <FadeIn>
           <h2
-            className="hero-heading text-center font-black uppercase tracking-tight"
+            className="about-heading text-center font-bold uppercase"
             style={{ fontSize: "clamp(2.5rem, 10vw, 130px)" }}
           >
-            About me
+            <DecodeText text="About me" active={decode} />
           </h2>
-        </FadeIn>
-
-        <button
-          type="button"
-          onClick={() => setReplay((v) => !v)}
-          aria-pressed={replay}
-          className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#D7E2EA]/30 px-4 py-1.5 text-[0.7rem] uppercase tracking-wider text-[#D7E2EA]/70 transition-colors hover:border-[#D7E2EA]/60 hover:text-[#D7E2EA]"
-        >
-          <span
-            className={`h-2 w-2 rounded-full transition-colors ${
-              replay ? "bg-[#BBCCD7]" : "bg-[#D7E2EA]/25"
-            }`}
-          />
-          Replay on scroll {replay ? "On" : "Off"}
-        </button>
 
         <div className="mt-8 w-full md:mt-12">
-          <TextEffect
-            key={replay ? "replay" : "once"}
-            per="word"
-            preset="blur"
-            trigger={inView}
-            delay={0.2}
-            as="p"
-            className="mx-auto max-w-[900px] text-center font-medium leading-[1.55] text-[#D7E2EA] text-[clamp(1.15rem,2.6vw,2rem)]"
-          >
-            {BIO}
-          </TextEffect>
+          <p className="about-description mx-auto max-w-[900px] text-center text-[15px] font-normal leading-[1.6] sm:text-[17px]">
+            <DecodeText text={BIO} active={decode} delay={510} />
+          </p>
         </div>
       </div>
     </section>

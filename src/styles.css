@@ -11,7 +11,14 @@ html, body, #root {
 
 @theme {
   --font-sans: "Kanit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-about-heading: "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-about-body: "Inter", ui-sans-serif, sans-serif;
+  --color-about-text: oklch(0.96 0 0);
 }
+
+.about-heading, .about-description { color: var(--color-about-text); letter-spacing: 0; }
+.about-heading { font-family: var(--font-about-heading); }
+.about-description { font-family: var(--font-about-body); }
 
 * { box-sizing: border-box; }
 main { overflow-x: clip; }
