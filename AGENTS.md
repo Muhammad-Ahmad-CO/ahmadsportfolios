@@ -1,4 +1,5 @@
 # Architecture rules
+- Keep About decode animation in a browser-safe text component with stable real-text glyphs and aria-hidden visual overlays, triggered once by the section observer; this preserves selection, wrapping, and accessibility.
 - Keep the shared mascot mounted in the root layout behind ClientOnly and a lazy import, so its browser animation code never executes during SSR and survives page navigation.
 - Use a small browser event bridge for contact-form mascot reactions, keeping email delivery and validation logic independent of the avatar library.
 - Preserve the exported mascot JSON unchanged; configure one-shot reactions in the renderer using the library's supported playback mode.
