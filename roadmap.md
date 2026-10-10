@@ -7,4 +7,4 @@
 # About text upgrade
 - [x] Apply About-only typography and monochrome text.
 - [x] Replace replay animation with accessible one-shot line decoding.
-- [ ] Verify typography, unchanged content, one-shot behavior, and reduced motion.
+- [x] Verify typography, unchanged content, one-shot behavior, and reduced motion.
