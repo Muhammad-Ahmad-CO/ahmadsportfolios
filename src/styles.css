@@ -18,7 +18,10 @@ html, body, #root {
 
 .about-heading, .about-description { color: var(--color-about-text); letter-spacing: 0; }
 .about-heading { font-family: var(--font-about-heading); }
-.about-description { font-family: var(--font-about-body); }
+.about-description { font-family: var(--font-about-body); color: oklch(0.88 0.005 90); }
+.about-eyebrow { font-family: var(--font-about-heading); letter-spacing: 0.25em; color: oklch(0.65 0 0); }
+.about-accent { font-style: italic; -webkit-text-stroke: 1.5px var(--color-about-text); color: transparent; padding-right: 0.08em; }
+.about-panel { background: oklch(0.12 0 0 / 0.78); backdrop-filter: blur(12px); border: 1px solid oklch(1 0 0 / 0.08); }
 
 * { box-sizing: border-box; }
 main { overflow-x: clip; }

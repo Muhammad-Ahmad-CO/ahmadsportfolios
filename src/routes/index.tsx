@@ -405,43 +405,84 @@ function Marquee() {
 }
 
 
-const BIO =
-  "Hello! I am Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. My work isn't just about writing code; it's about leveraging the power of AI to create intelligent and efficient solutions. I specialize in automating and optimizing coding workflows through modern AI tools and frameworks. My goal is to implement technology in a way that provides smarter, more effective solutions to real-world problems. I don't just write code; I orchestrate AI. I use LLMs to scaffold complex architectures, perform deep-dive debugging, and optimize algorithms, ensuring that the final product is not only functional but also follows industry-standard clean code practices.";
+const ABOUT_PARAS = [
+  "I'm Muhammad Ahmed, a Software Engineering student at Sindh Agriculture University, Tandojam, and a passionate AI Specialist. I don't just write code; I orchestrate AI.",
+  "I build AI-driven automation and intelligent solutions — using LLMs to scaffold complex architectures, debug deeply and optimize algorithms, always following industry-standard clean code.",
+];
+// TODO: replace placeholder stats (AI integrations, years coding) with real numbers.
+const ABOUT_STATS = [
+  { n: `${PROJECTS.length}+`, l: "Live projects" },
+  { n: "5+", l: "AI integrations" },
+  { n: "3+", l: "Years coding" },
+];
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 function About() {
   const targetRef = useRef<HTMLDivElement>(null);
-  const [decode, setDecode] = useState(false);
+  const inView = useInView(targetRef, { once: true, amount: 0.2 });
+  const [reduce, setReduce] = useState(false);
   useEffect(() => {
-    const section = targetRef.current;
-    if (!section) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (!entry?.isIntersecting) return;
-      setDecode(true);
-      observer.disconnect();
-    }, { threshold: 0.15 });
-    observer.observe(section);
-    return () => observer.disconnect();
+    setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
+  const show = inView || reduce;
+  const fade = (i: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 24 },
+    animate: show ? { opacity: 1, y: 0 } : undefined,
+    transition: { duration: 0.8, ease: EASE, delay: 0.35 + i * 0.08 },
+  });
+  const lines: ReactNode[] = [
+    <>I build intelligent</>,
+    <>systems with <em className="about-accent">AI</em> &amp; code.</>,
+  ];
 
   return (
     <section
       id="about"
       ref={targetRef}
-      className="relative w-full px-5 py-24 sm:px-8 sm:py-28 md:px-10 md:py-36"
+      className="relative w-full px-5 pt-24 pb-36 sm:px-8 sm:pt-28 md:px-10 md:pt-36 md:pb-44"
     >
-      <div className="mx-auto flex w-full max-w-[1000px] flex-col items-center">
-          <h2
-            className="about-heading text-center font-bold uppercase"
-            style={{ fontSize: "clamp(1.75rem, 5vw, 56px)" }}
-          >
-            <DecodeText text="About me" active={decode} />
-          </h2>
-
-        <div className="mt-8 w-full md:mt-12">
-          <p className="about-description mx-auto max-w-[900px] text-center text-[17px] font-normal leading-[1.7] sm:text-[19px] md:text-[20px]">
-            <DecodeText text={BIO} active={decode} delay={510} />
+      <div className="about-panel mx-auto grid w-full max-w-[1100px] items-center gap-10 rounded-3xl p-6 sm:p-10 md:grid-cols-[minmax(0,1fr)_300px] md:gap-14 md:p-14">
+        <div className="order-2 text-center md:order-1 md:text-left">
+          <p className="about-eyebrow inline-flex items-center gap-3 text-xs uppercase sm:text-sm">
+            <span aria-hidden="true" className="h-px w-8 bg-current" />
+            <DecodeText text="About" active={show} />
           </p>
+          <h2 className="about-heading mt-5 font-bold" style={{ fontSize: "clamp(2rem, 5vw, 60px)", lineHeight: 1.05, letterSpacing: "-0.02em" }}>
+            {lines.map((line, i) => (
+              <span key={i} className="block overflow-hidden pb-[0.08em]">
+                <motion.span
+                  className="block"
+                  initial={reduce ? false : { y: "110%" }}
+                  animate={show ? { y: "0%" } : undefined}
+                  transition={{ duration: 0.9, ease: EASE, delay: i * 0.09 }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
+          </h2>
+          <div className="mt-8 space-y-5">
+            {ABOUT_PARAS.map((p, i) => (
+              <motion.p key={i} {...fade(i)} className="about-description mx-auto max-w-[560px] text-base leading-[1.7] sm:text-[17px] md:mx-0 md:text-lg">
+                {p}
+              </motion.p>
+            ))}
+          </div>
+          <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
+            {ABOUT_STATS.map((s, i) => (
+              <motion.div key={s.l} {...fade(i + 2)}>
+                <dt className="sr-only">{s.l}</dt>
+                <dd className="about-heading font-bold" style={{ fontSize: "clamp(1.75rem, 4vw, 44px)", lineHeight: 1 }}>{s.n}</dd>
+                <dd className="about-eyebrow mt-2 text-[11px] uppercase sm:text-xs" aria-hidden="true">{s.l}</dd>
+              </motion.div>
+            ))}
+          </dl>
         </div>
+        <motion.div {...fade(0)} className="order-1 mx-auto w-48 sm:w-60 md:order-2 md:w-full">
+          <div className="keep-color overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
+            <img src={portrait} alt="Muhammad Ahmed, AI Specialist" loading="lazy" className="aspect-[4/5] w-full object-cover object-top grayscale" />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
