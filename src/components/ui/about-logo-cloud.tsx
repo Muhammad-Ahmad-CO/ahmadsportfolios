@@ -15,7 +15,7 @@ function Logo({ name, slug }: { name: string; slug: string }) {
   return (
     <div className="about-tech-chip" title={name}>
       {failed ? <span className="about-tech-fallback" role="img" aria-label={name}>{name[0]}</span> :
-        <img src={`https://cdn.simpleicons.org/${slug}`} alt={name} loading="lazy" onError={() => setFailed(true)} />}
+        <img ref={(image) => { if (image?.complete && image.naturalWidth === 0) setFailed(true); }} src={`https://cdn.simpleicons.org/${slug}`} alt={name} loading="lazy" onError={() => setFailed(true)} />}
     </div>
   );
 }
