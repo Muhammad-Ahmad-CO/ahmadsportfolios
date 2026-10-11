@@ -3,3 +3,4 @@
 - Keep the shared mascot mounted in the root layout behind ClientOnly and a lazy import, so its browser animation code never executes during SSR and survives page navigation.
 - Use a small browser event bridge for contact-form mascot reactions, keeping email delivery and validation logic independent of the avatar library.
 - Preserve the exported mascot JSON unchanged; configure one-shot reactions in the renderer using the library's supported playback mode.
+- Keep the About logo cloud self-contained in the former photo footprint, with image-error fallbacks and reduced-motion support, so other portfolio sections remain unchanged.
