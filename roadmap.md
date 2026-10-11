@@ -13,3 +13,7 @@
 - [x] Shrink the "About me" heading and enlarge the bio text below it.
 # About PRO redesign
 - [x] Rebuild About: eyebrow, masked headline, two paragraphs, stats, portrait, legible panel.
+
+# About logo cloud
+- [x] Replace only the About portrait with twelve floating CDN logos and letter fallbacks.
+- [ ] Verify desktop/mobile placement, animation, fallback, and preview health.

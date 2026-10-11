@@ -19,6 +19,7 @@ import { Dock, DockIcon } from "@/components/ui/dock";
 import { CodeBlast } from "@/components/ui/code-blast";
 import { DottedSurface } from "@/components/ui/dotted-surface";
 import { DecodeText } from "@/components/ui/decode-text";
+import { AboutLogoCloud } from "@/components/ui/about-logo-cloud";
 import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
@@ -480,7 +481,7 @@ function About() {
         </div>
         <motion.div {...fade(0)} className="order-1 mx-auto w-48 sm:w-60 md:order-2 md:w-full">
           <div className="keep-color overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-            <img src={portrait} alt="Muhammad Ahmed, AI Specialist" loading="lazy" className="aspect-[4/5] w-full object-cover object-top grayscale" />
+            <AboutLogoCloud />
           </div>
         </motion.div>
       </div>

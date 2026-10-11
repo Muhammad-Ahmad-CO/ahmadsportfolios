@@ -23,6 +23,41 @@ html, body, #root {
 .about-accent { font-style: italic; -webkit-text-stroke: 1.5px var(--color-about-text); color: transparent; padding-right: 0.08em; }
 .about-panel { background: oklch(0.12 0 0 / 0.78); backdrop-filter: blur(12px); border: 1px solid oklch(1 0 0 / 0.08); }
 
+/* Confined to the former About photo footprint. */
+:root {
+  --about-chip-surface: oklch(0.25 0 0 / 0.65);
+  --about-chip-border: oklch(1 0 0 / 0.15);
+  --about-chip-shadow: 0 10px 22px oklch(0 0 0 / 0.3), inset 0 1px 0 oklch(1 0 0 / 0.08);
+  --about-cloud-glow: oklch(0.85 0 0 / 0.09);
+}
+.about-logo-cloud { position: relative; width: 100%; aspect-ratio: 4 / 5; isolation: isolate; }
+.about-logo-cloud::before { content: ""; position: absolute; inset: 5%; background: radial-gradient(ellipse, var(--about-cloud-glow), transparent 70%); pointer-events: none; }
+.about-logo-cluster { position: absolute; inset: 0; }
+.about-tech-position { position: absolute; left: var(--chip-x); top: var(--chip-y); width: var(--chip-size); height: var(--chip-size); transform: rotate(var(--chip-rotate)); filter: blur(var(--chip-blur, 0px)); }
+.about-tech-chip { width: 100%; height: 100%; display: grid; place-items: center; border-radius: 16px; background: var(--about-chip-surface); border: 1px solid var(--about-chip-border); box-shadow: var(--about-chip-shadow); backdrop-filter: blur(10px); animation: about-logo-float var(--chip-duration) ease-in-out var(--chip-delay) infinite; }
+.about-tech-chip img { width: 54%; height: 54%; object-fit: contain; }
+.about-tech-fallback { color: var(--color-about-text); font-family: var(--font-about-heading); font-size: 26px; font-weight: 600; }
+.about-tech-position:nth-child(1) { --chip-x: 8%; --chip-y: 8%; --chip-size: 72px; --chip-rotate: -6deg; --chip-duration: 5s; --chip-delay: -1s; --chip-drift: -14px; }
+.about-tech-position:nth-child(2) { --chip-x: 65%; --chip-y: 6%; --chip-size: 64px; --chip-rotate: 7deg; --chip-duration: 6s; --chip-delay: -3s; --chip-drift: -12px; }
+.about-tech-position:nth-child(3) { --chip-x: 36%; --chip-y: 20%; --chip-size: 56px; --chip-rotate: -3deg; --chip-duration: 4.8s; --chip-delay: -2s; --chip-drift: -10px; --chip-blur: 0.4px; }
+.about-tech-position:nth-child(4) { --chip-x: 5%; --chip-y: 32%; --chip-size: 56px; --chip-rotate: 8deg; --chip-duration: 6.8s; --chip-delay: -4s; --chip-drift: -11px; --chip-blur: 0.5px; }
+.about-tech-position:nth-child(5) { --chip-x: 66%; --chip-y: 29%; --chip-size: 76px; --chip-rotate: -5deg; --chip-duration: 5.6s; --chip-delay: -2.5s; --chip-drift: -16px; }
+.about-tech-position:nth-child(6) { --chip-x: 32%; --chip-y: 41%; --chip-size: 72px; --chip-rotate: 4deg; --chip-duration: 4.5s; --chip-delay: -1.5s; --chip-drift: -18px; }
+.about-tech-position:nth-child(7) { --chip-x: 6%; --chip-y: 55%; --chip-size: 64px; --chip-rotate: -8deg; --chip-duration: 6.2s; --chip-delay: -3.5s; --chip-drift: -13px; }
+.about-tech-position:nth-child(8) { --chip-x: 73%; --chip-y: 52%; --chip-size: 56px; --chip-rotate: 6deg; --chip-duration: 7s; --chip-delay: -5s; --chip-drift: -10px; --chip-blur: 0.35px; }
+.about-tech-position:nth-child(9) { --chip-x: 36%; --chip-y: 63%; --chip-size: 64px; --chip-rotate: -4deg; --chip-duration: 5.3s; --chip-delay: -0.5s; --chip-drift: -14px; }
+.about-tech-position:nth-child(10) { --chip-x: 6%; --chip-y: 78%; --chip-size: 68px; --chip-rotate: 5deg; --chip-duration: 4.2s; --chip-delay: -2.8s; --chip-drift: -15px; }
+.about-tech-position:nth-child(11) { --chip-x: 67%; --chip-y: 75%; --chip-size: 72px; --chip-rotate: -7deg; --chip-duration: 5.8s; --chip-delay: -4.2s; --chip-drift: -12px; }
+.about-tech-position:nth-child(12) { --chip-x: 39%; --chip-y: 85%; --chip-size: 56px; --chip-rotate: 3deg; --chip-duration: 6.5s; --chip-delay: -1.8s; --chip-drift: -10px; --chip-blur: 0.4px; }
+@keyframes about-logo-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(var(--chip-drift)); } }
+@media (max-width: 767px) {
+  .about-panel > :has(.about-logo-cloud) { order: 3; }
+  .about-logo-cluster { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); align-items: center; justify-items: center; padding: 8px 3px; }
+  .about-tech-position { position: relative; left: auto; top: auto; width: 56px; height: 56px; filter: none; }
+  .about-tech-chip { --chip-drift: -10px; }
+}
+@media (prefers-reduced-motion: reduce) { .about-tech-chip { animation: none; } }
+
 * { box-sizing: border-box; }
 main { overflow-x: clip; }
 
