@@ -16,4 +16,4 @@
 
 # About logo cloud
 - [x] Replace only the About portrait with twelve floating CDN logos and letter fallbacks.
-- [ ] Verify desktop/mobile placement, animation, fallback, and preview health.
+- [x] Verify desktop/mobile placement, animation, fallback, and preview health.
