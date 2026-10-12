@@ -469,14 +469,14 @@ html.eye-mode {
 
 /* Standalone contribution calendar: stable cells, independent ambient twinkles. */
 :root {
-  --contribution-background: oklch(0.155 0 0);
+   --contribution-background: oklch(0.155 0 0);
   --contribution-heading: oklch(0.97 0 0);
   --contribution-muted: oklch(0.65 0 0);
   --contribution-empty: oklch(0.205 0 0);
-  --contribution-level-1: oklch(0.38 0.09 49);
-  --contribution-level-2: oklch(0.53 0.135 51);
-  --contribution-level-3: oklch(0.68 0.175 55);
-  --contribution-level-4: oklch(0.8 0.17 67);
+   --contribution-level-1: oklch(0.38 0 0);
+   --contribution-level-2: oklch(0.53 0 0);
+   --contribution-level-3: oklch(0.73 0 0);
+   --contribution-level-4: oklch(0.94 0 0);
 }
 .contribution-section { background: var(--contribution-background); color: var(--contribution-heading); }
 .contribution-secondary { color: var(--contribution-muted); }
