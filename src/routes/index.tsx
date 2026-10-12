@@ -15,6 +15,7 @@ import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
+import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { CodeBlast } from "@/components/ui/code-blast";
 import { DottedSurface } from "@/components/ui/dotted-surface";
@@ -767,6 +768,7 @@ function Index() {
       <div className="relative z-10">
         <Hero />
         <Marquee />
+        <ContributionGraph />
         <About />
         <Services />
         <Projects />
