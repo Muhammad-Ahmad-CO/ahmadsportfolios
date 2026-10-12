@@ -4,3 +4,4 @@
 - Use a small browser event bridge for contact-form mascot reactions, keeping email delivery and validation logic independent of the avatar library.
 - Preserve the exported mascot JSON unchanged; configure one-shot reactions in the renderer using the library's supported playback mode.
 - Keep the About logo cloud self-contained in the former photo footprint, with image-error fallbacks and reduced-motion support, so other portfolio sections remain unchanged.
+- Keep the contribution calendar in a self-contained component with seeded procedural data and CSS-only twinkles; stable generation avoids hydration differences and keeps sample data separate from verified counts.

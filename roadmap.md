@@ -17,3 +17,7 @@
 # About logo cloud
 - [x] Replace only the About portrait with twelve floating CDN logos and letter fallbacks.
 - [x] Verify desktop/mobile placement, animation, fallback, and preview health.
+
+# Contribution graph
+- [ ] Add a standalone sample calendar after the tech marquee with independent amber blinks.
+- [ ] Verify calendar dimensions, profile link, small-screen scrolling and reduced motion.
