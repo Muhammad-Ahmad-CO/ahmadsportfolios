@@ -21,3 +21,7 @@
 # Contribution graph
 - [x] Add a standalone sample calendar after the tech marquee with independent grayscale blinks.
 - [x] Verify calendar dimensions, profile link, small-screen scrolling and reduced motion.
+
+# Floating 3D star
+- [ ] Add only a click-through, metallic eight-arm star with smooth scroll, idle and pointer motion.
+- [ ] Verify desktop/mobile visibility, layering, reduced motion and preview health.
