@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { ClientOnly, createFileRoute, Link } from "@tanstack/react-router";
+import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
 import { ArrowUpRight, Mail, Home } from "lucide-react";
@@ -25,6 +25,7 @@ import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 
+const FloatingStar = lazy(() => import("@/components/floating-star"));
 
 const OG_IMAGE =
   "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
@@ -752,6 +753,10 @@ function Index() {
     root.classList.toggle("eye-mode", theme === "eye");
   }, [theme]);
   return (
+    <>
+    <ClientOnly fallback={null}>
+      <Suspense fallback={null}><FloatingStar /></Suspense>
+    </ClientOnly>
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
@@ -794,5 +799,6 @@ function Index() {
         </Dock>
       </div>
     </main>
+    </>
   );
 }
