@@ -2,7 +2,8 @@ import { ClientOnly, createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
-import { ArrowUpRight, Mail, Home } from "lucide-react";
+import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
+import { EffectsAdvisor } from "@/components/ui/effects-advisor";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
 
@@ -752,11 +753,21 @@ function Index() {
     const root = document.documentElement;
     root.classList.toggle("eye-mode", theme === "eye");
   }, [theme]);
+  const [showStar, setShowStar] = useState(true);
+  useEffect(() => {
+    if (localStorage.getItem("floating-star") === "off") setShowStar(false);
+  }, []);
+  const updateStar = (on: boolean) => {
+    setShowStar(on);
+    localStorage.setItem("floating-star", on ? "on" : "off");
+  };
   return (
     <>
-    <ClientOnly fallback={null}>
-      <Suspense fallback={null}><FloatingStar /></Suspense>
-    </ClientOnly>
+    {showStar && (
+      <ClientOnly fallback={null}>
+        <Suspense fallback={null}><FloatingStar /></Suspense>
+      </ClientOnly>
+    )}
     <main className="relative bg-[#0C0C0C]">
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
       <div
@@ -790,6 +801,19 @@ function Index() {
             <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <div className="mx-0.5 sm:mx-1 h-6 sm:h-8 w-px self-center bg-white/10" />
+          <div className="self-center flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => updateStar(!showStar)}
+              aria-pressed={showStar}
+              aria-label={showStar ? "Hide floating star" : "Show floating star"}
+              title={showStar ? "Hide floating star" : "Show floating star"}
+              className={`flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 hover:bg-white/10 ${showStar ? "text-[#D7E2EA]" : "text-[#D7E2EA]/40"}`}
+            >
+              <Sparkles className="h-4 w-4" />
+            </button>
+            <EffectsAdvisor onApply={updateStar} />
+          </div>
           <div className="self-center">
             <ClockSwitch value={clockMode} onChange={setClockMode} />
           </div>
