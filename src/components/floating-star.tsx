@@ -59,8 +59,9 @@ export default function FloatingStar() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const element = canvasRef.current;
+    if (!element) return;
+    const canvas: HTMLCanvasElement = element;
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "low-power" });
