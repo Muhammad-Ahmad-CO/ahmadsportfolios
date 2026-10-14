@@ -136,8 +136,9 @@ export default function FloatingStar() {
       const z = freeze ? 0 : 0.45 * Math.sin(phase);
       // Compensate projected position for depth: orbit remains in screen space.
       const depthRatio = (camera.position.z - z) / camera.position.z;
+      const horizontalLimit = Math.max(0, viewWidth * depthRatio / 2 - star.scale.x * 1.04);
       star.position.set(
-        (x + (freeze ? 0 : easedPointer.x * 0.018)) * viewWidth * depthRatio,
+        THREE.MathUtils.clamp((x + (freeze ? 0 : easedPointer.x * 0.018)) * viewWidth * depthRatio, -horizontalLimit, horizontalLimit),
         (0.02 - y + (freeze ? 0 : Math.sin(elapsed * Math.PI * 2 / 12.6) * 0.009 + easedPointer.y * 0.015)) * viewHeight * depthRatio,
         z,
       );
