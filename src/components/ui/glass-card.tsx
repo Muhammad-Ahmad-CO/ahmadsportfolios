@@ -204,7 +204,6 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
 
           <div className="gc-inner">
             <div className="gc-left">
-              <h3 className="gc-title">Get in touch</h3>
               <p className="gc-sub">Available for work</p>
 
               {email && (

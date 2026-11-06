@@ -74,7 +74,7 @@ const EMAIL = "ahmadkaimkhani40@gmail.com";
 const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
 const PHONE = "0314-1241710";
 const LINKEDIN = "https://www.linkedin.com/in/muhammad-ahmed";
-const GITHUB = "https://github.com/kaim953";
+const GITHUB = "https://github.com/Muhammad-Ahmad-CO";
 
 /* ---------------- Reusable ---------------- */
 function FadeIn({
@@ -257,7 +257,6 @@ function Hero() {
           <ul className="flex min-w-0 flex-wrap justify-end gap-x-2 gap-y-1 sm:gap-x-4 md:gap-x-6 text-[0.7rem] sm:text-sm lg:text-[1.1rem] uppercase tracking-wider text-[#D7E2EA]">
             {[
               { l: "About", h: "#about" },
-              { l: "Price", h: "#services" },
               { l: "Projects", h: "#projects" },
               { l: "FAQ", h: "#faq" },
               { l: "Contact", h: "#footer" },
@@ -494,11 +493,9 @@ function About() {
 
 
 const SERVICES = [
-  { n: "01", name: "AI Integration & APIs", d: "Seamlessly embedding intelligent models and third-party AI services into existing systems or websites." },
+  { n: "01", name: "AI Integration & Web Apps", d: "Seamlessly embedding intelligent models and third-party AI services into existing systems — and building responsive, modern web apps that leverage AI on the frontend and backend." },
   { n: "02", name: "Computer Vision Solutions", d: "Real-time hand tracking, object detection, and MediaPipe-powered interactive experiences." },
   { n: "03", name: "Intelligent Automation", d: "Automating repetitive coding tasks, data pipelines, and workflow optimisation using LLMs and scripting." },
-  { n: "04", name: "AI-Powered Web Applications", d: "Building responsive, modern web apps that leverage AI on the frontend and backend." },
-  { n: "05", name: "Technical Consulting", d: "Advising on AI strategy, tool selection, and clean code practices for teams and startups." },
 ];
 
 function Services() {
@@ -769,7 +766,7 @@ function Index() {
       </ClientOnly>
     )}
     <main className="relative bg-[#0C0C0C]">
-      <Preloader duration={1800} fadeDuration={700} routeDebounce={150} />
+      <Preloader duration={1800} fadeDuration={700} routeDebounce={150} showOnRouteChange={false} />
       <div
         className={`hidden sm:block fixed sm:top-4 sm:left-5 md:top-5 md:left-6 z-50 sm:scale-90 transition-opacity duration-300 ${
           showClock ? "opacity-100" : "opacity-0 pointer-events-none"

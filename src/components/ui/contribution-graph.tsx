@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 // Set a verified total here when available. Null keeps the generated sample clearly labelled.
 export const CONTRIBUTION_TOTAL: number | null = null;
-export const GITHUB_PROFILE_URL = "https://github.com/kaim953";
+export const GITHUB_PROFILE_URL = "https://github.com/Muhammad-Ahmad-CO";
 const PERIOD_LABEL = "since January 2025";
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
