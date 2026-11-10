@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794350648102,
+      "tag": "0000_restrict_contact_messages_read",
+      "breakpoints": true
+    }
+  ]
+}
