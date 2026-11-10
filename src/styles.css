@@ -206,6 +206,51 @@ html.light-mode .hero-heading {
   filter: contrast(1.15) saturate(0.9);
 }
 
+/* Reel-style theme change: diagonal ink wipe, starting at the top-right
+   corner (where the theme switch lives in the reel) and flooding
+   leftwards and downwards. The new theme is revealed behind a jagged,
+   torn-paper edge — each element flips as the edge passes over it,
+   never a global fade. Driven by the View Transitions API in
+   src/routes/index.tsx (changeTheme); browsers without it fall back
+   to an instant switch. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-ink-wipe 900ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+@keyframes theme-ink-wipe {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0, 100% 0);
+  }
+  20% {
+    clip-path: polygon(100% 0, 60% 0, 74% 12%, 66% 24%, 84% 32%, 100% 40%, 100% 40%);
+  }
+  40% {
+    clip-path: polygon(100% 0, 20% 0, 36% 14%, 46% 28%, 64% 42%, 100% 80%, 100% 80%);
+  }
+  60% {
+    clip-path: polygon(100% 0, 0 20%, 16% 34%, 30% 52%, 46% 64%, 80% 100%, 100% 100%);
+  }
+  80% {
+    clip-path: polygon(100% 0, 0 60%, 14% 72%, 24% 86%, 34% 94%, 40% 100%, 100% 100%);
+  }
+  100% {
+    clip-path: polygon(100% 0, 0 0, 0 50%, 0 100%, 50% 100%, 100% 100%, 100% 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 
 /*
  * Design system definition.

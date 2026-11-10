@@ -1,5 +1,6 @@
 import { ClientOnly, createFileRoute, Link } from "@tanstack/react-router";
 import { lazy, Suspense, useEffect, useRef, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
 import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
@@ -737,7 +738,32 @@ function Faq() {
 
 function Index() {
   const [showClock, setShowClock] = useState(true);
-  const [theme, setTheme] = useState<ThemeMode>("dark");
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    try {
+      const saved = window.localStorage.getItem("portfolio-theme");
+      if (saved === "light" || saved === "dark" || saved === "eye") return saved;
+    } catch {
+      /* storage unavailable — fall through to the default */
+    }
+    return "dark";
+  });
+  // Reel-style theme change: diagonal ink wipe from the top-right corner
+  // (View Transitions API + theme-ink-wipe in styles.css). Falls back to
+  // an instant switch where the API is missing or motion is reduced.
+  const changeTheme = (next: ThemeMode) => {
+    if (next === theme) return;
+    const doc = document as Document & {
+      startViewTransition?: (cb: () => void) => void;
+    };
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!reduceMotion && typeof doc.startViewTransition === "function") {
+      doc.startViewTransition(() => {
+        flushSync(() => setTheme(next));
+      });
+    } else {
+      setTheme(next);
+    }
+  };
   const [clockMode, setClockMode] = useState<"digital" | "analog">("digital");
   const toggleClock = () => setClockMode((m) => (m === "digital" ? "analog" : "digital"));
   useEffect(() => {
@@ -749,6 +775,12 @@ function Index() {
   useEffect(() => {
     const root = document.documentElement;
     root.classList.toggle("eye-mode", theme === "eye");
+    root.classList.toggle("light-mode", theme === "light");
+    try {
+      window.localStorage.setItem("portfolio-theme", theme);
+    } catch {
+      /* storage unavailable — theme still applies for this visit */
+    }
   }, [theme]);
   const [showStar, setShowStar] = useState(true);
   useEffect(() => {
@@ -815,7 +847,7 @@ function Index() {
             <ClockSwitch value={clockMode} onChange={setClockMode} />
           </div>
           <div className="self-center pl-1">
-            <ThemeSwitch value={theme} onChange={setTheme} />
+            <ThemeSwitch value={theme} onChange={changeTheme} />
           </div>
         </Dock>
       </div>
