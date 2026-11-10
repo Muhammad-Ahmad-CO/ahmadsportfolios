@@ -291,8 +291,8 @@ function Hero() {
         <FadeIn y={40} delay={0.15}>
           <h1 className="hero-heading sr-only">Hi, I&rsquo;m Muhammad Ahmed</h1>
           <div className="mx-auto w-full max-w-[1400px]">
-            <ParticleText text="HI, I'M" className="h-[18vw] max-h-[185px] w-full" cursorRadius={45} />
-            <ParticleText text="MUHAMMAD AHMED" className="h-[18vw] max-h-[185px] w-full" cursorRadius={55} />
+            <ParticleText text="HI, I'M" className="particle-heading h-[18vw] max-h-[185px] w-full" cursorRadius={45} />
+            <ParticleText text="MUHAMMAD AHMED" className="particle-heading h-[18vw] max-h-[185px] w-full" cursorRadius={55} />
           </div>
         </FadeIn>
       </div>
@@ -327,11 +327,7 @@ function Hero() {
       >
         <Magnet strength={0.1}>
           <div
-            className="keep-color pointer-events-auto relative mx-auto"
-            style={{
-              filter:
-                "drop-shadow(0 30px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 70px rgba(187,204,215,0.18))",
-            }}
+            className="keep-color portrait-shadow pointer-events-auto relative mx-auto"
           >
             {/* Soft radial glow behind subject */}
             <div
@@ -503,7 +499,7 @@ function Services() {
   return (
     <section
       id="services"
-      className="bg-white rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 md:py-28"
+      className="keep-color bg-white rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 py-20 md:py-28"
     >
       <FadeIn>
         <h2
@@ -748,8 +744,11 @@ function Index() {
     return "dark";
   });
   // Reel-style theme change: diagonal ink wipe from the top-right corner
-  // (View Transitions API + theme-ink-wipe in styles.css). Falls back to
-  // an instant switch where the API is missing or motion is reduced.
+  // (View Transitions API + theme-ink-wipe in styles.css, 1400ms with an
+  // ink rim on the moving edge). Where the API is missing (e.g. some
+  // preview iframes) a solid ink band sweeps across instead — the theme
+  // flips while the page is covered — so the change is never an instant
+  // flip. Reduced motion stays an instant switch.
   const changeTheme = (next: ThemeMode) => {
     if (next === theme) return;
     const doc = document as Document & {
@@ -760,9 +759,24 @@ function Index() {
       doc.startViewTransition(() => {
         flushSync(() => setTheme(next));
       });
-    } else {
-      setTheme(next);
+      return;
     }
+    if (reduceMotion) {
+      setTheme(next);
+      return;
+    }
+    const overlay = document.getElementById("theme-wipe-overlay");
+    if (!overlay) {
+      setTheme(next);
+      return;
+    }
+    overlay.style.background =
+      next === "light" ? "#F6F3EC" : next === "eye" ? "#241C12" : "#0C0C0C";
+    overlay.classList.remove("theme-wipe-run");
+    void overlay.offsetWidth;
+    overlay.classList.add("theme-wipe-run");
+    window.setTimeout(() => setTheme(next), 700);
+    window.setTimeout(() => overlay.classList.remove("theme-wipe-run"), 1450);
   };
   const [clockMode, setClockMode] = useState<"digital" | "analog">("digital");
   const toggleClock = () => setClockMode((m) => (m === "digital" ? "analog" : "digital"));
@@ -798,6 +812,7 @@ function Index() {
       </ClientOnly>
     )}
     <main className="relative bg-[#0C0C0C]">
+      <div id="theme-wipe-overlay" aria-hidden="true" className="theme-wipe-overlay" />
       <Preloader duration={1800} fadeDuration={700} routeDebounce={150} showOnRouteChange={false} />
       <div
         className={`hidden sm:block fixed sm:top-4 sm:left-5 md:top-5 md:left-6 z-50 sm:scale-90 transition-opacity duration-300 ${
@@ -807,7 +822,7 @@ function Index() {
         <FlipClock mode={clockMode} onToggle={toggleClock} />
       </div>
       
-      <div className="pointer-events-none fixed inset-0 z-0 opacity-30">
+      <div className="keep-color pointer-events-none fixed inset-0 z-0 opacity-30">
         <CrowdCanvas />
       </div>
       <div className="relative z-10">
