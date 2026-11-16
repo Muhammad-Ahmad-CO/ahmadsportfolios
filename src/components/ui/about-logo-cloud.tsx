@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
 const LOGOS = [
-  ["Python", "python"], ["TensorFlow", "tensorflow"],
-  ["PyTorch", "pytorch"], ["scikit-learn", "scikitlearn"],
+  ["TypeScript", "typescript"], ["Next.js", "nextdotjs"],
+  ["Tailwind CSS", "tailwindcss"], ["scikit-learn", "scikitlearn"],
   ["OpenAI", "openai"], ["Hugging Face", "huggingface"],
   ["LangChain", "langchain"], ["n8n", "n8n"],
   ["JavaScript", "javascript"], ["React", "react"],

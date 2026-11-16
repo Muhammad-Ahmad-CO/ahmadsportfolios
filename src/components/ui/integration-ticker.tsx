@@ -6,8 +6,6 @@ export type IntegrationItem = {
 const logoUrl = (slug: string) => `https://cdn.simpleicons.org/${slug}/e5e7eb`;
 
 export const DEFAULT_INTEGRATIONS: IntegrationItem[] = [
-  { label: "TensorFlow", slug: "tensorflow" },
-  { label: "PyTorch", slug: "pytorch" },
   { label: "Hugging Face", slug: "huggingface" },
   { label: "LangChain", slug: "langchain" },
   { label: "Gemini", slug: "googlegemini" },
@@ -18,7 +16,6 @@ export const DEFAULT_INTEGRATIONS: IntegrationItem[] = [
   { label: "OpenCV", slug: "opencv" },
   { label: "MediaPipe", slug: "mediapipe" },
   { label: "NVIDIA", slug: "nvidia" },
-  { label: "Python", slug: "python" },
   { label: "FastAPI", slug: "fastapi" },
   { label: "Supabase", slug: "supabase" },
   { label: "n8n", slug: "n8n" },

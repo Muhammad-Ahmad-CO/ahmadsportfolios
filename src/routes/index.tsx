@@ -17,7 +17,6 @@ import GlassCard from "@/components/ui/glass-card";
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
 import { IntegrationTicker } from "@/components/ui/integration-ticker";
-import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { CodeBlast } from "@/components/ui/code-blast";
 import { DottedSurface } from "@/components/ui/dotted-surface";
@@ -38,7 +37,7 @@ const FAQS = [
   { q: "What services do you offer?", a: "AI integration (chatbots, LLM features, speech and automation), computer vision solutions, and custom, fast websites and web apps — from landing pages to full multi-page products." },
   { q: "Are you available for freelance or full-time work?", a: "Yes. I take on freelance projects and I'm open to remote contract or full-time roles. Send a message through the contact form with a short brief." },
   { q: "What are typical project timelines?", a: "A landing page usually takes 1–2 weeks, a multi-page website 2–4 weeks, and AI-powered features or apps 3–8 weeks depending on scope." },
-  { q: "What is your tech stack?", a: "React, TypeScript, Tailwind CSS, Framer Motion and Three.js/WebGL on the front-end, plus Python, LLM APIs, Whisper, TensorFlow and PyTorch for AI work." },
+  { q: "What is your tech stack?", a: "React, TypeScript, Tailwind CSS, Framer Motion and Three.js/WebGL on the front-end, plus LLM APIs, MediaPipe and Supabase for AI work." },
   { q: "How does the collaboration process work?", a: "Discovery call → written scope and timeline → design and build with regular previews → feedback rounds → launch and handover with support." },
   { q: "How can I request a quote?", a: "Use the “Get in touch” form below with your goals, timeline and budget range. I'll reply by email with an estimate, usually within 1–2 days." },
 ];
@@ -74,7 +73,6 @@ export const Route = createFileRoute("/")({
 const EMAIL = "ahmadkaimkhani40@gmail.com";
 const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
 const PHONE = "0314-1241710";
-const LINKEDIN = "https://www.linkedin.com/in/muhammad-ahmed";
 const GITHUB = "https://github.com/Muhammad-Ahmad-CO";
 
 /* ---------------- Reusable ---------------- */
@@ -577,15 +575,17 @@ function ProjectCard({
           <LiveProjectButton href={p.url} />
         </div>
         <div className="mt-5 md:mt-8 grid gap-4 md:gap-6 md:grid-cols-5 h-auto md:h-[55vh]">
-          <div className="md:col-span-3 keep-color overflow-hidden rounded-2xl md:rounded-3xl border border-white/10">
-            <img
-              src={p.img}
-              alt={`${p.name} website preview — ${p.category} project`}
-              loading="lazy"
-              className="h-[28vh] md:h-full w-full object-cover object-top"
-            />
-          </div>
-          <div className="md:col-span-2 flex flex-col justify-between gap-4 text-[#D7E2EA]">
+          {p.img && (
+            <div className="md:col-span-3 keep-color overflow-hidden rounded-2xl md:rounded-3xl border border-white/10">
+              <img
+                src={p.img}
+                alt={`${p.name} website preview — ${p.category} project`}
+                loading="lazy"
+                className="h-[28vh] md:h-full w-full object-cover object-top"
+              />
+            </div>
+          )}
+          <div className={`${p.img ? "md:col-span-2" : "md:col-span-5"} flex flex-col justify-between gap-4 text-[#D7E2EA]`}>
             <p className="text-sm md:text-base leading-relaxed opacity-80">{p.desc}</p>
             <Link
               to="/portfolio/$slug"
@@ -675,7 +675,6 @@ function Footer() {
             email={EMAIL}
             emailUrl={EMAIL_URL}
             phone={PHONE}
-            linkedin={LINKEDIN}
             github={GITHUB}
           />
         </div>
@@ -828,7 +827,6 @@ function Index() {
       <div className="relative z-10">
         <Hero />
         <Marquee />
-        <ContributionGraph />
         <About />
         <Services />
         <Projects />

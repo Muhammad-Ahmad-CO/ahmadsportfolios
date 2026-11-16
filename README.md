@@ -68,7 +68,7 @@ This portfolio serves as both a **professional resume** and an **interactive sho
 ### 🔗 Professional Connections
 - **Interactive social card** with smooth hover animations
 - **Multi-layered reveal effects** on hover
-- Links to: **GitHub**, **LinkedIn**, **Email**, **Phone**
+- Links to: **GitHub**, **Email**, **Phone**
 - Real-time theme switching (Dark/Eye-protection modes)
 
 ### 📨 Contact Integration
@@ -243,7 +243,6 @@ Interactive multi-layer hover effect:
 ```typescript
 <SocialCard 
   github="https://github.com/Muhammad-Ahmad-CO"
-  linkedin="https://linkedin.com/in/..."
   email="contact@example.com"
   phone="+92..."
 />
@@ -527,7 +526,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 |----------|------|
 | 🌐 **Portfolio** | [ahmadsportfolios.lovable.app](https://ahmadsportfolios.lovable.app) |
 | 🐙 **GitHub** | [@Muhammad-Ahmad-CO](https://github.com/Muhammad-Ahmad-CO) |
-| 💼 **LinkedIn** | [Muhammad Ahmad](https://linkedin.com) |
 | 📧 **Email** | contact@muhammadahmed.dev |
 | 📱 **Twitter** | [@MuhammadAI](https://twitter.com) |
 

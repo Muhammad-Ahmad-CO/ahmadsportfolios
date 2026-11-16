@@ -27,7 +27,10 @@ export type Project = {
   name: string;
   category: string;
   url: string;
-  img: string;
+  repo?: string;
+  // Optional: a project with no verified screenshot omits its image
+  // instead of showing another project's screenshot.
+  img?: string;
   gallery: string[];
   desc: string;
   overview: string;
@@ -41,6 +44,27 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     n: "01",
+    slug: "medilens",
+    name: "MediLens",
+    category: "AI Web App",
+    url: "https://medilens-ruddy.vercel.app/",
+    repo: "https://github.com/Muhammad-Ahmad-CO/medilens",
+    gallery: [],
+    desc: "Point a phone camera at a medicine pack and MediLens reads the label, checks it against a drug index, and gives an explained green, amber or red verdict. A screening helper, not a medical device.",
+    overview:
+      "Built solo as a Web Engineering course project, MediLens answers one question before you take a medicine: is this pack real? Point a phone camera at the pack and it reads the label, checks it against a local index of 230 medicines, and gives an explained red, amber or green safety verdict. It is a screening assistant, not a medical device, and every verdict explains itself in plain words.",
+    highlights: [
+      "Phone-camera label reading with explained red, amber and green verdicts",
+      "Local drug index of 230 medicines behind every check",
+      "Screening assistant, not a medical device: every verdict explains itself",
+    ],
+    stack: ["Next.js", "TypeScript", "AI vision", "Supabase"],
+    year: "2026",
+    role: "Solo build",
+    tags: ["AI Vision", "Medicine", "Web App"],
+  },
+  {
+    n: "02",
     slug: "woblo-creative-studio",
     name: "Woblo Creative Studio",
     category: "WebGL / 3D",
@@ -61,7 +85,7 @@ export const PROJECTS: Project[] = [
     tags: ["WebGL", "3D", "Motion"],
   },
   {
-    n: "02",
+    n: "03",
     slug: "monolith-studio",
     name: "Monolith Studio",
     category: "Brand Site",
@@ -82,7 +106,7 @@ export const PROJECTS: Project[] = [
     tags: ["Editorial", "Booking", "Dark UI"],
   },
   {
-    n: "03",
+    n: "04",
     slug: "royal-beverage",
     name: "Royal Beverage",
     category: "Corporate",
@@ -103,7 +127,7 @@ export const PROJECTS: Project[] = [
     tags: ["Products", "Company", "Multi-page"],
   },
   {
-    n: "04",
+    n: "05",
     slug: "cura-climate",
     name: "CURA Climate",
     category: "Climate Tech",
@@ -124,7 +148,7 @@ export const PROJECTS: Project[] = [
     tags: ["Landing", "Data Story", "Scroll"],
   },
   {
-    n: "05",
+    n: "06",
     slug: "maison-home-store",
     name: "Maison Home Store",
     category: "E-commerce",
@@ -145,7 +169,7 @@ export const PROJECTS: Project[] = [
     tags: ["Shop", "Catalog", "Minimal"],
   },
   {
-    n: "06",
+    n: "07",
     slug: "verdant-studio",
     name: "Verdant Studio",
     category: "Agency",
@@ -166,7 +190,7 @@ export const PROJECTS: Project[] = [
     tags: ["Cinematic", "Portfolio", "Brand"],
   },
   {
-    n: "07",
+    n: "08",
     slug: "al-fajr-foods",
     name: "Al Fajr Foods",
     category: "Restaurant",

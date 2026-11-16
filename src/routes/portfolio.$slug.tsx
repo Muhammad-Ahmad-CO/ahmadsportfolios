@@ -51,6 +51,7 @@ export const Route = createFileRoute("/portfolio/$slug")({
 function ProjectPage() {
   const p = Route.useLoaderData();
   const others = PROJECTS.filter((x) => x.slug !== p.slug).slice(0, 3);
+  const galleryImages = p.img ? [p.img, ...p.gallery] : p.gallery;
 
   return (
     <main className="min-h-screen bg-[#0C0C0C] px-5 sm:px-8 md:px-12 pt-10 pb-28 text-[#D7E2EA]">
@@ -80,26 +81,41 @@ function ProjectPage() {
           {p.name}
         </h1>
         <p className="mt-6 text-sm md:text-lg leading-relaxed opacity-75">{p.desc}</p>
-        <a
-          href={p.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-8 inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-5 py-2.5 text-xs md:text-sm uppercase tracking-wider transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
-        >
-          Visit live site
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
-        </a>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a
+            href={p.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-5 py-2.5 text-xs md:text-sm uppercase tracking-wider transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+          >
+            Visit live site
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+          </a>
+          {p.repo && (
+            <a
+              href={p.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-5 py-2.5 text-xs md:text-sm uppercase tracking-wider transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+            >
+              View source
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
+            </a>
+          )}
+        </div>
       </motion.header>
 
-      <div className="keep-color mt-12 overflow-hidden rounded-3xl border border-white/12">
-        <img
-          src={p.img}
-          alt={`${p.name} homepage preview — ${p.category} project`}
-          width={1280}
-          height={800}
-          className="w-full object-cover object-top"
-        />
-      </div>
+      {p.img && (
+        <div className="keep-color mt-12 overflow-hidden rounded-3xl border border-white/12">
+          <img
+            src={p.img}
+            alt={`${p.name} homepage preview — ${p.category} project`}
+            width={1280}
+            height={800}
+            className="w-full object-cover object-top"
+          />
+        </div>
+      )}
 
       <section className="mt-16 grid gap-10 md:grid-cols-3">
         <div className="md:col-span-2 space-y-5">
@@ -139,10 +155,11 @@ function ProjectPage() {
         </aside>
       </section>
 
-      <section className="mt-20">
-        <h2 className="text-xl md:text-2xl font-medium uppercase">Gallery</h2>
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
-          {[p.img, ...p.gallery].map((src, i) => (
+      {galleryImages.length > 0 && (
+        <section className="mt-20">
+          <h2 className="text-xl md:text-2xl font-medium uppercase">Gallery</h2>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            {galleryImages.map((src, i) => (
             <motion.div
               key={src}
               initial={{ opacity: 0, y: 24 }}
@@ -159,8 +176,9 @@ function ProjectPage() {
               />
             </motion.div>
           ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       <section className="mt-24">
         <h2 className="text-xl md:text-2xl font-medium uppercase">More work</h2>
@@ -172,14 +190,16 @@ function ProjectPage() {
               params={{ slug: o.slug }}
               className="group overflow-hidden rounded-2xl border border-white/12"
             >
-              <div className="keep-color overflow-hidden">
-                <img
-                  src={o.img}
-                  alt={`${o.name} preview`}
-                  loading="lazy"
-                  className="h-40 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
+              {o.img && (
+                <div className="keep-color overflow-hidden">
+                  <img
+                    src={o.img}
+                    alt={`${o.name} preview`}
+                    loading="lazy"
+                    className="h-40 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              )}
               <div className="p-4">
                 <p className="text-[0.65rem] uppercase tracking-wider opacity-50">{o.category}</p>
                 <p className="mt-1 text-sm uppercase">{o.name}</p>

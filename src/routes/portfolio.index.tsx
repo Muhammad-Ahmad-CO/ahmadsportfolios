@@ -7,7 +7,7 @@ const OG_IMAGE =
   "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
 const TITLE = "Portfolio — Muhammad Ahmed | AI Specialist & Web Developer";
 const DESC =
-  "Detailed case studies of seven live projects by Muhammad Ahmed — WebGL studios, e-commerce, climate tech and restaurant sites, with images and galleries.";
+  "Detailed case studies of eight live projects by Muhammad Ahmed — AI medicine checking, WebGL studios, e-commerce, climate tech and restaurant sites.";
 
 export const Route = createFileRoute("/portfolio/")({
   component: PortfolioPage,
@@ -62,9 +62,8 @@ function PortfolioPage() {
           Portfolio
         </h1>
         <p className="mt-6 text-sm md:text-lg leading-relaxed opacity-70">
-          Seven live products — from WebGL-driven studio sites to e-commerce, climate tech and
-          local restaurants. Each case study includes the brief, what was built and a gallery
-          from the live site.
+          Eight live products — from AI medicine checking and WebGL-driven studio sites to e-commerce, climate tech and
+          local restaurants. Each case study includes the brief and what was built.
         </p>
       </header>
 
@@ -78,16 +77,18 @@ function PortfolioPage() {
             transition={{ duration: 0.6, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="group flex flex-col overflow-hidden rounded-3xl border border-white/12 bg-white/[0.02]"
           >
-            <Link to="/portfolio/$slug" params={{ slug: p.slug }} className="block">
-              <div className="keep-color overflow-hidden">
-                <img
-                  src={p.img}
-                  alt={`${p.name} website preview — ${p.category} project`}
-                  loading="lazy"
-                  className="h-52 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-            </Link>
+            {p.img && (
+              <Link to="/portfolio/$slug" params={{ slug: p.slug }} className="block">
+                <div className="keep-color overflow-hidden">
+                  <img
+                    src={p.img}
+                    alt={`${p.name} website preview — ${p.category} project`}
+                    loading="lazy"
+                    className="h-52 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+              </Link>
+            )}
             <div className="flex flex-1 flex-col gap-4 p-5 md:p-6">
               <div className="flex items-center gap-3 text-[0.65rem] uppercase tracking-wider opacity-55">
                 <span>{p.n}</span>

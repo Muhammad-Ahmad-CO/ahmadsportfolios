@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Mail, Phone, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, Github } from "lucide-react";
 import { cn } from "@/lib/utils";
 import ContactForm from "./contact-form";
 
@@ -8,12 +8,11 @@ export interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
   email?: string;
   emailUrl?: string;
   phone?: string;
-  linkedin?: string;
   github?: string;
 }
 
 const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
-  ({ className, email, emailUrl, phone, linkedin, github, ...props }, ref) => {
+  ({ className, email, emailUrl, phone, github, ...props }, ref) => {
     return (
       <div ref={ref} className={cn("glass-card-wrap", className)} {...props}>
         <style>{`
@@ -220,11 +219,6 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
               )}
 
               <div className="gc-socials">
-                {linkedin && (
-                  <a className="gc-icon" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                )}
                 {github && (
                   <a className="gc-icon" href={github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                     <Github className="h-4 w-4" />
