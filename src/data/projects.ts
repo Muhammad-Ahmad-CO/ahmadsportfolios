@@ -1,3 +1,4 @@
+import projMedilens from "@/assets/proj-medilens.jpg";
 import projWoblo from "@/assets/proj-woblo.jpg";
 import projMonolith from "@/assets/proj-monolith.jpg";
 import projRoyal from "@/assets/proj-royal.jpg";
@@ -49,6 +50,7 @@ export const PROJECTS: Project[] = [
     category: "AI Web App",
     url: "https://medilens-ruddy.vercel.app/",
     repo: "https://github.com/Muhammad-Ahmad-CO/medilens",
+    img: projMedilens,
     gallery: [],
     desc: "Point a phone camera at a medicine pack and MediLens reads the label, checks it against a drug index, and gives an explained green, amber or red verdict. A screening helper, not a medical device.",
     overview:

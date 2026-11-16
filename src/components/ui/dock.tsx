@@ -37,7 +37,7 @@ export function Dock({
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={cn(
-          "mx-auto flex h-12 sm:h-14 md:h-16 items-end gap-1.5 sm:gap-2 md:gap-3 rounded-2xl border border-white/10 bg-black/50 px-2 sm:px-3 md:px-4 pb-1.5 sm:pb-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+          "mx-auto flex h-12 sm:h-14 md:h-16 items-end gap-0.5 sm:gap-2 md:gap-3 rounded-2xl border border-white/10 bg-black/50 px-1.5 sm:px-3 md:px-4 pb-1.5 sm:pb-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
           className
         )}
       >
@@ -79,7 +79,11 @@ export function DockIcon({ children, className, onClick, href, label }: DockIcon
       ref={ref}
       style={{ width, height: width }}
       className={cn(
-        "flex aspect-square items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#D7E2EA] hover:bg-white/10 transition-colors relative group",
+        // Mobile-only clamp: the motion style sets 32px, but max-w/max-h win
+        // over width/height, so icons render at 26px below the sm breakpoint
+        // (dock must fit a ~390px viewport, and 360px phones too). Removed
+        // at sm+ so desktop magnification is unchanged.
+        "flex aspect-square max-w-[26px] max-h-[26px] sm:max-w-none sm:max-h-none items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#D7E2EA] hover:bg-white/10 transition-colors relative group",
         className
       )}
       onClick={onClick}

@@ -53,9 +53,24 @@ export const CrowdCanvas = ({
     const availablePeeps: Peep[] = [];
     const crowd: Peep[] = [];
 
+    // Mobile-only crowd scale: peeps are drawn at their natural sprite
+    // size, which overwhelms a phone viewport (giant faces behind the
+    // headline). Below the 768px breakpoint, shrink peeps in proportion
+    // to the viewport width so the crowd reads as background texture and
+    // stays in a band near the bottom. Widths >= 768px keep scale 1, so
+    // desktop rendering is unchanged. Continuous at the breakpoint.
+    let peepScale = 1;
+    const scaleForWidth = (w: number) => (w >= 768 ? 1 : Math.max(0.35, w / 768));
+    const applyPeepScale = () => {
+      allPeeps.forEach((peep) => {
+        peep.width = peep.rect[2] * peepScale;
+        peep.height = peep.rect[3] * peepScale;
+      });
+    };
+
     const resetPeep = ({ peep }: { peep: Peep }) => {
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const offsetY = 100 - 250 * gsap.parseEase("power2.in")(Math.random());
+      const offsetY = (100 - 250 * gsap.parseEase("power2.in")(Math.random())) * peepScale;
       const startY = stage.height - peep.height + offsetY;
       let startX: number, endX: number;
       if (direction === 1) {
@@ -80,7 +95,7 @@ export const CrowdCanvas = ({
       const tl = gsap.timeline();
       tl.timeScale(randomRange(0.5, 1.5));
       tl.to(peep, { duration: xDuration, x: endX, ease: "none" }, 0);
-      tl.to(peep, { duration: yDuration, repeat: xDuration / yDuration, yoyo: true, y: startY - 10 }, 0);
+      tl.to(peep, { duration: yDuration, repeat: xDuration / yDuration, yoyo: true, y: startY - 10 * peepScale }, 0);
       return tl;
     };
 
@@ -171,6 +186,8 @@ export const CrowdCanvas = ({
       stage.height = canvas.clientHeight;
       canvas.width = stage.width * devicePixelRatio;
       canvas.height = stage.height * devicePixelRatio;
+      peepScale = scaleForWidth(stage.width);
+      applyPeepScale();
       crowd.forEach((p) => p.walk?.kill());
       crowd.length = 0;
       availablePeeps.length = 0;
