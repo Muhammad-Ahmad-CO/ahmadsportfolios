@@ -290,7 +290,15 @@ function Hero() {
           <h1 className="hero-heading sr-only">Hi, I&rsquo;m Muhammad Ahmed</h1>
           <div className="mx-auto w-full max-w-[1400px]">
             <ParticleText text="HI, I'M" className="particle-heading h-[18vw] max-h-[185px] w-full" cursorRadius={45} />
-            <ParticleText text="MUHAMMAD AHMED" className="particle-heading h-[18vw] max-h-[185px] w-full" cursorRadius={55} />
+            {/* Desktop: single line (fits at full size). Mobile: split into two
+                lines so MUHAMMAD / AHMED render at the same glyph size as
+                HI, I'M — one line cannot fit a ~390px viewport at that size
+                because ParticleText shrinks text to fit the width. */}
+            <ParticleText text="MUHAMMAD AHMED" className="particle-heading hidden h-[18vw] max-h-[185px] w-full sm:block" cursorRadius={55} />
+            <div className="sm:hidden">
+              <ParticleText text="MUHAMMAD" className="particle-heading h-[18vw] max-h-[185px] w-full" cursorRadius={55} />
+              <ParticleText text="AHMED" className="particle-heading h-[18vw] max-h-[185px] w-full" cursorRadius={55} />
+            </div>
           </div>
         </FadeIn>
       </div>
@@ -321,7 +329,7 @@ function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-32 sm:bottom-16 md:bottom-16 z-10 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 bottom-40 sm:bottom-16 md:bottom-16 z-10 flex items-end justify-center"
       >
         <Magnet strength={0.1}>
           <div
