@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 export type IntegrationItem = {
   label: string;
   slug: string;
@@ -31,16 +33,27 @@ export const DEFAULT_INTEGRATIONS: IntegrationItem[] = [
 
 function Card({ item }: { item: IntegrationItem }) {
   const { slug, label } = item;
+  // Deterministic fallback, mirroring the About logo cloud: every icon
+  // that fails to load degrades to the same first-letter tile instead of
+  // a mix of empty boxes and broken-image glyphs. The ref guard catches
+  // images that already failed before hydration attached onError.
+  const [failed, setFailed] = useState(false);
   return (
     <div className="shrink-0 flex items-center gap-3 rounded-2xl px-5 py-4 md:px-6 md:py-5 border border-white/10 bg-white/[0.04] backdrop-blur-sm">
       <span className="grid place-items-center h-[52px] w-[52px] md:h-[64px] md:w-[64px] shrink-0 rounded-xl bg-white/[0.06] border border-white/10">
-        <img
-          src={logoUrl(slug)}
-          alt={`${label} logo`}
-          loading="lazy"
-          decoding="async"
-          className="h-6 w-6 md:h-7 md:w-7 object-contain"
-        />
+        {failed ? (
+          <span role="img" aria-label={`${label} logo`} className="text-lg font-semibold leading-none text-gray-200 md:text-xl">{label[0]}</span>
+        ) : (
+          <img
+            ref={(image) => { if (image?.complete && image.naturalWidth === 0) setFailed(true); }}
+            src={logoUrl(slug)}
+            alt={`${label} logo`}
+            loading="lazy"
+            decoding="async"
+            onError={() => setFailed(true)}
+            className="h-6 w-6 md:h-7 md:w-7 object-contain"
+          />
+        )}
       </span>
       <span className="whitespace-nowrap font-semibold uppercase tracking-tight text-base md:text-xl text-gray-400">
         {label}

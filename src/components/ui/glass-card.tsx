@@ -59,10 +59,14 @@ const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
           }
           .gc-circles {
             position: absolute;
-            right: -30px;
-            top: -30px;
+            right: -60px;
+            top: -60px;
             width: 180px;
             height: 180px;
+            /* Hide the part of the rings that would fall below the card's
+               top padding and show through the contact pills: the rings
+               now tuck behind the email pill instead of crossing it. */
+            clip-path: inset(0 0 60px 0);
             pointer-events: none;
           }
           .gc-circle {

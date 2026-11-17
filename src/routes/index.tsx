@@ -223,7 +223,7 @@ function TextRoll({ children, center = true }: { children: string; center?: bool
           );
         })}
       </span>
-      <span className="absolute inset-0 block">
+      <span className="absolute inset-0 block" aria-hidden="true">
         {letters.map((l, i) => {
           const delay = center ? STAGGER * Math.abs(i - (letters.length - 1) / 2) : STAGGER * i;
           return (
@@ -305,7 +305,7 @@ function Hero() {
 
       {/* Bottom bar */}
       <div className="relative z-20 mt-auto grid grid-cols-[minmax(0,1fr)_auto] items-end gap-3 px-4 sm:px-6 md:px-10 pb-24 sm:pb-12 md:pb-12">
-        <FadeIn y={20} delay={0.35} className="min-w-0 max-w-[150px] sm:max-w-[260px]">
+        <FadeIn y={20} delay={0.35} className="min-w-0 max-w-[150px] sm:max-w-[260px] md:max-w-[120px] lg:max-w-[260px]">
           <p
             className="font-light uppercase tracking-wide"
             style={{
@@ -329,7 +329,7 @@ function Hero() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute inset-x-0 bottom-40 sm:bottom-16 md:bottom-16 z-10 flex items-end justify-center"
+        className="pointer-events-none absolute inset-x-0 bottom-40 sm:bottom-24 z-10 flex items-end justify-center"
       >
         <Magnet strength={0.1}>
           <div
@@ -474,12 +474,12 @@ function About() {
               </motion.p>
             ))}
           </div>
-          <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
+          <dl className="mt-10 grid grid-cols-[1fr_1.8fr_1fr] gap-4 border-t border-white/10 pt-8 lg:grid-cols-3">
             {ABOUT_STATS.map((s, i) => (
               <motion.div key={s.l} {...fade(i + 2)}>
                 <dt className="sr-only">{s.l}</dt>
                 <dd className="about-heading font-bold" style={{ fontSize: "clamp(1.75rem, 4vw, 44px)", lineHeight: 1 }}>{s.n}</dd>
-                <dd className="about-eyebrow mt-2 text-[11px] uppercase sm:text-xs" aria-hidden="true">{s.l}</dd>
+                <dd className="about-eyebrow about-stat-label mt-2 text-[10px] uppercase lg:text-xs" aria-hidden="true">{s.l}</dd>
               </motion.div>
             ))}
           </dl>
@@ -575,7 +575,7 @@ function ProjectCard({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3 md:gap-5 text-[#D7E2EA]">
             <span className="font-light text-2xl md:text-4xl">{p.n}</span>
-            <span className="uppercase tracking-wider text-xs md:text-sm opacity-60">
+            <span className="uppercase tracking-wider text-xs md:text-sm opacity-60 whitespace-nowrap">
               {p.category}
             </span>
             <h3 className="uppercase font-medium text-xl md:text-3xl">{p.name}</h3>
@@ -589,7 +589,7 @@ function ProjectCard({
                 src={p.img}
                 alt={`${p.name} website preview — ${p.category} project`}
                 loading="lazy"
-                className="h-[28vh] md:h-full w-full object-cover object-top"
+                className="h-[28vh] md:h-full w-full object-cover object-left-top"
               />
             </div>
           )}

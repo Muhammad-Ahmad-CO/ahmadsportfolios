@@ -95,21 +95,43 @@ export default function FloatingStar() {
     const pointer = new THREE.Vector2();
     const easedPointer = new THREE.Vector2();
     const nav = document.querySelector("#hero nav");
+    const hero = document.querySelector("#hero");
     const documentHeight = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     let targetProgress = Math.min(1, Math.max(0, window.scrollY / documentHeight()));
     let progress = targetProgress;
     let viewWidth = 1;
     let viewHeight = 1;
+    // Rest height of the star as a fraction of the viewport height. On wide
+    // viewports the heading spans the full width, so the star rests lower
+    // to clear the "MUHAMMAD AHMED" glyphs; narrow viewports stack the
+    // heading higher and the original rest height already clears it.
+    let restLift = 0.02;
     let elapsed = 0;
     let previous = 0;
     let frame = 0;
     let disposed = false;
 
     function updateHeaderClip() {
-      // The existing header lives inside a content stacking context. Clip only this
-      // decorative layer beneath its visible footprint, without restyling the header.
-      const bottom = Math.max(0, nav?.getBoundingClientRect().bottom ?? 0);
-      canvas.style.clipPath = `inset(${bottom}px 0 0 0)`;
+      // The star is a hero decoration: glue this fixed canvas to the hero
+      // footprint so it scrolls away with the hero and can never render
+      // over About/Services/Projects/FAQ/footer content below it. The
+      // canvas keeps its full-viewport size; translating it by -scrollY
+      // makes it behave like an absolute layer inside the hero while it
+      // stays a lazy client-only homepage sibling in the DOM.
+      const heroRect = hero?.getBoundingClientRect();
+      const navRect = nav?.getBoundingClientRect();
+      canvas.style.transform = `translateY(${-window.scrollY}px)`;
+      // Clip beneath the nav's visible footprint, measured in hero-local
+      // coordinates so the clip stays put while the canvas translates
+      // with the hero (the hero starts at the top of the document, so
+      // canvas-local y equals hero-local y).
+      const top = heroRect && navRect
+        ? Math.max(0, navRect.bottom - heroRect.top)
+        : Math.max(0, navRect?.bottom ?? 0);
+      canvas.style.clipPath = `inset(${top}px 0 0 0)`;
+      // Belt and braces: once the hero has fully scrolled out, hide the
+      // canvas outright so no stray pixel can cover later sections.
+      canvas.style.visibility = heroRect && heroRect.bottom <= 0 ? "hidden" : "visible";
     }
     function resize() {
       const width = window.innerWidth;
@@ -120,6 +142,7 @@ export default function FloatingStar() {
       viewHeight = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
       viewWidth = viewHeight * camera.aspect;
       star.scale.setScalar(viewHeight * 0.3 / 2.02 * (width < 900 ? 0.62 : 1));
+      restLift = width < 900 ? 0.02 : -0.1;
       updateHeaderClip();
       if (reduced.matches && !document.hidden) draw(0);
     }
@@ -139,7 +162,7 @@ export default function FloatingStar() {
       const horizontalLimit = Math.max(0, viewWidth * depthRatio / 2 - star.scale.x * 1.04);
       star.position.set(
         THREE.MathUtils.clamp((x + (freeze ? 0 : easedPointer.x * 0.018)) * viewWidth * depthRatio, -horizontalLimit, horizontalLimit),
-        (0.02 - y + (freeze ? 0 : Math.sin(elapsed * Math.PI * 2 / 12.6) * 0.009 + easedPointer.y * 0.015)) * viewHeight * depthRatio,
+        (restLift - y + (freeze ? 0 : Math.sin(elapsed * Math.PI * 2 / 12.6) * 0.009 + easedPointer.y * 0.015)) * viewHeight * depthRatio,
         z,
       );
       star.rotation.set(

@@ -172,7 +172,7 @@ function ProjectPage() {
                 src={src}
                 alt={`${p.name} gallery screenshot ${i + 1} — ${p.category}`}
                 loading="lazy"
-                className="w-full object-cover object-top"
+                className="h-full w-full object-cover object-top"
               />
             </motion.div>
           ))}
@@ -196,7 +196,7 @@ function ProjectPage() {
                     src={o.img}
                     alt={`${o.name} preview`}
                     loading="lazy"
-                    className="h-40 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    className="h-40 w-full object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               )}

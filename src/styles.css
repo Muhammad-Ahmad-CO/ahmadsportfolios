@@ -34,6 +34,21 @@ html, body, #root {
 .about-heading { font-family: var(--font-about-heading); }
 .about-description { font-family: var(--font-about-body); color: oklch(0.88 0.005 90); }
 .about-eyebrow { font-family: var(--font-about-heading); letter-spacing: 0.25em; color: oklch(0.65 0 0); }
+/* About stat labels: tighter tracking below lg so the long middle label
+   ("AI integrations") fits its column instead of colliding with the
+   neighbouring labels. Full tracking returns at lg, where columns are wide. */
+@media (max-width: 1023.98px) {
+  .about-stat-label { letter-spacing: 0.1em; }
+}
+/* Anchor landings: the fixed dock covers the bottom ~88px at md+ (~60px on
+   phones), so a plain top-aligned landing leaves section content under it.
+   A negative scroll margin scrolls landings a dock-height further, lifting
+   bottom content clear of the dock. Applies to fragment navigation and
+   scrollIntoView alike; normal scrolling and layout are untouched. */
+#about, #services, #projects, #faq, #footer { scroll-margin-top: -64px; }
+@media (min-width: 768px) {
+  #about, #services, #projects, #faq, #footer { scroll-margin-top: -96px; }
+}
 .about-accent { font-style: italic; -webkit-text-stroke: 1.5px var(--color-about-text); color: transparent; padding-right: 0.08em; }
 .about-panel { background: oklch(0.12 0 0 / 0.78); backdrop-filter: blur(12px); border: 1px solid oklch(1 0 0 / 0.08); }
 
@@ -227,9 +242,11 @@ html.light-mode .floating-star {
   opacity: 0.28;
 }
 /* The dotted particle heading is faint in light mode; punch the
-   inverted dots up toward solid ink. */
+   inverted dots up toward solid ink. (This filter runs BEFORE the page
+   invert, so raising contrast/brightness here DARKENS the inverted dots;
+   the old brightness(0.9) did the opposite and left glyphs washed out.) */
 html.light-mode .particle-heading {
-  filter: contrast(1.5) brightness(0.9);
+  filter: contrast(2.2) brightness(1.05);
 }
 /* Soften pure-white flips so light mode reads as warm paper, not glare */
 html.light-mode .hero-heading {
@@ -546,13 +563,16 @@ html.eye-mode {
   transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
 }
 
-/* Persistent decoration only: all content behind it remains clickable. */
+/* Persistent decoration only: all content behind it remains clickable.
+   Small and lifted clear of the hero CONTACT ME button (which sits in the
+   bottom-right corner) and the bottom dock, so the cloud never covers
+   button text or body-text line ends at any width. */
 .portfolio-mascot {
   position: fixed;
-  right: max(20px, env(safe-area-inset-right));
-  bottom: max(20px, env(safe-area-inset-bottom));
-  width: 140px;
-  height: 140px;
+  right: max(12px, env(safe-area-inset-right));
+  bottom: max(170px, calc(env(safe-area-inset-bottom) + 150px));
+  width: 96px;
+  height: 96px;
   z-index: 80;
   pointer-events: none;
   filter: drop-shadow(0 5px 8px var(--mascot-shadow));
@@ -579,10 +599,10 @@ html.eye-mode {
 }
 @media (max-width: 767px) {
   .portfolio-mascot {
-    width: 90px;
-    height: 90px;
+    width: 64px;
+    height: 64px;
     right: max(8px, env(safe-area-inset-right));
-    bottom: max(106px, calc(env(safe-area-inset-bottom) + 90px));
+    bottom: max(150px, calc(env(safe-area-inset-bottom) + 134px));
   }
 }
 @media (max-width: 380px), (max-height: 450px) {

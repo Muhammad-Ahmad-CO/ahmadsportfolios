@@ -84,7 +84,7 @@ function PortfolioPage() {
                     src={p.img}
                     alt={`${p.name} website preview — ${p.category} project`}
                     loading="lazy"
-                    className="h-52 w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    className="h-52 w-full object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
               </Link>
