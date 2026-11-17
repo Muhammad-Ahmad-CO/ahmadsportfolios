@@ -95,7 +95,6 @@ export default function FloatingStar() {
     const pointer = new THREE.Vector2();
     const easedPointer = new THREE.Vector2();
     const nav = document.querySelector("#hero nav");
-    const hero = document.querySelector("#hero");
     const documentHeight = () => Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     let targetProgress = Math.min(1, Math.max(0, window.scrollY / documentHeight()));
     let progress = targetProgress;
@@ -112,26 +111,14 @@ export default function FloatingStar() {
     let disposed = false;
 
     function updateHeaderClip() {
-      // The star is a hero decoration: glue this fixed canvas to the hero
-      // footprint so it scrolls away with the hero and can never render
-      // over About/Services/Projects/FAQ/footer content below it. The
-      // canvas keeps its full-viewport size; translating it by -scrollY
-      // makes it behave like an absolute layer inside the hero while it
-      // stays a lazy client-only homepage sibling in the DOM.
-      const heroRect = hero?.getBoundingClientRect();
-      const navRect = nav?.getBoundingClientRect();
-      canvas.style.transform = `translateY(${-window.scrollY}px)`;
-      // Clip beneath the nav's visible footprint, measured in hero-local
-      // coordinates so the clip stays put while the canvas translates
-      // with the hero (the hero starts at the top of the document, so
-      // canvas-local y equals hero-local y).
-      const top = heroRect && navRect
-        ? Math.max(0, navRect.bottom - heroRect.top)
-        : Math.max(0, navRect?.bottom ?? 0);
-      canvas.style.clipPath = `inset(${top}px 0 0 0)`;
-      // Belt and braces: once the hero has fully scrolled out, hide the
-      // canvas outright so no stray pixel can cover later sections.
-      canvas.style.visibility = heroRect && heroRect.bottom <= 0 ? "hidden" : "visible";
+      // Restored pre-audit behavior: the canvas stays fixed to the viewport
+      // and only the header footprint is clipped, so the star keeps its
+      // scroll-driven orbit (it drifts down as scrolling begins) instead
+      // of being glued to the hero and scrolling away with it. The hero
+      // gluing added in audit pass 1 (translateY(-scrollY) + hide once the
+      // hero left the viewport) is what stopped the scroll-follow motion.
+      const bottom = Math.max(0, nav?.getBoundingClientRect().bottom ?? 0);
+      canvas.style.clipPath = `inset(${bottom}px 0 0 0)`;
     }
     function resize() {
       const width = window.innerWidth;
@@ -141,7 +128,9 @@ export default function FloatingStar() {
       camera.updateProjectionMatrix();
       viewHeight = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
       viewWidth = viewHeight * camera.aspect;
-      star.scale.setScalar(viewHeight * 0.3 / 2.02 * (width < 900 ? 0.62 : 1));
+      // Slightly smaller than the original (x0.88, ~12%): same proportions,
+      // same narrow/wide ratio, just a touch less dominant on the hero.
+      star.scale.setScalar(viewHeight * 0.3 / 2.02 * (width < 900 ? 0.62 : 1) * 0.88);
       restLift = width < 900 ? 0.02 : -0.1;
       updateHeaderClip();
       if (reduced.matches && !document.hidden) draw(0);
