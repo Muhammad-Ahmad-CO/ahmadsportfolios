@@ -48,6 +48,16 @@ html, body, #root {
 #about, #services, #projects, #faq, #footer { scroll-margin-top: -64px; }
 @media (min-width: 768px) {
   #about, #services, #projects, #faq, #footer { scroll-margin-top: -96px; }
+  /* Projects only: the first card is tall, so the shared margin leaves
+     its tag row cut by the viewport bottom on short viewports. Measured
+     landing shift; the other sections keep the shared margin, so their
+     landings are unchanged. */
+  #projects { scroll-margin-top: -110px; }
+}
+@media (min-width: 1600px) {
+  /* Wide viewports: the tag row otherwise lands behind the dock bar.
+     Measured landing shift; heading glyphs stay in view. */
+  #projects { scroll-margin-top: -162px; }
 }
 .about-accent { font-style: italic; -webkit-text-stroke: 1.5px var(--color-about-text); color: transparent; padding-right: 0.08em; }
 .about-panel { background: oklch(0.12 0 0 / 0.78); backdrop-filter: blur(12px); border: 1px solid oklch(1 0 0 / 0.08); }
@@ -554,6 +564,11 @@ html.eye-mode {
   width: 26px;
   border-radius: 100%;
   background-color: rgb(232, 232, 232);
+  /* Dot-matrix echo of the reel's dotted knob: faint dark dots on the
+     light ball. Kept very subtle (low alpha, hard dot edge) so it reads
+     as texture, not speckle — the dotted icons carry the style. */
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.09) 1px, transparent 1px);
+  background-size: 6px 6px;
   box-shadow:
     rgba(0, 0, 0, 0.17) 0px -6px 6px 0px inset,
     rgba(0, 0, 0, 0.15) 0px -10px 10px 0px inset,
@@ -565,8 +580,10 @@ html.eye-mode {
 
 /* Persistent decoration only: all content behind it remains clickable.
    Small and lifted clear of the hero CONTACT ME button (which sits in the
-   bottom-right corner) and the bottom dock, so the cloud never covers
-   button text or body-text line ends at any width. */
+   bottom-right corner) and the bottom dock. When page text scrolls beneath
+   its box, the renderer sets data-text-beneath and the cloud fades out
+   (opacity only — the node stays mounted, so nothing shifts); it fades
+   back once the box is clear. */
 .portfolio-mascot {
   position: fixed;
   right: max(12px, env(safe-area-inset-right));
@@ -576,6 +593,10 @@ html.eye-mode {
   z-index: 80;
   pointer-events: none;
   filter: drop-shadow(0 5px 8px var(--mascot-shadow));
+  transition: opacity 0.3s ease;
+}
+.portfolio-mascot[data-text-beneath="true"] {
+  opacity: 0;
 }
 .portfolio-mascot * { pointer-events: none; }
 .portfolio-mascot-motion { width: 100%; height: 100%; }
@@ -610,6 +631,8 @@ html.eye-mode {
 }
 @media (prefers-reduced-motion: reduce) {
   .portfolio-mascot .portfolio-mascot-motion { animation: none; }
+  /* The text-beneath fade flips instantly instead of animating. */
+  .portfolio-mascot { transition: none; }
 }
 
 /* Standalone contribution calendar: stable cells, independent ambient twinkles. */

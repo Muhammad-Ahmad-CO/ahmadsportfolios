@@ -37,7 +37,7 @@ export function Dock({
         onMouseMove={(e) => mouseX.set(e.pageX)}
         onMouseLeave={() => mouseX.set(Infinity)}
         className={cn(
-          "mx-auto flex h-12 sm:h-14 md:h-16 items-end gap-0.5 sm:gap-2 md:gap-3 rounded-2xl border border-white/10 bg-black/50 px-1.5 sm:px-3 md:px-4 pb-1.5 sm:pb-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
+          "mx-auto flex h-12 sm:h-14 md:h-16 items-center gap-0.5 sm:gap-2 md:gap-3 rounded-2xl border border-white/10 bg-black/50 px-1.5 sm:px-3 md:px-4 pb-1.5 sm:pb-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]",
           className
         )}
       >
@@ -98,8 +98,17 @@ export function DockIcon({ children, className, onClick, href, label }: DockIcon
   );
 
   if (href) {
+    // In-page anchors (e.g. the Home link) must stay in the same tab and
+    // jump natively; only external links open a new tab. Previously every
+    // href got target="_blank", so Home opened a duplicate tab.
+    const isAnchor = href.startsWith("#");
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+      <a
+        href={href}
+        target={isAnchor ? undefined : "_blank"}
+        rel={isAnchor ? undefined : "noopener noreferrer"}
+        aria-label={label}
+      >
         {inner}
       </a>
     );

@@ -359,7 +359,14 @@ function PortraitAvatar() {
   return (
     <div
       className="group relative rounded-[28px] h-[210px] w-[170px] sm:h-[300px] sm:w-[245px] md:h-[380px] md:w-[310px] lg:h-[440px] lg:w-[360px] transition-[background,border-color,box-shadow] duration-500 ease-out"
-      onMouseEnter={() => setBlasted(true)}
+      // Blast only when the pointer genuinely MOVES over the frame.
+      // mouseenter also fires when scrolling slides the portrait under a
+      // stationary cursor, which left the photo "vanished" (blasted) after
+      // a jump back to the top until the mouse moved. A mousemove with
+      // nonzero movement means the user actually moved onto the photo.
+      onMouseMove={(e) => {
+        if (e.movementX !== 0 || e.movementY !== 0) setBlasted(true);
+      }}
       onMouseLeave={() => setBlasted(false)}
       onPointerDown={(e) => {
         if (e.pointerType !== "mouse") setBlasted((v) => !v);
@@ -844,7 +851,7 @@ function Index() {
       </div>
       <div className="fixed bottom-3 sm:bottom-4 md:bottom-6 left-1/2 -translate-x-1/2 z-50 px-3 max-w-[calc(100vw-1.5rem)]">
         <Dock>
-          <DockIcon href="#top" label="Home">
+          <DockIcon href="#hero" label="Home">
             <Home className="h-4 w-4 sm:h-5 sm:w-5" />
           </DockIcon>
           <DockIcon href={EMAIL_URL} label="Email">

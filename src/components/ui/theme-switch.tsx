@@ -1,11 +1,17 @@
-import { Moon, Eye, Sun } from "lucide-react";
+import type { ComponentType } from "react";
+import {
+  DotMatrixEyeIcon,
+  DotMatrixMoonIcon,
+  DotMatrixSunIcon,
+  type DotMatrixIconProps,
+} from "./dot-matrix-icons";
 
 export type ThemeMode = "light" | "dark" | "eye";
 
-const OPTIONS: { id: ThemeMode; label: string; icon: typeof Moon }[] = [
-  { id: "light", label: "Light theme", icon: Sun },
-  { id: "dark", label: "Dark theme", icon: Moon },
-  { id: "eye", label: "Eye protection theme", icon: Eye },
+const OPTIONS: { id: ThemeMode; label: string; icon: ComponentType<DotMatrixIconProps> }[] = [
+  { id: "light", label: "Light theme", icon: DotMatrixSunIcon },
+  { id: "dark", label: "Dark theme", icon: DotMatrixMoonIcon },
+  { id: "eye", label: "Eye protection theme", icon: DotMatrixEyeIcon },
 ];
 
 export function ThemeSwitch({

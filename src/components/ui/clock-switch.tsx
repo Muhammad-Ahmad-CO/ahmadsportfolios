@@ -1,35 +1,15 @@
 import type { ComponentType } from "react";
-import { Clock } from "lucide-react";
+import {
+  DotMatrixAnalogIcon,
+  DotMatrixDigitalIcon,
+  type DotMatrixIconProps,
+} from "./dot-matrix-icons";
 
 export type ClockMode = "digital" | "analog";
 
-interface IconProps {
-  className?: string;
-  strokeWidth?: number;
-}
-
-function DigitalIcon({ className, strokeWidth = 2.5 }: IconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={strokeWidth}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <rect x="3" y="7" width="18" height="10" rx="2" />
-      <path d="M7 12h.01" />
-      <path d="M12 12h.01" />
-      <path d="M17 12h.01" />
-    </svg>
-  );
-}
-
-const OPTIONS: { id: ClockMode; label: string; icon: ComponentType<IconProps> }[] = [
-  { id: "digital", label: "Digital clock", icon: DigitalIcon },
-  { id: "analog", label: "Analog clock", icon: Clock },
+const OPTIONS: { id: ClockMode; label: string; icon: ComponentType<DotMatrixIconProps> }[] = [
+  { id: "digital", label: "Digital clock", icon: DotMatrixDigitalIcon },
+  { id: "analog", label: "Analog clock", icon: DotMatrixAnalogIcon },
 ];
 
 export function ClockSwitch({
