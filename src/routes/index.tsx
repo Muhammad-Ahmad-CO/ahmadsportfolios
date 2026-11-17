@@ -4,7 +4,6 @@ import { flushSync } from "react-dom";
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView } from "framer-motion";
 
 import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
-import { EffectsAdvisor } from "@/components/ui/effects-advisor";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
 
@@ -871,7 +870,6 @@ function Index() {
             >
               <Sparkles className="h-4 w-4" />
             </button>
-            <EffectsAdvisor onApply={updateStar} />
           </div>
           <div className="self-center">
             <ClockSwitch value={clockMode} onChange={setClockMode} />
