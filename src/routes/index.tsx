@@ -72,7 +72,7 @@ export const Route = createFileRoute("/")({
 
 
 const EMAIL = "ahmadkaimkhani40@gmail.com";
-const EMAIL_URL = "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJZdkVhRGrbbFWcdWbLMdzclsLZWWCrlpQXSgjxXVWPRCcKSkfmPCpvntnfVlfDCCfbrPlB";
+const EMAIL_URL = `mailto:${EMAIL}?subject=Project%20Inquiry`;
 const PHONE = "0314-1241710";
 const GITHUB = "https://github.com/Muhammad-Ahmad-CO";
 
@@ -109,7 +109,7 @@ function ContactButton({ className = "" }: { className?: string }) {
       href={EMAIL_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Send an email to Muhammad Ahmed via Gmail"
+      aria-label="Send an email to Muhammad Ahmed"
       role="button"
       className={`group inline-flex items-center gap-2 rounded-full px-5 py-2.5 md:px-7 md:py-3 text-sm md:text-base uppercase tracking-wider text-[#0C0C0C] font-medium transition-transform hover:scale-105 ${className}`}
       style={{ background: "linear-gradient(180deg, #BBCCD7 0%, #D7E2EA 100%)" }}
