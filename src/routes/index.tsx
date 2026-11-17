@@ -25,6 +25,7 @@ import { AboutLogoCloud } from "@/components/ui/about-logo-cloud";
 import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
+import { FaqBuildOverlay } from "@/components/ui/faq-build-animation";
 
 const FloatingStar = lazy(() => import("@/components/floating-star"));
 
@@ -729,6 +730,7 @@ function Testimonials() {
 function Faq() {
   return (
     <section id="faq" className="relative bg-[#0C0C0C] px-6 py-24 text-[#D7E2EA]">
+      <FaqBuildOverlay />
       <h2 className="hero-heading mb-12 text-center font-black uppercase" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>FAQ</h2>
       <div className="mx-auto max-w-3xl divide-y divide-white/10 border-y border-white/10">
         {FAQS.map((f) => (

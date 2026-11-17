@@ -684,3 +684,30 @@ html.eye-mode {
   46% { filter: brightness(1.8); }
 }
 @media (prefers-reduced-motion: reduce) { .contribution-cell { animation: none !important; } }
+
+/* FAQ self-build overlay: one-shot cursor/wireframe animation, #faq only.
+   Content is hidden only while the JS-added .faq-build-prep class is on
+   the section, so no-JS and reduced-motion users always see the content. */
+.faq-build-overlay { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 5; }
+.faq-build-grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.13) 1px, transparent 1.4px); background-size: 22px 22px; opacity: 0; }
+#faq.faq-build-prep > h2 { opacity: 0; transition: opacity 0.3s ease; }
+#faq.faq-build-prep > h2.faq-build-done { opacity: 1; }
+#faq.faq-build-prep > div { border-color: transparent; }
+#faq.faq-build-prep details { opacity: 0; transform: translateY(8px); pointer-events: none; }
+#faq.faq-build-prep details.faq-build-done { opacity: 1; transform: none; pointer-events: auto; transition: opacity 0.38s ease, transform 0.38s ease; }
+.faq-cursor { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+.faq-cursor svg { display: block; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5)); }
+.faq-cursor-tag { position: absolute; left: 11px; top: 15px; width: 13px; height: 8px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.5); box-shadow: 0 1px 2px rgba(0,0,0,0.4); }
+.faq-wireframe { position: absolute; }
+.faq-wireframe svg { display: block; }
+.faq-wire-handle { position: absolute; width: 6px; height: 6px; background: #fff; box-shadow: 0 0 0 1px rgba(59,130,246,0.9); opacity: 0; transition: opacity 0.15s ease; }
+.faq-wire-handle--nw { left: -3px; top: -3px; }
+.faq-wire-handle--n { left: calc(50% - 3px); top: -3px; }
+.faq-wire-handle--ne { right: -3px; top: -3px; }
+.faq-wire-handle--e { right: -3px; top: calc(50% - 3px); }
+.faq-wire-handle--se { right: -3px; bottom: -3px; }
+.faq-wire-handle--s { left: calc(50% - 3px); bottom: -3px; }
+.faq-wire-handle--sw { left: -3px; bottom: -3px; }
+.faq-wire-handle--w { left: -3px; top: calc(50% - 3px); }
+.faq-wire-pill { position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%); background: #2563EB; color: #fff; font-size: 10px; line-height: 1; padding: 4px 8px; border-radius: 999px; white-space: nowrap; font-variant-numeric: tabular-nums; opacity: 0; transition: opacity 0.18s ease; }
+@media (max-width: 420px) { .faq-wire-pill { font-size: 9px; padding: 3px 7px; } }
