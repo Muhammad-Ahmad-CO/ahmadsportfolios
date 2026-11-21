@@ -6,6 +6,8 @@ import projCement from "@/assets/proj-cement.jpg";
 import projHearth from "@/assets/proj-hearth.jpg";
 import projBloom from "@/assets/proj-bloom.jpg";
 import projAlfjr from "@/assets/proj-alfjr.jpg";
+import projTraptower from "@/assets/proj-traptower.jpg";
+import projVoxelcraft from "@/assets/proj-voxelcraft.jpg";
 
 import wobloG1 from "@/assets/woblo-g1.jpg";
 import wobloG2 from "@/assets/woblo-g2.jpg";
@@ -21,6 +23,8 @@ import bloomG1 from "@/assets/bloom-g1.jpg";
 import bloomG2 from "@/assets/bloom-g2.jpg";
 import alfjrG1 from "@/assets/alfjr-g1.jpg";
 import alfjrG2 from "@/assets/alfjr-g2.jpg";
+import traptowerG1 from "@/assets/traptower-g1.jpg";
+import traptowerG2 from "@/assets/traptower-g2.jpg";
 
 export type Project = {
   n: string;
@@ -211,6 +215,49 @@ export const PROJECTS: Project[] = [
     year: "2025",
     role: "Design & Front-end",
     tags: ["Menu", "Cart", "Local SEO"],
+  },
+  {
+    n: "09",
+    slug: "trap-tower",
+    name: "Trap Tower",
+    category: "Android Game",
+    url: "https://github.com/Muhammad-Ahmad-CO/trap-tower/releases/download/v1.0.6/trap-tower.apk",
+    repo: "https://github.com/Muhammad-Ahmad-CO/trap-tower",
+    img: projTraptower,
+    gallery: [traptowerG1, traptowerG2],
+    desc: "A fast 2D platformer for Android: 215 levels across 44 doors — spikes, saws and falling floors, hidden stars, 6 hero skins, daily challenge and nightmare mode. Built in Godot, free to download.",
+    overview:
+      "Trap Tower is a 2D platformer built solo in Godot: 215 levels across 44 doors, where each door ramps one obstacle type from stage 1 to 5 — spikes, saws, moving floors, falling floors and more. Hidden stars wait in every level, with 6 hero skins, a daily challenge, nightmare mode, ghost runs and achievements on top. All art and physics are original, built for smooth play on low-end Android phones.",
+    highlights: [
+      "215 levels across 44 doors, each door ramping one obstacle type 1 to 5",
+      "Hidden stars, 6 hero skins, daily challenge, nightmare mode and ghost runs",
+      "Original art and physics, built in Godot for low-end Android phones",
+    ],
+    stack: ["Godot 4.3", "GDScript", "Android"],
+    year: "2026",
+    role: "Solo build",
+    tags: ["Android Game", "Godot", "215 Levels"],
+  },
+  {
+    n: "10",
+    slug: "voxelcraft",
+    name: "VoxelCraft",
+    category: "Web Game",
+    url: "https://muse.ai/s/minecraft-jesa-game-ad6xb0xndxqxvxpi/jmfrIGbXPmIH6cacbQdysVvalRLfvgLPgl9jovmxR14",
+    img: projVoxelcraft,
+    gallery: [],
+    desc: "A Minecraft-style voxel sandbox that runs in the browser: a seed-based infinite world with 4 biomes, villages, animals and missions. Break blocks, build, craft and trade — on phone or laptop.",
+    overview:
+      "VoxelCraft is a Minecraft-style voxel sandbox that runs entirely in the browser: a seed-based infinite world built from 16x16 chunks as you walk, with 4 biomes, mountains, rivers, villages, animals and caves. Break and place blocks, craft items, trade with villagers and finish missions, with a day-night cycle, hearts and hunger, and a third-person view. Only the blocks you change are saved, so the world stays light on any phone or laptop.",
+    highlights: [
+      "Seed-based infinite world with 4 biomes, villages, animals and caves",
+      "Break and place blocks, craft items and trade with villagers",
+      "Missions, trophies and day-night cycle — plays on phone and laptop",
+    ],
+    stack: ["Three.js", "JavaScript", "WebGL"],
+    year: "2026",
+    role: "Solo build",
+    tags: ["Voxel", "Sandbox", "Infinite World"],
   },
 ];
 
