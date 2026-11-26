@@ -6,7 +6,7 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
-import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
+import type { LookbookSheet } from "@/components/ui/frosted-folder-lookbook";
 import medilensS2 from "@/assets/medilens-s2.jpg";
 import medilensS3 from "@/assets/medilens-s3.jpg";
 import medilensS4 from "@/assets/medilens-s4.jpg";
@@ -44,6 +44,7 @@ import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 import { FaqBuildOverlay } from "@/components/ui/faq-build-animation";
 
 const FloatingStar = lazy(() => import("@/components/floating-star"));
+const FrostedFolderLookbook = lazy(() => import("@/components/ui/frosted-folder-lookbook"));
 
 const OG_IMAGE =
   "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
@@ -573,61 +574,144 @@ function Services() {
 
 
 
-/* The 4 pictures each project's folder had: cover + gallery shots + the extra
-   sheet made for the lookbook. MediLens and VoxelCraft have no gallery images,
-   so their extra sheets are the s2/s3/s4 files. */
-function imagesFor(p: (typeof PROJECTS)[number]): string[] {
-  const extra: Record<string, string[]> = {
-    medilens: [medilensS2, medilensS3, medilensS4],
-    voxelcraft: [voxelcraftS2, voxelcraftS3, voxelcraftS4],
-    "trap-tower": [traptowerS4],
-    "woblo-creative-studio": [wobloS4],
-    "monolith-studio": [monolithS4],
-    "royal-beverage": [royalS4],
-    "cura-climate": [curaS4],
-    "maison-home-store": [maisonS4],
-    "verdant-studio": [verdantS4],
-    "al-fajr-foods": [alfjrS4],
+const FOLDER_WORDMARK: Record<string, string> = {
+  medilens: "MediLens",
+  "trap-tower": "Trap",
+  voxelcraft: "Voxel",
+  "woblo-creative-studio": "Woblo",
+  "monolith-studio": "Monolith",
+  "royal-beverage": "Royal",
+  "cura-climate": "CURA",
+  "maison-home-store": "Maison",
+  "verdant-studio": "Verdant",
+  "al-fajr-foods": "Fajr",
+};
+
+/* One folder colour per project, so the 10 files don't all look alike. */
+const FOLDER_TINT: Record<string, string> = {
+  medilens: "#62c8d4",
+  "trap-tower": "#f08a1d",
+  voxelcraft: "#8bc34a",
+  "woblo-creative-studio": "#c98f4e",
+  "monolith-studio": "#8a7cf5",
+  "royal-beverage": "#4f8ff7",
+  "cura-climate": "#9aa5ad",
+  "maison-home-store": "#d9a441",
+  "verdant-studio": "#2f9e6e",
+  "al-fajr-foods": "#e2574c",
+};
+
+/* The 4 polaroid pages inside each project's folder: image + caption.
+   All 40 images are real screenshots of the project itself. */
+function sheetsFor(p: (typeof PROJECTS)[number]): LookbookSheet[] {
+  const images: Record<string, string[]> = {
+    medilens: [p.img ?? "", medilensS2, medilensS3, medilensS4],
+    "trap-tower": [p.img ?? "", p.gallery[0], p.gallery[1], traptowerS4],
+    voxelcraft: [p.img ?? "", voxelcraftS2, voxelcraftS3, voxelcraftS4],
+    "woblo-creative-studio": [p.img ?? "", p.gallery[0], p.gallery[1], wobloS4],
+    "monolith-studio": [p.img ?? "", p.gallery[0], p.gallery[1], monolithS4],
+    "royal-beverage": [p.img ?? "", p.gallery[0], p.gallery[1], royalS4],
+    "cura-climate": [p.img ?? "", p.gallery[0], p.gallery[1], curaS4],
+    "maison-home-store": [p.img ?? "", p.gallery[0], p.gallery[1], maisonS4],
+    "verdant-studio": [p.img ?? "", p.gallery[0], p.gallery[1], verdantS4],
+    "al-fajr-foods": [p.img ?? "", p.gallery[0], p.gallery[1], alfjrS4],
   };
-  return [p.img ?? "", ...p.gallery, ...(extra[p.slug] ?? [])].slice(0, 4);
+  const labels: Record<string, { title: string; code: string; detail: string }[]> = {
+    medilens: [
+      { title: "Home hero", code: "01 · Hero", detail: "Know your medicine is real" },
+      { title: "How it works", code: "02 · Steps", detail: "Capture, verify, verdict" },
+      { title: "Green verdict", code: "03 · Genuine", detail: "Explained green verdict" },
+      { title: "Red verdict", code: "04 · Risk", detail: "Explained red verdict" },
+    ],
+    "trap-tower": [
+      { title: "Logo", code: "01 · Logo", detail: "Pixel logo, hero over spikes" },
+      { title: "World map", code: "02 · Map", detail: "44 doors, 215 levels" },
+      { title: "Gameplay", code: "03 · Level", detail: "Saws, spikes, moving floors" },
+      { title: "Main menu", code: "04 · Menu", detail: "Play, levels, made by Ahmed" },
+    ],
+    voxelcraft: [
+      { title: "In game", code: "01 · World", detail: "Third-person voxel world" },
+      { title: "Metro Station", code: "02 · Seed 7", detail: "Tramway Invalides, red car" },
+      { title: "City plaza", code: "03 · Seed 123", detail: "Billboards, church, crowd" },
+      { title: "Metro Station", code: "04 · Seed 2026", detail: "Yellow taxi, villagers" },
+    ],
+    "woblo-creative-studio": [
+      { title: "Hero", code: "01 · Hero", detail: "We evoke emotions through aesthetics" },
+      { title: "Hero type", code: "02 · Type", detail: "Living interactive things" },
+      { title: "Case card", code: "03 · Case", detail: "Furniture for life" },
+      { title: "Works list", code: "04 · Works", detail: "Best works section" },
+    ],
+    "monolith-studio": [
+      { title: "Hero", code: "01 · Hero", detail: "Statue, Brooklyn NYC" },
+      { title: "About", code: "02 · About", detail: "Contemporary tattoo studio" },
+      { title: "About text", code: "03 · Story", detail: "Between drawing, sculpture, skin" },
+      { title: "Artists", code: "04 · Artists", detail: "25 resident artists" },
+    ],
+    "royal-beverage": [
+      { title: "Hero", code: "01 · Hero", detail: "Royal Beverage since 1994" },
+      { title: "Our company", code: "02 · Story", detail: "Founded 1994, leading producer" },
+      { title: "Frost Cola", code: "03 · Product", detail: "Classic chill, reinvented" },
+      { title: "Menu", code: "04 · Menu", detail: "Home, story, production, products" },
+    ],
+    "cura-climate": [
+      { title: "Hero", code: "01 · Hero", detail: "8% of global CO2 emissions" },
+      { title: "Our approach", code: "02 · Process", detail: "Separates process CO2 at source" },
+      { title: "Proof points", code: "03 · Proof", detail: "84% reduction, 99 TPA pilot" },
+      { title: "Collaborators", code: "04 · Partners", detail: "Validating with industry leaders" },
+    ],
+    "maison-home-store": [
+      { title: "Hero", code: "01 · Hero", detail: "Objects of quiet beauty" },
+      { title: "Lighting", code: "02 · Collection", detail: "Featured lighting collection" },
+      { title: "Products", code: "03 · Shop", detail: "Pendant, lamp, vessel, bowl" },
+      { title: "Just arrived", code: "04 · New", detail: "Latest products" },
+    ],
+    "verdant-studio": [
+      { title: "Hero", code: "01 · Hero", detail: "Design, reimagined" },
+      { title: "Philosophy", code: "02 · Ideas", detail: "Ideas that grow beyond expected" },
+      { title: "Capabilities", code: "03 · Craft", detail: "Creative direction, field study" },
+      { title: "Services", code: "04 · Services", detail: "Interactive dev, visual strategy" },
+    ],
+    "al-fajr-foods": [
+      { title: "Hero", code: "01 · Home", detail: "Latifabad's home of biryani, BBQ" },
+      { title: "Menu", code: "02 · Menu", detail: "A whole kitchen, one address" },
+      { title: "Instagram", code: "03 · Social", detail: "Fresh from our kitchen, daily" },
+      { title: "Intro", code: "04 · Intro", detail: "Taste that feels like home" },
+    ],
+  };
+  const imgs = images[p.slug] ?? [];
+  return (labels[p.slug] ?? []).map((l, i) => ({ image: imgs[i] ?? "", ...l }));
 }
 
-/* The wheel's items: the same 10 real projects, each card showing all 4 of its
-   pictures as a 2x2 grid and linking to its case-study page. The live-project
-   button stays in the caption below. */
-const WHEEL_ITEMS: WorksWheelItem[] = PROJECTS.map((p) => ({
-  title: p.name,
-  image: p.img ?? "",
-  images: imagesFor(p),
-  href: `/portfolio/${p.slug}`,
-}));
-
-function Projects() {
-  const [activeIdx, setActiveIdx] = useState(0);
-  const p = PROJECTS[activeIdx] ?? PROJECTS[0]!;
+function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
   return (
-    <section
-      id="projects"
-      className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-16 md:pt-20 pb-20"
-    >
-      <FadeIn>
-        <h2
-          className="hero-heading font-black uppercase tracking-tight mb-10 md:mb-16"
-          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-        >
-          Project
-        </h2>
-      </FadeIn>
-      <div className="overflow-hidden rounded-[28px] border border-white/10 h-[82svh] min-h-[540px]">
-        <WorksWheel
-          items={WHEEL_ITEMS}
-          label="Works '26"
-          action="View"
-          onActiveChange={setActiveIdx}
-        />
+    <article className="mb-10 md:mb-14 last:mb-0">
+      <div className="keep-color overflow-hidden rounded-[28px] border border-white/10">
+        <ClientOnly fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
+          <Suspense fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
+            <FrostedFolderLookbook
+              title={`File ${p.n}`}
+              subtitle={p.name}
+              line={`${p.category} · ${p.year}`}
+              footer="Handle with care"
+              wordmark={FOLDER_WORDMARK[p.slug] ?? p.name}
+              tint={FOLDER_TINT[p.slug] ?? "#62c8d4"}
+              sheets={sheetsFor(p)}
+              height="min(80svh, 660px)"
+              onOpenChange={() => {
+                // Fade the decorative star out while any folder is open, so it
+                // never sits on top of the polaroid fan; back when all close.
+                requestAnimationFrame(() => {
+                  document.body.classList.toggle(
+                    "ffl-open-any",
+                    document.querySelectorAll(".ffl-root.ffl-open").length > 0,
+                  );
+                });
+              }}
+            />
+          </Suspense>
+        </ClientOnly>
       </div>
-      {/* Caption for whichever project is at the front of the wheel. */}
-      <div className="mt-6 flex flex-col gap-3 text-[#D7E2EA]">
+      <div className="mt-4 flex flex-col gap-3 text-[#D7E2EA]">
         <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-3xl">{p.desc}</p>
         <div className="flex flex-wrap items-center gap-3">
           <LiveProjectButton href={p.url} />
@@ -650,6 +734,28 @@ function Projects() {
           ))}
         </div>
       </div>
+    </article>
+  );
+}
+function Projects() {
+  return (
+    <section
+      id="projects"
+      className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-16 md:pt-20 pb-20"
+    >
+      <FadeIn>
+        <h2
+          className="hero-heading font-black uppercase tracking-tight mb-10 md:mb-16"
+          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
+        >
+          Project
+        </h2>
+      </FadeIn>
+      <div className="flex flex-col">
+        {PROJECTS.map((p) => (
+          <ProjectCard key={p.n} p={p} />
+        ))}
+      </div>
       <div className="mt-16 flex justify-center">
         <Link
           to="/portfolio"
@@ -660,6 +766,7 @@ function Projects() {
         </Link>
       </div>
     </section>
+
   );
 }
 
