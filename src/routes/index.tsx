@@ -6,6 +6,21 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring, useInView }
 import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
+import type { LookbookSheet } from "@/components/ui/frosted-folder-lookbook";
+import medilensS2 from "@/assets/medilens-s2.jpg";
+import medilensS3 from "@/assets/medilens-s3.jpg";
+import medilensS4 from "@/assets/medilens-s4.jpg";
+import traptowerS4 from "@/assets/traptower-s4.jpg";
+import voxelcraftS2 from "@/assets/voxelcraft-s2.jpg";
+import voxelcraftS3 from "@/assets/voxelcraft-s3.jpg";
+import voxelcraftS4 from "@/assets/voxelcraft-s4.jpg";
+import wobloS4 from "@/assets/woblo-s4.jpg";
+import monolithS4 from "@/assets/monolith-s4.jpg";
+import royalS4 from "@/assets/royal-s4.jpg";
+import curaS4 from "@/assets/cura-s4.jpg";
+import maisonS4 from "@/assets/maison-s4.jpg";
+import verdantS4 from "@/assets/verdant-s4.jpg";
+import alfjrS4 from "@/assets/alfjr-s4.jpg";
 
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
@@ -29,6 +44,7 @@ import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
 import { FaqBuildOverlay } from "@/components/ui/faq-build-animation";
 
 const FloatingStar = lazy(() => import("@/components/floating-star"));
+const FrostedFolderLookbook = lazy(() => import("@/components/ui/frosted-folder-lookbook"));
 
 const OG_IMAGE =
   "https://ahmadsportfolios.lovable.app/__l5e/assets-v1/aa312427-1156-4d89-b0c4-deef4309bf2d/og-portfolio.jpg";
@@ -558,77 +574,144 @@ function Services() {
 
 
 
-function ProjectCard({
-  p,
-  index,
-  total,
-}: {
-  p: (typeof PROJECTS)[number];
-  index: number;
-  total: number;
-}) {
-  const targetScale = 1 - (total - 1 - index) * 0.03;
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "start start"],
-  });
-  const scale = useTransform(scrollYProgress, [0, 1], [1, targetScale]);
+const FOLDER_WORDMARK: Record<string, string> = {
+  medilens: "MediLens",
+  "trap-tower": "Trap",
+  voxelcraft: "Voxel",
+  "woblo-creative-studio": "Woblo",
+  "monolith-studio": "Monolith",
+  "royal-beverage": "Royal",
+  "cura-climate": "CURA",
+  "maison-home-store": "Maison",
+  "verdant-studio": "Verdant",
+  "al-fajr-foods": "Fajr",
+};
 
-  return (
-    <div ref={ref} className="h-[85vh] flex items-start justify-center sticky" style={{ top: `${index * 28}px` }}>
-      <motion.article
-        style={{ scale, willChange: "transform" }}
-        className="w-full rounded-[32px] md:rounded-[56px] border-2 border-[#D7E2EA] p-4 sm:p-6 md:p-8 bg-[#0C0C0C]"
-      >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3 md:gap-5 text-[#D7E2EA]">
-            <span className="font-light text-2xl md:text-4xl">{p.n}</span>
-            <span className="uppercase tracking-wider text-xs md:text-sm opacity-60 whitespace-nowrap">
-              {p.category}
-            </span>
-            <h3 className="uppercase font-medium text-xl md:text-3xl">{p.name}</h3>
-          </div>
-          <LiveProjectButton href={p.url} />
-        </div>
-        <div className="mt-5 md:mt-8 grid gap-4 md:gap-6 md:grid-cols-5 h-auto md:h-[55vh]">
-          {p.img && (
-            <div className="md:col-span-3 keep-color overflow-hidden rounded-2xl md:rounded-3xl border border-white/10">
-              <img
-                src={p.img}
-                alt={`${p.name} website preview — ${p.category} project`}
-                loading="lazy"
-                className="h-[28vh] md:h-full w-full object-cover object-left-top"
-              />
-            </div>
-          )}
-          <div className={`${p.img ? "md:col-span-2" : "md:col-span-5"} flex flex-col justify-between gap-4 text-[#D7E2EA]`}>
-            <p className="text-sm md:text-base leading-relaxed opacity-80">{p.desc}</p>
-            <Link
-              to="/portfolio/$slug"
-              params={{ slug: p.slug }}
-              className="inline-flex w-fit items-center gap-2 text-sm uppercase tracking-wider underline-offset-4 hover:underline"
-            >
-              View case study <ArrowUpRight className="h-4 w-4" />
-            </Link>
-            <div className="flex flex-wrap gap-2">
-              {p.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] md:text-xs uppercase tracking-wider opacity-70"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-
-      </motion.article>
-    </div>
-  );
+/* The 4 polaroid pages inside each project's folder: image + caption.
+   All 40 images are real screenshots of the project itself. */
+function sheetsFor(p: (typeof PROJECTS)[number]): LookbookSheet[] {
+  const images: Record<string, string[]> = {
+    medilens: [p.img ?? "", medilensS2, medilensS3, medilensS4],
+    "trap-tower": [p.img ?? "", p.gallery[0], p.gallery[1], traptowerS4],
+    voxelcraft: [p.img ?? "", voxelcraftS2, voxelcraftS3, voxelcraftS4],
+    "woblo-creative-studio": [p.img ?? "", p.gallery[0], p.gallery[1], wobloS4],
+    "monolith-studio": [p.img ?? "", p.gallery[0], p.gallery[1], monolithS4],
+    "royal-beverage": [p.img ?? "", p.gallery[0], p.gallery[1], royalS4],
+    "cura-climate": [p.img ?? "", p.gallery[0], p.gallery[1], curaS4],
+    "maison-home-store": [p.img ?? "", p.gallery[0], p.gallery[1], maisonS4],
+    "verdant-studio": [p.img ?? "", p.gallery[0], p.gallery[1], verdantS4],
+    "al-fajr-foods": [p.img ?? "", p.gallery[0], p.gallery[1], alfjrS4],
+  };
+  const labels: Record<string, { title: string; code: string; detail: string }[]> = {
+    medilens: [
+      { title: "Home hero", code: "01 · Hero", detail: "Know your medicine is real" },
+      { title: "How it works", code: "02 · Steps", detail: "Capture, verify, verdict" },
+      { title: "Green verdict", code: "03 · Genuine", detail: "Explained green verdict" },
+      { title: "Red verdict", code: "04 · Risk", detail: "Explained red verdict" },
+    ],
+    "trap-tower": [
+      { title: "Logo", code: "01 · Logo", detail: "Pixel logo, hero over spikes" },
+      { title: "World map", code: "02 · Map", detail: "44 doors, 215 levels" },
+      { title: "Gameplay", code: "03 · Level", detail: "Saws, spikes, moving floors" },
+      { title: "Main menu", code: "04 · Menu", detail: "Play, levels, made by Ahmed" },
+    ],
+    voxelcraft: [
+      { title: "In game", code: "01 · World", detail: "Third-person voxel world" },
+      { title: "Metro Station", code: "02 · Seed 7", detail: "Tramway Invalides, red car" },
+      { title: "City plaza", code: "03 · Seed 123", detail: "Billboards, church, crowd" },
+      { title: "Metro Station", code: "04 · Seed 2026", detail: "Yellow taxi, villagers" },
+    ],
+    "woblo-creative-studio": [
+      { title: "Hero", code: "01 · Hero", detail: "We evoke emotions through aesthetics" },
+      { title: "Hero type", code: "02 · Type", detail: "Living interactive things" },
+      { title: "Case card", code: "03 · Case", detail: "Furniture for life" },
+      { title: "Works list", code: "04 · Works", detail: "Best works section" },
+    ],
+    "monolith-studio": [
+      { title: "Hero", code: "01 · Hero", detail: "Statue, Brooklyn NYC" },
+      { title: "About", code: "02 · About", detail: "Contemporary tattoo studio" },
+      { title: "About text", code: "03 · Story", detail: "Between drawing, sculpture, skin" },
+      { title: "Artists", code: "04 · Artists", detail: "25 resident artists" },
+    ],
+    "royal-beverage": [
+      { title: "Hero", code: "01 · Hero", detail: "Royal Beverage since 1994" },
+      { title: "Our company", code: "02 · Story", detail: "Founded 1994, leading producer" },
+      { title: "Frost Cola", code: "03 · Product", detail: "Classic chill, reinvented" },
+      { title: "Menu", code: "04 · Menu", detail: "Home, story, production, products" },
+    ],
+    "cura-climate": [
+      { title: "Hero", code: "01 · Hero", detail: "8% of global CO2 emissions" },
+      { title: "Our approach", code: "02 · Process", detail: "Separates process CO2 at source" },
+      { title: "Proof points", code: "03 · Proof", detail: "84% reduction, 99 TPA pilot" },
+      { title: "Collaborators", code: "04 · Partners", detail: "Validating with industry leaders" },
+    ],
+    "maison-home-store": [
+      { title: "Hero", code: "01 · Hero", detail: "Objects of quiet beauty" },
+      { title: "Lighting", code: "02 · Collection", detail: "Featured lighting collection" },
+      { title: "Products", code: "03 · Shop", detail: "Pendant, lamp, vessel, bowl" },
+      { title: "Just arrived", code: "04 · New", detail: "Latest products" },
+    ],
+    "verdant-studio": [
+      { title: "Hero", code: "01 · Hero", detail: "Design, reimagined" },
+      { title: "Philosophy", code: "02 · Ideas", detail: "Ideas that grow beyond expected" },
+      { title: "Capabilities", code: "03 · Craft", detail: "Creative direction, field study" },
+      { title: "Services", code: "04 · Services", detail: "Interactive dev, visual strategy" },
+    ],
+    "al-fajr-foods": [
+      { title: "Hero", code: "01 · Home", detail: "Latifabad's home of biryani, BBQ" },
+      { title: "Menu", code: "02 · Menu", detail: "A whole kitchen, one address" },
+      { title: "Instagram", code: "03 · Social", detail: "Fresh from our kitchen, daily" },
+      { title: "Intro", code: "04 · Intro", detail: "Taste that feels like home" },
+    ],
+  };
+  const imgs = images[p.slug] ?? [];
+  return (labels[p.slug] ?? []).map((l, i) => ({ image: imgs[i] ?? "", ...l }));
 }
 
+function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
+  return (
+    <article className="mb-16 md:mb-24 last:mb-0">
+      <div className="keep-color overflow-hidden rounded-[28px] border border-white/10">
+        <ClientOnly fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
+          <Suspense fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
+            <FrostedFolderLookbook
+              title={`File ${p.n}`}
+              subtitle={p.name}
+              line={`${p.category} · ${p.year}`}
+              footer="Handle with care"
+              wordmark={FOLDER_WORDMARK[p.slug] ?? p.name}
+              sheets={sheetsFor(p)}
+              height="min(100svh, 820px)"
+            />
+          </Suspense>
+        </ClientOnly>
+      </div>
+      <div className="mt-5 md:mt-6 flex flex-col gap-4 text-[#D7E2EA]">
+        <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-3xl">{p.desc}</p>
+        <div className="flex flex-wrap items-center gap-3">
+          <LiveProjectButton href={p.url} />
+          <Link
+            to="/portfolio/$slug"
+            params={{ slug: p.slug }}
+            className="inline-flex w-fit items-center gap-2 text-sm uppercase tracking-wider underline-offset-4 hover:underline"
+          >
+            View case study <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {p.tags.map((t) => (
+            <span
+              key={t}
+              className="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] md:text-xs uppercase tracking-wider opacity-70"
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
 function Projects() {
   return (
     <section
@@ -643,9 +726,9 @@ function Projects() {
           Project
         </h2>
       </FadeIn>
-      <div className="relative">
-        {PROJECTS.map((p, i) => (
-          <ProjectCard key={p.n} p={p} index={i} total={PROJECTS.length} />
+      <div className="flex flex-col">
+        {PROJECTS.map((p) => (
+          <ProjectCard key={p.n} p={p} />
         ))}
       </div>
       <div className="mt-16 flex justify-center">

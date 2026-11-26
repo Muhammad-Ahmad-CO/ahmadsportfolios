@@ -251,6 +251,14 @@ html.light-mode .clock-toggle {
 html.light-mode .floating-star {
   opacity: 0.28;
 }
+/* While any lookbook folder is open, fade the star out entirely so it
+   never sits on top of the polaroid fan; it fades back when all close. */
+.floating-star {
+  transition: opacity 0.6s ease;
+}
+body.ffl-open-any .floating-star {
+  opacity: 0;
+}
 /* The dotted particle heading is faint in light mode; punch the
    inverted dots up toward solid ink. (This filter runs BEFORE the page
    invert, so raising contrast/brightness here DARKENS the inverted dots;
