@@ -35,7 +35,7 @@ import { IntegrationTicker } from "@/components/ui/integration-ticker";
 import { ContributionGraph } from "@/components/ui/contribution-graph";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { CodeBlast } from "@/components/ui/code-blast";
-import { DottedSurface } from "@/components/ui/dotted-surface";
+import { GlyphBackground } from "@/components/ui/backgrounds-glyph";
 import { DecodeText } from "@/components/ui/decode-text";
 import { AboutLogoCloud } from "@/components/ui/about-logo-cloud";
 import { ParticleText } from "@/components/ui/particle-text";
@@ -772,8 +772,12 @@ function Projects() {
 
 function Footer() {
   return (
-    <footer id="footer" className="relative overflow-hidden bg-[#0C0C0C] pt-16 md:pt-24 pb-44 sm:pb-40 md:pb-48 px-6 border-t border-white/10">
-      <DottedSurface className="opacity-40" />
+    <footer id="footer" className="relative overflow-hidden bg-[#0C0C0C] border-t border-white/10">
+      <GlyphBackground
+        className="px-6 pt-16 md:pt-24 pb-44 sm:pb-40 md:pb-48"
+        glowColor="#D7E2EA"
+        shapeColor="#62c8d4"
+      >
       <div className="relative z-10 max-w-5xl mx-auto grid gap-12 md:grid-cols-2 items-center text-[#D7E2EA]">
         <div className="text-center md:text-left space-y-4">
           <h2
@@ -818,6 +822,7 @@ function Footer() {
       <p className="relative z-10 mt-6 text-center text-xs text-[#D7E2EA]/40">
         © 2026 Muhammad Ahmed. All rights reserved.
       </p>
+      </GlyphBackground>
     </footer>
   );
 }
