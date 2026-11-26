@@ -20,6 +20,9 @@ export interface WorksWheelItem {
   title: string;
   /** Cover art. Any src an <img> takes. */
   image: string;
+  /** All cover art for the card; when 2+ are given the card shows them as a
+      2x2 grid instead of the single cover. */
+  images?: string[];
   /** Where the card links to. Omit for a wheel that only browses. */
   href?: string;
 }
@@ -362,12 +365,26 @@ export function WorksWheel({
                   }}
                 >
                   <span className="bg-white/5 shadow-black/50 relative block size-full overflow-hidden rounded-lg shadow-[0_18px_40px_-18px_var(--tw-shadow-color)]">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      draggable={false}
-                      className="size-full object-cover"
-                    />
+                    {item.images && item.images.length > 1 ? (
+                      <span className="grid size-full grid-cols-2 grid-rows-2 gap-px bg-white/10">
+                        {item.images.slice(0, 4).map((src, j) => (
+                          <img
+                            key={j}
+                            src={src}
+                            alt=""
+                            draggable={false}
+                            className="size-full object-cover"
+                          />
+                        ))}
+                      </span>
+                    ) : (
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        draggable={false}
+                        className="size-full object-cover"
+                      />
+                    )}
                     {action && item.href ? (
                       <span className="bg-white/85 text-black pointer-events-none absolute right-3 bottom-3 flex translate-y-1 items-center gap-1 rounded-full px-2.5 py-1 text-[0.7rem] opacity-0 backdrop-blur-sm transition group-hover:translate-y-0 group-hover:opacity-100">
                         <svg

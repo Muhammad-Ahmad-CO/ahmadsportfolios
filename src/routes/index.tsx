@@ -7,6 +7,20 @@ import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
 import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
+import medilensS2 from "@/assets/medilens-s2.jpg";
+import medilensS3 from "@/assets/medilens-s3.jpg";
+import medilensS4 from "@/assets/medilens-s4.jpg";
+import traptowerS4 from "@/assets/traptower-s4.jpg";
+import voxelcraftS2 from "@/assets/voxelcraft-s2.jpg";
+import voxelcraftS3 from "@/assets/voxelcraft-s3.jpg";
+import voxelcraftS4 from "@/assets/voxelcraft-s4.jpg";
+import wobloS4 from "@/assets/woblo-s4.jpg";
+import monolithS4 from "@/assets/monolith-s4.jpg";
+import royalS4 from "@/assets/royal-s4.jpg";
+import curaS4 from "@/assets/cura-s4.jpg";
+import maisonS4 from "@/assets/maison-s4.jpg";
+import verdantS4 from "@/assets/verdant-s4.jpg";
+import alfjrS4 from "@/assets/alfjr-s4.jpg";
 
 import { CrowdCanvas } from "@/components/CrowdCanvas";
 import { BlastPortrait } from "@/components/ui/blast-portrait";
@@ -559,11 +573,32 @@ function Services() {
 
 
 
-/* The wheel's items: the same 10 real projects, each card linking to its
-   case-study page. The live-project button stays in the caption below. */
+/* The 4 pictures each project's folder had: cover + gallery shots + the extra
+   sheet made for the lookbook. MediLens and VoxelCraft have no gallery images,
+   so their extra sheets are the s2/s3/s4 files. */
+function imagesFor(p: (typeof PROJECTS)[number]): string[] {
+  const extra: Record<string, string[]> = {
+    medilens: [medilensS2, medilensS3, medilensS4],
+    voxelcraft: [voxelcraftS2, voxelcraftS3, voxelcraftS4],
+    "trap-tower": [traptowerS4],
+    "woblo-creative-studio": [wobloS4],
+    "monolith-studio": [monolithS4],
+    "royal-beverage": [royalS4],
+    "cura-climate": [curaS4],
+    "maison-home-store": [maisonS4],
+    "verdant-studio": [verdantS4],
+    "al-fajr-foods": [alfjrS4],
+  };
+  return [p.img ?? "", ...p.gallery, ...(extra[p.slug] ?? [])].slice(0, 4);
+}
+
+/* The wheel's items: the same 10 real projects, each card showing all 4 of its
+   pictures as a 2x2 grid and linking to its case-study page. The live-project
+   button stays in the caption below. */
 const WHEEL_ITEMS: WorksWheelItem[] = PROJECTS.map((p) => ({
   title: p.name,
   image: p.img ?? "",
+  images: imagesFor(p),
   href: `/portfolio/${p.slug}`,
 }));
 
