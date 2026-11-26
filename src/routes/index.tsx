@@ -682,6 +682,16 @@ function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
               wordmark={FOLDER_WORDMARK[p.slug] ?? p.name}
               sheets={sheetsFor(p)}
               height="min(100svh, 820px)"
+              onOpenChange={() => {
+                // Fade the decorative star out while any folder is open, so it
+                // never sits on top of the polaroid fan; back when all close.
+                requestAnimationFrame(() => {
+                  document.body.classList.toggle(
+                    "ffl-open-any",
+                    document.querySelectorAll(".ffl-root.ffl-open").length > 0,
+                  );
+                });
+              }}
             />
           </Suspense>
         </ClientOnly>
