@@ -20,9 +20,10 @@ export interface WorksWheelItem {
   title: string;
   /** Cover art. Any src an <img> takes. */
   image: string;
-  /** All cover art for the card; when 2+ are given the card shows them as a
-      2x2 grid instead of the single cover. */
-  images?: string[];
+  /** Short wordmark shown on the card when it is a file cover. */
+  wordmark?: string;
+  /** File-cover tint. When set, the card renders as a folder cover. */
+  tint?: string;
   /** Where the card links to. Omit for a wheel that only browses. */
   href?: string;
 }
@@ -38,6 +39,8 @@ export interface WorksWheelProps extends Omit<
   action?: string;
   /** Called with the front card's index whenever it changes. @default undefined */
   onActiveChange?: (index: number) => void;
+  /** Called when a card is clicked (not dragged). @default undefined */
+  onCardClick?: (item: WorksWheelItem, index: number) => void;
 }
 
 /* Geometry. The card is measured against the stage; everything else is measured
@@ -110,6 +113,7 @@ export function WorksWheel({
   label = "Works '26",
   action = "View",
   onActiveChange,
+  onCardClick,
   className,
   ...props
 }: WorksWheelProps) {
@@ -132,6 +136,8 @@ export function WorksWheel({
   // Report the front card to the parent (for a caption below the wheel).
   const onActiveChangeRef = React.useRef(onActiveChange);
   onActiveChangeRef.current = onActiveChange;
+  const onCardClickRef = React.useRef(onCardClick);
+  onCardClickRef.current = onCardClick;
   const notifiedRef = React.useRef(0);
 
   // Read after mount, not during render: the server has no matchMedia, and
@@ -353,6 +359,10 @@ export function WorksWheel({
                   role="option"
                   aria-selected={i === active}
                   href={item.href}
+                  onClick={() => {
+                    if (item.href) return;
+                    onCardClickRef.current?.(item, i);
+                  }}
                   ref={(node: HTMLElement | null) => {
                     cardRefs.current[i] = node;
                   }}
@@ -365,17 +375,35 @@ export function WorksWheel({
                   }}
                 >
                   <span className="bg-white/5 shadow-black/50 relative block size-full overflow-hidden rounded-lg shadow-[0_18px_40px_-18px_var(--tw-shadow-color)]">
-                    {item.images && item.images.length > 1 ? (
-                      <span className="grid size-full grid-cols-2 grid-rows-2 gap-px bg-white/10">
-                        {item.images.slice(0, 4).map((src, j) => (
-                          <img
-                            key={j}
-                            src={src}
-                            alt=""
-                            draggable={false}
-                            className="size-full object-cover"
-                          />
-                        ))}
+                    {item.tint ? (
+                      /* File cover: the folder the card stands for. Its 4
+                         pictures open from the parent's overlay, not from
+                         inside this small card. */
+                      <span
+                        className="relative block size-full overflow-hidden"
+                        style={{
+                          background: `linear-gradient(150deg, ${item.tint}, ${item.tint}55 70%, rgba(12,12,12,0.9))`,
+                        }}
+                      >
+                        <span
+                          className="absolute inset-0"
+                          style={{
+                            background:
+                              "linear-gradient(180deg, rgba(255,255,255,0.30), rgba(255,255,255,0.05) 45%, rgba(0,0,0,0.25))",
+                          }}
+                        />
+                        <span className="absolute top-0 left-1/2 h-3.5 w-12 -translate-x-1/2 rounded-b-lg bg-black/30 ring-1 ring-white/30" />
+                        <span className="absolute inset-x-0 bottom-0 flex flex-col gap-0.5 p-3.5">
+                          <span className="text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-white/60">
+                            File {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span className="text-xl font-black italic tracking-tight text-[#eef7f9] drop-shadow">
+                            {item.wordmark ?? item.title}
+                          </span>
+                          <span className="text-xs font-bold text-white/90">
+                            {item.title}
+                          </span>
+                        </span>
                       </span>
                     ) : (
                       <img
@@ -385,7 +413,7 @@ export function WorksWheel({
                         className="size-full object-cover"
                       />
                     )}
-                    {action && item.href ? (
+                    {action && (item.href || onCardClick) ? (
                       <span className="bg-white/85 text-black pointer-events-none absolute right-3 bottom-3 flex translate-y-1 items-center gap-1 rounded-full px-2.5 py-1 text-[0.7rem] opacity-0 backdrop-blur-sm transition group-hover:translate-y-0 group-hover:opacity-100">
                         <svg
                           viewBox="0 0 12 12"

@@ -7,6 +7,7 @@ import { ArrowUpRight, Mail, Home, Sparkles } from "lucide-react";
 import portrait from "@/assets/portrait.png";
 import { PROJECTS } from "@/data/projects";
 import type { LookbookSheet } from "@/components/ui/frosted-folder-lookbook";
+import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 import medilensS2 from "@/assets/medilens-s2.jpg";
 import medilensS3 from "@/assets/medilens-s3.jpg";
 import medilensS4 from "@/assets/medilens-s4.jpg";
@@ -682,91 +683,131 @@ function sheetsFor(p: (typeof PROJECTS)[number]): LookbookSheet[] {
   return (labels[p.slug] ?? []).map((l, i) => ({ image: imgs[i] ?? "", ...l }));
 }
 
-function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
+/* The wheel's items: the same 10 real projects. Each wheel card is its
+   folder's cover (tint + wordmark); clicking a card opens that folder — its 4
+   pictures — in an overlay, and closing it returns to the wheel. The
+   live-project button stays in the caption below the wheel. */
+const WHEEL_ITEMS: WorksWheelItem[] = PROJECTS.map((p) => ({
+  title: p.name,
+  image: p.img ?? "",
+  wordmark: FOLDER_WORDMARK[p.slug] ?? p.name,
+  tint: FOLDER_TINT[p.slug] ?? "#62c8d4",
+}));
+
+function Projects() {
+  const [activeIdx, setActiveIdx] = useState(0);
+  const [openSlug, setOpenSlug] = useState<string | null>(null);
+  const p = PROJECTS[activeIdx] ?? PROJECTS[0]!;
+  const openProject = openSlug
+    ? (PROJECTS.find((x) => x.slug === openSlug) ?? null)
+    : null;
+
+  // Fade the decorative star out while a folder overlay is open.
+  useEffect(() => {
+    document.body.classList.toggle("ffl-open-any", openSlug !== null);
+    return () => document.body.classList.remove("ffl-open-any");
+  }, [openSlug]);
+
   return (
-    <article className="mb-10 md:mb-14 last:mb-0">
-      <div className="keep-color overflow-hidden rounded-[28px] border border-white/10">
-        <ClientOnly fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
-          <Suspense fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
-            <FrostedFolderLookbook
-              title={`File ${p.n}`}
-              subtitle={p.name}
-              line={`${p.category} · ${p.year}`}
-              footer="Handle with care"
-              wordmark={FOLDER_WORDMARK[p.slug] ?? p.name}
-              tint={FOLDER_TINT[p.slug] ?? "#62c8d4"}
-              sheets={sheetsFor(p)}
-              height="min(80svh, 660px)"
-              onOpenChange={() => {
-                // Fade the decorative star out while any folder is open, so it
-                // never sits on top of the polaroid fan; back when all close.
-                requestAnimationFrame(() => {
-                  document.body.classList.toggle(
-                    "ffl-open-any",
-                    document.querySelectorAll(".ffl-root.ffl-open").length > 0,
-                  );
-                });
-              }}
-            />
-          </Suspense>
-        </ClientOnly>
-      </div>
-      <div className="mt-4 flex flex-col gap-3 text-[#D7E2EA]">
-        <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-3xl">{p.desc}</p>
-        <div className="flex flex-wrap items-center gap-3">
-          <LiveProjectButton href={p.url} />
-          <Link
-            to="/portfolio/$slug"
-            params={{ slug: p.slug }}
-            className="inline-flex w-fit items-center gap-2 text-sm uppercase tracking-wider underline-offset-4 hover:underline"
+    <>
+      <section
+        id="projects"
+        className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-16 md:pt-20 pb-20"
+      >
+        <FadeIn>
+          <h2
+            className="hero-heading font-black uppercase tracking-tight mb-10 md:mb-16"
+            style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
           >
-            View case study <ArrowUpRight className="h-4 w-4" />
+            Project
+          </h2>
+        </FadeIn>
+        <div className="overflow-hidden rounded-[28px] border border-white/10 h-[82svh] min-h-[540px]">
+          <WorksWheel
+            items={WHEEL_ITEMS}
+            label="Works '26"
+            action="Open"
+            onActiveChange={setActiveIdx}
+            onCardClick={(_item, index) => {
+              const hit = PROJECTS[index];
+              if (hit) setOpenSlug(hit.slug);
+            }}
+          />
+        </div>
+        <div className="mt-6 flex flex-col gap-3 text-[#D7E2EA]">
+          <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-3xl">{p.desc}</p>
+          <div className="flex flex-wrap items-center gap-3">
+            <LiveProjectButton href={p.url} />
+            <Link
+              to="/portfolio/$slug"
+              params={{ slug: p.slug }}
+              className="inline-flex w-fit items-center gap-2 text-sm uppercase tracking-wider underline-offset-4 hover:underline"
+            >
+              View case study <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {p.tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] md:text-xs uppercase tracking-wider opacity-70"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="mt-16 flex justify-center">
+          <Link
+            to="/portfolio"
+            className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-sm md:text-base uppercase tracking-wider text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
+          >
+            View full portfolio
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
           </Link>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {p.tags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full border border-white/15 px-3 py-1 text-[0.65rem] md:text-xs uppercase tracking-wider opacity-70"
+      </section>
+      {openProject && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 md:p-8"
+          onClick={() => setOpenSlug(null)}
+          role="dialog"
+          aria-label={`${openProject.name} file`}
+        >
+          <div
+            className="relative w-full max-w-3xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              aria-label="Close file"
+              onClick={() => setOpenSlug(null)}
+              className="absolute -top-3 -right-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-[#D7E2EA] text-lg font-bold text-[#0C0C0C] shadow-lg"
             >
-              {t}
-            </span>
-          ))}
+              ×
+            </button>
+            <ClientOnly fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
+              <Suspense fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
+                <FrostedFolderLookbook
+                  title={`File ${openProject.n}`}
+                  subtitle={openProject.name}
+                  line={`${openProject.category} · ${openProject.year}`}
+                  footer="Handle with care"
+                  wordmark={FOLDER_WORDMARK[openProject.slug] ?? openProject.name}
+                  tint={FOLDER_TINT[openProject.slug] ?? "#62c8d4"}
+                  sheets={sheetsFor(openProject)}
+                  height="min(80svh, 660px)"
+                  defaultOpen
+                  onOpenChange={(isOpen) => {
+                    if (!isOpen) setOpenSlug(null);
+                  }}
+                />
+              </Suspense>
+            </ClientOnly>
+          </div>
         </div>
-      </div>
-    </article>
-  );
-}
-function Projects() {
-  return (
-    <section
-      id="projects"
-      className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-16 md:pt-20 pb-20"
-    >
-      <FadeIn>
-        <h2
-          className="hero-heading font-black uppercase tracking-tight mb-10 md:mb-16"
-          style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
-        >
-          Project
-        </h2>
-      </FadeIn>
-      <div className="flex flex-col">
-        {PROJECTS.map((p) => (
-          <ProjectCard key={p.n} p={p} />
-        ))}
-      </div>
-      <div className="mt-16 flex justify-center">
-        <Link
-          to="/portfolio"
-          className="group inline-flex items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-sm md:text-base uppercase tracking-wider text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA] hover:text-[#0C0C0C]"
-        >
-          View full portfolio
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:rotate-45" />
-        </Link>
-      </div>
-    </section>
-
+      )}
+    </>
   );
 }
 
