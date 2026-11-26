@@ -12,6 +12,7 @@ import { BlastPortrait } from "@/components/ui/blast-portrait";
 import FlipClock from "@/components/ui/flip-clock";
 
 import GlassCard from "@/components/ui/glass-card";
+import HangingIdCard from "@/components/ui/hanging-id-card";
 
 import Preloader from "@/components/ui/preloader";
 import { GlyphMatrix } from "@/components/ui/glyph-matrix";
@@ -685,6 +686,9 @@ function Footer() {
           >
             {EMAIL}
           </a>
+          <div className="pt-8 flex justify-center md:justify-start">
+            <HangingIdCard />
+          </div>
         </div>
         <div className="flex w-full max-w-[680px] md:max-w-none justify-center md:justify-end">
           <GlassCard
