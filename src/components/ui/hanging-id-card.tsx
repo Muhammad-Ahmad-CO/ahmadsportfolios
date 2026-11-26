@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Globe, Mail } from "lucide-react";
-import portrait from "@/assets/portrait.png";
 
 /**
  * HangingIdCard — an ID-badge card that hangs from a short lanyard under the
@@ -168,19 +167,17 @@ export default function HangingIdCard() {
                   <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", color: "rgba(17,17,17,0.55)" }}>№ 2026</div>
                 </div>
 
-                <div style={{ marginTop: 16, borderRadius: 14, overflow: "hidden", background: "#EDEFF2", height: 168, flexShrink: 0 }}>
-                  <img
-                    src={portrait}
-                    alt="Muhammad Ahmed"
-                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }}
-                  />
-                </div>
-
-                <div style={{ marginTop: 14, fontSize: 22, fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.01em" }}>
-                  Muhammad Ahmed
-                </div>
-                <div style={{ marginTop: 4, fontSize: 12, lineHeight: 1.45, color: "rgba(17,17,17,0.65)" }}>
-                  AI-Assisted Web Developer &amp; Product Builder
+                <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", padding: "18px 0" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                    <span style={{ width: 8, height: 8, borderRadius: 999, background: "#22C55E", boxShadow: "0 0 0 3px rgba(34,197,94,0.18)" }} />
+                    <span style={{ fontSize: 10, fontWeight: 800, letterSpacing: "0.18em", color: "rgba(17,17,17,0.65)" }}>AVAILABLE FOR WORK</span>
+                  </div>
+                  <div style={{ marginTop: 14, fontSize: 30, fontWeight: 900, lineHeight: 1.08, letterSpacing: "-0.01em" }}>
+                    Muhammad<br />Ahmed
+                  </div>
+                  <div style={{ marginTop: 10, fontSize: 13, lineHeight: 1.5, color: "rgba(17,17,17,0.65)" }}>
+                    AI-Assisted Web Developer &amp; Product Builder
+                  </div>
                 </div>
 
                 <div style={{ marginTop: "auto", paddingTop: 12, borderTop: "1px solid rgba(17,17,17,0.12)", display: "grid", gap: 6 }}>
