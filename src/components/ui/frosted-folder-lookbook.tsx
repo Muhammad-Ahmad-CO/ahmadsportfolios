@@ -73,8 +73,10 @@ function layoutFor(W: number, H: number, n: number) {
   /* prints first: the open 2x2 spread must fit the stage vertically */
   const phMax = availH / (rows + (rows - 1) * 0.06);
   let pw = phMax / PRINT_RATIO;
-  /* folder follows from the print width */
-  let fw = pw / (compact ? 0.5 : 0.42);
+  /* folder follows from the print width (0.38, not 0.42: a wider folder
+     fills more of the tall stage, so the section scrolls less for the
+     same folder size) */
+  let fw = pw / (compact ? 0.5 : 0.38);
   const fwMax = Math.min(W * (compact ? 0.94 : 0.62), availH / 0.68);
   if (fw > fwMax) {
     fw = fwMax;
@@ -245,10 +247,11 @@ const CSS =
   ".ffl-face{position:absolute;inset:0}" +
   ".ffl-head{position:absolute;left:13.5%;top:30.5%;display:grid;row-gap:.9em;text-transform:uppercase;font-size:var(--ffl-s);letter-spacing:.3em;line-height:1;color:rgba(223,243,246,.86)}" +
   ".ffl-title{margin:0 0 .25em;font-size:var(--ffl-t);font-weight:400;letter-spacing:.2em;color:#f1fbfc}" +
+  ".ffl-sub{font-size:calc(var(--ffl-s)*1.4);font-weight:700;letter-spacing:.22em;color:#fff}" +
   ".ffl-head p{margin:0}" +
   ".ffl-foot{position:absolute;left:13.5%;right:8%;bottom:4.2%;display:flex;align-items:center;justify-content:space-between;gap:6%}" +
   ".ffl-foot p{margin:0;flex:none;text-transform:uppercase;font-size:var(--ffl-s);letter-spacing:.3em;line-height:1;color:rgba(223,243,246,.8)}" +
-  ".ffl-mark{flex:0 1 54%;min-width:0;height:auto;display:block;overflow:visible}" +
+  ".ffl-mark{flex:0 1 62%;min-width:0;height:auto;display:block;overflow:visible;filter:drop-shadow(0 2px 4px rgba(0,0,0,.55))}" +
   ".ffl-spine{position:absolute;z-index:4;left:0;top:0;bottom:0;border-radius:3px 0 0 3px;pointer-events:none;background:linear-gradient(90deg,rgba(246,252,252,.92),rgba(196,232,236,.62) 30%,rgba(238,249,250,.74) 34%,rgba(160,216,223,.5) 63%,rgba(230,247,249,.6) 67%,rgba(120,196,206,.36));box-shadow:inset 1px 0 0 rgba(250,254,254,.8),-10px 0 26px -12px rgba(190,236,241,.4)}" +
   ".ffl-pclip{position:absolute;left:5.6%;overflow:visible;pointer-events:none;filter:drop-shadow(0 2px 2px rgba(0,0,0,.45))}" +
   ".ffl-bclip{position:absolute;z-index:9;left:0;top:0;overflow:visible;pointer-events:none;filter:drop-shadow(0 6px 8px rgba(0,0,0,.5))}" +
@@ -450,8 +453,8 @@ export function FrostedFolderLookbook({
     "--ffl-bg": background,
     "--ffl-tint": tint,
     "--ffl-paper": paper,
-    "--ffl-t": (L ? Math.max(11, Math.min(19, fw * 0.031)) : 12).toFixed(2) + "px",
-    "--ffl-s": (L ? Math.max(7, Math.min(10.5, fw * 0.0165)) : 8).toFixed(2) + "px",
+    "--ffl-t": (L ? Math.max(12, Math.min(24, fw * 0.04)) : 12).toFixed(2) + "px",
+    "--ffl-s": (L ? Math.max(8, Math.min(13.5, fw * 0.022)) : 8).toFixed(2) + "px",
     "--ffl-c": (L ? Math.max(9.5, Math.min(13, pw * 0.056)) : 11).toFixed(2) + "px",
     "--ffl-m": (L ? Math.max(6, Math.round(pw * 0.05)) : 8) + "px",
     "--ffl-lx": "50%",
@@ -528,7 +531,7 @@ export function FrostedFolderLookbook({
             <div ref={faceRef} className="ffl-face">
               <div className="ffl-head">
                 <h2 className="ffl-title">{title}</h2>
-                {subtitle ? <p>{subtitle}</p> : null}
+                {subtitle ? <p className="ffl-sub">{subtitle}</p> : null}
                 {line ? <p>{line}</p> : null}
               </div>
               <div className="ffl-foot">
@@ -558,7 +561,7 @@ export function FrostedFolderLookbook({
                     <text
                       x="150" y="60" textAnchor="middle" textLength="270" lengthAdjust="spacingAndGlyphs"
                       fontFamily="'Arial Black','Helvetica Neue',Impact,system-ui,sans-serif" fontWeight="900" fontStyle="italic" fontSize="60"
-                      fill="none" stroke={"url(#" + uid + "c)"} strokeWidth="4.6" strokeLinejoin="round" filter={"url(#" + uid + "f)"}
+                      fill="#eef7f9" stroke={"url(#" + uid + "c)"} strokeWidth="4.6" strokeLinejoin="round" filter={"url(#" + uid + "f)"}
                     >
                       {wordmark}
                     </text>

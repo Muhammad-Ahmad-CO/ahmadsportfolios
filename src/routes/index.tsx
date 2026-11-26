@@ -587,6 +587,20 @@ const FOLDER_WORDMARK: Record<string, string> = {
   "al-fajr-foods": "Fajr",
 };
 
+/* One folder colour per project, so the 10 files don't all look alike. */
+const FOLDER_TINT: Record<string, string> = {
+  medilens: "#62c8d4",
+  "trap-tower": "#f08a1d",
+  voxelcraft: "#8bc34a",
+  "woblo-creative-studio": "#c98f4e",
+  "monolith-studio": "#8a7cf5",
+  "royal-beverage": "#4f8ff7",
+  "cura-climate": "#9aa5ad",
+  "maison-home-store": "#d9a441",
+  "verdant-studio": "#2f9e6e",
+  "al-fajr-foods": "#e2574c",
+};
+
 /* The 4 polaroid pages inside each project's folder: image + caption.
    All 40 images are real screenshots of the project itself. */
 function sheetsFor(p: (typeof PROJECTS)[number]): LookbookSheet[] {
@@ -670,7 +684,7 @@ function sheetsFor(p: (typeof PROJECTS)[number]): LookbookSheet[] {
 
 function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
   return (
-    <article className="mb-16 md:mb-24 last:mb-0">
+    <article className="mb-10 md:mb-14 last:mb-0">
       <div className="keep-color overflow-hidden rounded-[28px] border border-white/10">
         <ClientOnly fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
           <Suspense fallback={<div className="aspect-[16/10] w-full bg-[#090a08]" />}>
@@ -680,8 +694,9 @@ function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
               line={`${p.category} · ${p.year}`}
               footer="Handle with care"
               wordmark={FOLDER_WORDMARK[p.slug] ?? p.name}
+              tint={FOLDER_TINT[p.slug] ?? "#62c8d4"}
               sheets={sheetsFor(p)}
-              height="min(100svh, 820px)"
+              height="min(80svh, 660px)"
               onOpenChange={() => {
                 // Fade the decorative star out while any folder is open, so it
                 // never sits on top of the polaroid fan; back when all close.
@@ -696,7 +711,7 @@ function ProjectCard({ p }: { p: (typeof PROJECTS)[number] }) {
           </Suspense>
         </ClientOnly>
       </div>
-      <div className="mt-5 md:mt-6 flex flex-col gap-4 text-[#D7E2EA]">
+      <div className="mt-4 flex flex-col gap-3 text-[#D7E2EA]">
         <p className="text-sm md:text-base leading-relaxed opacity-80 max-w-3xl">{p.desc}</p>
         <div className="flex flex-wrap items-center gap-3">
           <LiveProjectButton href={p.url} />
@@ -726,11 +741,11 @@ function Projects() {
   return (
     <section
       id="projects"
-      className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-20 md:pt-28 pb-32"
+      className="relative z-10 bg-[#0C0C0C] -mt-10 md:-mt-14 rounded-t-[40px] md:rounded-t-[60px] px-5 sm:px-8 md:px-10 pt-16 md:pt-20 pb-20"
     >
       <FadeIn>
         <h2
-          className="hero-heading font-black uppercase tracking-tight mb-16 md:mb-24"
+          className="hero-heading font-black uppercase tracking-tight mb-10 md:mb-16"
           style={{ fontSize: "clamp(3rem, 12vw, 160px)" }}
         >
           Project
