@@ -178,6 +178,19 @@ export default function Preloader({
         className="outline-none"
         style={{ position: "absolute", width: 1, height: 1, opacity: 0 }}
       />
+      {/* Full-screen grid behind the Launch button — spans the whole
+          gate background, not just the button's neighbourhood. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+          opacity: gated ? 1 : 0,
+          transition: "opacity 400ms ease",
+        }}
+      />
       <span role="status" aria-live="assertive" className="sr-only">
         {gated ? "Loading complete. Press Launch to enter." : "Loading content, please wait."}
       </span>

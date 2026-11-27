@@ -98,16 +98,6 @@ export default function LaunchGateButton({
             inset 10px 10px 20px rgba(0, 0, 0, 0.3);
           transform: translateZ(0);
         }
-        .lgb-grid {
-          position: absolute;
-          inset: -100px;
-          background-image:
-            linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-          background-size: 20px 20px;
-          transform: translateZ(-1px);
-          pointer-events: none;
-        }
         .lgb-extrusion {
           position: absolute;
           inset: 0;
@@ -173,7 +163,6 @@ export default function LaunchGateButton({
       `}</style>
 
       <div className="lgb-scene">
-        <div className="lgb-grid" aria-hidden="true" />
         <button
           ref={ref}
           type="button"
