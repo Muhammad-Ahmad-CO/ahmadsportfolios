@@ -725,7 +725,7 @@ function Projects() {
         <div className="overflow-hidden rounded-[28px] border border-white/10 h-[74svh] min-h-[480px]">
           <WorksWheel
             items={WHEEL_ITEMS}
-            label="Works '26"
+            label="Projects"
             action="Open"
             onActiveChange={setActiveIdx}
             onCardClick={(_item, index) => {
