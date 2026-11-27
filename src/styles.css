@@ -588,10 +588,9 @@ html.eye-mode {
 
 /* Persistent decoration only: all content behind it remains clickable.
    Small and lifted clear of the hero CONTACT ME button (which sits in the
-   bottom-right corner) and the bottom dock. When page text scrolls beneath
-   its box, the renderer sets data-text-beneath and the cloud fades out
-   (opacity only — the node stays mounted, so nothing shifts); it fades
-   back once the box is clear. */
+   bottom-right corner) and the bottom dock. The cloud stays visible at
+   all times, even when page text scrolls beneath its box (the old
+   text-beneath fade-out was removed 27 Nov 2026 on the user's order). */
 .portfolio-mascot {
   position: fixed;
   right: max(12px, env(safe-area-inset-right));
@@ -602,9 +601,6 @@ html.eye-mode {
   pointer-events: none;
   filter: drop-shadow(0 5px 8px var(--mascot-shadow));
   transition: opacity 0.3s ease;
-}
-.portfolio-mascot[data-text-beneath="true"] {
-  opacity: 0;
 }
 .portfolio-mascot * { pointer-events: none; }
 .portfolio-mascot-motion { width: 100%; height: 100%; }
@@ -639,7 +635,6 @@ html.eye-mode {
 }
 @media (prefers-reduced-motion: reduce) {
   .portfolio-mascot .portfolio-mascot-motion { animation: none; }
-  /* The text-beneath fade flips instantly instead of animating. */
   .portfolio-mascot { transition: none; }
 }
 
