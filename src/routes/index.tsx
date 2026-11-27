@@ -722,7 +722,7 @@ function Projects() {
             Project
           </h2>
         </FadeIn>
-        <div className="overflow-hidden rounded-[28px] border border-white/10 h-[82svh] min-h-[540px]">
+        <div className="overflow-hidden rounded-[28px] border border-white/10 h-[74svh] min-h-[480px]">
           <WorksWheel
             items={WHEEL_ITEMS}
             label="Works '26"
