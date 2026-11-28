@@ -18,11 +18,11 @@ type Animation =
   | "confused";
 type GazeZone = "near" | "left" | "right" | "above" | "below";
 
-const INTERACTIVE_SELECTOR = "button, a, input";
+const INTERACTIVE_SELECTOR = "button, a, input, [role=\"button\"]";
 const WAKE_DURATION_MS = 2_800;
 
 
-export default function PortfolioMascot() {
+export default function PortfolioMascot({ onOpenChat }: { onOpenChat?: () => void }) {
   const avatarRef = useRef<AvatarController>(null);
   const mascotRef = useRef<HTMLDivElement>(null);
   const sleepTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -190,9 +190,23 @@ export default function PortfolioMascot() {
 
 
   return (
-    <div ref={mascotRef} className="portfolio-mascot keep-color" aria-hidden="true"
-      data-animation={animation} data-paused={paused}>
-      <div className="portfolio-mascot-motion">
+    <div
+      ref={mascotRef}
+      className="portfolio-mascot chat-launcher keep-color"
+      role="button"
+      tabIndex={0}
+      aria-label="Open AI chat"
+      data-animation={animation}
+      data-paused={paused}
+      onClick={() => onOpenChat?.()}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onOpenChat?.();
+        }
+      }}
+    >
+      <div className="portfolio-mascot-motion" aria-hidden="true">
         {reducedMotion ? (
           <Avatar ref={avatarRef} definition={definition} size="100%" autoplay={false}
             defaultExpression="neutral" ariaLabel="Cloudee portfolio mascot" />

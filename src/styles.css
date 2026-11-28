@@ -608,6 +608,17 @@ html.eye-mode {
   transition: opacity 0.3s ease;
 }
 .portfolio-mascot * { pointer-events: none; }
+/* The mascot opens the AI chat on click, so the button itself takes pointer
+   events now; its children stay inert so every click lands on the button. */
+.portfolio-mascot.chat-launcher {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.portfolio-mascot.chat-launcher:focus-visible {
+  outline: 2px solid #62c8d4;
+  outline-offset: 4px;
+  border-radius: 50%;
+}
 .portfolio-mascot-motion { width: 100%; height: 100%; }
 .portfolio-mascot[data-animation="idle"] .portfolio-mascot-motion {
   animation: mascot-breathe 5s ease-in-out infinite;

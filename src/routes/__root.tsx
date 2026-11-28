@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import {
   ClientOnly,
   Outlet,
@@ -14,6 +14,7 @@ import {
 import appCss from "../styles.css?url";
 
 const PortfolioMascot = lazy(() => import("@/components/portfolio-mascot"));
+const AiChatOverlay = lazy(() => import("@/components/ai-chat-overlay"));
 
 // TODO(owner): replace "G-XXXXXXX" with your real GA4 Measurement ID
 // (Google Analytics → Admin → Data streams → your web stream → Measurement ID).
@@ -132,13 +133,21 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <ClientOnly fallback={null}>
-        <Suspense fallback={null}><PortfolioMascot /></Suspense>
+        <Suspense fallback={null}><PortfolioMascot onOpenChat={() => setChatOpen(true)} /></Suspense>
       </ClientOnly>
+      {chatOpen ? (
+        <ClientOnly fallback={null}>
+          <Suspense fallback={null}>
+            <AiChatOverlay onClose={() => setChatOpen(false)} />
+          </Suspense>
+        </ClientOnly>
+      ) : null}
     </QueryClientProvider>
   );
 }
