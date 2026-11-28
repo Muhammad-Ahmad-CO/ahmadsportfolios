@@ -38,7 +38,7 @@ import { Dock, DockIcon } from "@/components/ui/dock";
 import { CodeBlast } from "@/components/ui/code-blast";
 import { GlyphBackground } from "@/components/ui/backgrounds-glyph";
 import { DecodeText } from "@/components/ui/decode-text";
-import { AboutLogoCloud } from "@/components/ui/about-logo-cloud";
+import KeycapOrb, { type Keycap } from "@/components/ui/keycap-orb";
 import { ParticleText } from "@/components/ui/particle-text";
 import { ThemeSwitch, type ThemeMode } from "@/components/ui/theme-switch";
 import { ClockSwitch, type ClockMode } from "@/components/ui/clock-switch";
@@ -449,6 +449,57 @@ const ABOUT_STATS = [
 ];
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/**
+ * Keycap Orb keys for the About panel — centre first. The first 12 are the
+ * same tools the old logo cloud showed (as short text labels: the orb draws
+ * legends, not logo images); the rest are coding glyphs (terminal, braces,
+ * </> …), so not every cap carries a tool name.
+ */
+const ORB_KEYS: Keycap[] = [
+  { label: "AI", finish: "cobalt", hotkey: "a" },
+  { label: "React", finish: "ash", hotkey: "r" },
+  { label: "TS", finish: "ink", hotkey: "t" },
+  { label: "JS", finish: "ink", hotkey: "j" },
+  { label: "Next", finish: "ash" },
+  { label: "TW", finish: "ink" },
+  { label: "HF", finish: "glass" },
+  { label: "LC", finish: "ink" },
+  { label: "n8n", finish: "ash" },
+  { label: "Git", finish: "ink" },
+  { label: "Docker", finish: "ink" },
+  { label: "SK", finish: "glass" },
+  { icon: "terminal", finish: "ink" },
+  { icon: "braces", finish: "ash" },
+  { icon: "code", finish: "ink" },
+  { icon: "slash", finish: "cobalt" },
+  { icon: "hash", finish: "ink" },
+  { icon: "bolt", finish: "ash" },
+  { icon: "search", finish: "ink" },
+  { icon: "gear", finish: "ink" },
+  { icon: "check", finish: "lime" },
+  { icon: "chevrons", finish: "ash" },
+  { icon: "layers", finish: "glass" },
+  { icon: "cube", finish: "glass" },
+  { label: "Esc", finish: "lime" },
+  { icon: "star", finish: "ink" },
+  { icon: "heart", finish: "glass" },
+  { icon: "cursor", finish: "ash" },
+  { icon: "folder", finish: "ash" },
+  { icon: "shield", finish: "ink" },
+  { icon: "quote", finish: "ink" },
+  { icon: "at", finish: "glass" },
+];
+
+/** Site-theme palette for the orb — dark caps, light #D7E2EA caps like the
+ * site's buttons, cyan #62c8d4 glow and cyan caps instead of cobalt blue. */
+const ORB_PALETTE = {
+  ink: { cap: "#17181d", legend: "#d7e2ea" },
+  ash: { cap: "#d7e2ea", legend: "#0c0c0c" },
+  glass: { cap: "#9fd8e8", legend: "#0e7490" },
+  cobalt: { cap: "#62c8d4", legend: "#0c0c0c" },
+  lime: { cap: "#0f6b7a", legend: "#d7e2ea" },
+} as const;
+
 function About() {
   const targetRef = useRef<HTMLDivElement>(null);
   const inView = useInView(targetRef, { once: true, amount: 0.2 });
@@ -512,7 +563,14 @@ function About() {
         </div>
         <motion.div {...fade(0)} className="order-1 mx-auto w-48 sm:w-60 md:order-2 md:w-full">
           <div className="keep-color overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-            <AboutLogoCloud />
+            <KeycapOrb
+              keys={ORB_KEYS}
+              palette={ORB_PALETTE}
+              background="#0c0c0c"
+              glow="#62c8d4"
+              height="clamp(240px, 62vw, 375px)"
+              aria-label="Tools and code keys as a spinning keycap ball. Drag to spin it, press a cap, or focus it and type."
+            />
           </div>
         </motion.div>
       </div>
