@@ -139,7 +139,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <ClientOnly fallback={null}>
-        <Suspense fallback={null}><PortfolioMascot onOpenChat={() => setChatOpen(true)} /></Suspense>
+        <Suspense fallback={null}><PortfolioMascot onOpenChat={() => setChatOpen(true)} chatOpen={chatOpen} /></Suspense>
       </ClientOnly>
       {chatOpen ? (
         <ClientOnly fallback={null}>

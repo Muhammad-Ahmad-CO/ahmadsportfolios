@@ -6,7 +6,7 @@ import {
 } from "@bible-strong/avatar-react";
 import "@bible-strong/avatar-react/styles.css";
 import mascotDefinition from "@/assets/mascot.avatar.json";
-import { MASCOT_REACTION_EVENT } from "@/lib/mascot-events";
+import { MASCOT_REACTION_EVENT, SITE_ENTERED_EVENT } from "@/lib/mascot-events";
 
 const definition = mascotDefinition as unknown as AvatarProps["definition"];
 type Animation =
@@ -21,8 +21,27 @@ type GazeZone = "near" | "left" | "right" | "above" | "below";
 const INTERACTIVE_SELECTOR = "button, a, input, [role=\"button\"]";
 const WAKE_DURATION_MS = 2_800;
 
+/* ------------------------- greeting speech bubbles ------------------------ */
+/* Once per visit, after the site opens: bubble 1 (4.5s), bubble 2 (4.5s),
+   then bubble 3 at 18s if the chat was never opened. Clicking a bubble
+   opens the chat; opening the chat by any path cancels the sequence. */
+const GREETING_KEY = "ai-chat-greeting-done";
+const GREETING_TEXTS = [
+  "Hello! I'm this website's AI chatbot",
+  "You can ask me anything",
+  "How do you like the website?",
+] as const;
+const GREETING_FIRST_MS = 4_500;
+const GREETING_SECOND_MS = 4_500;
+const GREETING_THIRD_AT_MS = 18_000;
 
-export default function PortfolioMascot({ onOpenChat }: { onOpenChat?: () => void }) {
+export default function PortfolioMascot({
+  onOpenChat,
+  chatOpen,
+}: {
+  onOpenChat?: () => void;
+  chatOpen?: boolean;
+}) {
   const avatarRef = useRef<AvatarController>(null);
   const mascotRef = useRef<HTMLDivElement>(null);
   const sleepTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -34,6 +53,89 @@ export default function PortfolioMascot({ onOpenChat }: { onOpenChat?: () => voi
   const [animation, setAnimation] = useState<Animation>("idle");
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
+
+  /* Greeting sequence state (see the constants above). */
+  const [greeting, setGreeting] = useState(0);
+  const greetingTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const greetingStarted = useRef(false);
+  const chatOpenRef = useRef(!!chatOpen);
+  chatOpenRef.current = !!chatOpen;
+  const openChatRef = useRef(onOpenChat);
+  openChatRef.current = onOpenChat;
+
+  const clearGreetingTimers = useCallback(() => {
+    greetingTimers.current.forEach((t) => clearTimeout(t));
+    greetingTimers.current = [];
+  }, []);
+
+  const finishGreeting = useCallback(() => {
+    clearGreetingTimers();
+    greetingStarted.current = true;
+    try {
+      sessionStorage.setItem(GREETING_KEY, "1");
+    } catch {
+      /* private mode — the sequence just runs again next visit */
+    }
+    setGreeting(0);
+  }, [clearGreetingTimers]);
+
+  const startGreeting = useCallback(() => {
+    if (greetingStarted.current || chatOpenRef.current) return;
+    try {
+      if (sessionStorage.getItem(GREETING_KEY)) {
+        greetingStarted.current = true;
+        return;
+      }
+    } catch {
+      /* storage unavailable — run the sequence once per mount */
+    }
+    greetingStarted.current = true;
+    try {
+      sessionStorage.setItem(GREETING_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    const later = (fn: () => void, ms: number) => {
+      greetingTimers.current.push(setTimeout(fn, ms));
+    };
+    later(() => setGreeting(1), 0);
+    later(() => setGreeting(2), GREETING_FIRST_MS);
+    later(() => setGreeting(0), GREETING_FIRST_MS + GREETING_SECOND_MS);
+    later(() => {
+      if (!chatOpenRef.current) setGreeting(3);
+    }, GREETING_THIRD_AT_MS);
+  }, []);
+
+  const openChatFromGreeting = useCallback(() => {
+    finishGreeting();
+    openChatRef.current?.();
+  }, [finishGreeting]);
+
+  useEffect(() => {
+    const onSiteEntered = () => {
+      // The gate fades out over 700ms; start just as the site appears.
+      greetingTimers.current.push(setTimeout(() => startGreeting(), 700));
+    };
+    window.addEventListener(SITE_ENTERED_EVENT, onSiteEntered);
+    // Pages without a preloader (e.g. a case-study link): start shortly
+    // after mount if no preloader dialog is in the DOM.
+    const fallback = setTimeout(() => {
+      const gate = document.querySelector(
+        '[aria-label="Loading, please wait"], [aria-label="Ready. Press Launch to enter the site."]'
+      );
+      if (!gate) startGreeting();
+    }, 1500);
+    return () => {
+      window.removeEventListener(SITE_ENTERED_EVENT, onSiteEntered);
+      clearTimeout(fallback);
+      clearGreetingTimers();
+    };
+  }, [startGreeting, clearGreetingTimers]);
+
+  // Opening the chat by any path cancels the greeting sequence.
+  useEffect(() => {
+    if (chatOpen) finishGreeting();
+  }, [chatOpen, finishGreeting]);
 
 
   const play = useCallback((next: Animation) => {
@@ -190,6 +292,7 @@ export default function PortfolioMascot({ onOpenChat }: { onOpenChat?: () => voi
 
 
   return (
+    <>
     <div
       ref={mascotRef}
       className="portfolio-mascot chat-launcher keep-color"
@@ -216,5 +319,34 @@ export default function PortfolioMascot({ onOpenChat }: { onOpenChat?: () => voi
         )}
       </div>
     </div>
+    {greeting > 0 ? (
+      <div
+        role="button"
+        tabIndex={0}
+        aria-label={`${GREETING_TEXTS[greeting - 1]} — open AI chat`}
+        className="mascot-bubble keep-color"
+        onClick={openChatFromGreeting}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openChatFromGreeting();
+          }
+        }}
+      >
+        <span>{GREETING_TEXTS[greeting - 1]}</span>
+        <button
+          type="button"
+          aria-label="Dismiss greeting"
+          className="mascot-bubble-x"
+          onClick={(e) => {
+            e.stopPropagation();
+            finishGreeting();
+          }}
+        >
+          &times;
+        </button>
+      </div>
+    ) : null}
+    </>
   );
 }

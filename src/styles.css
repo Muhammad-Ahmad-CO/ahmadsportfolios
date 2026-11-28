@@ -619,6 +619,76 @@ html.eye-mode {
   outline-offset: 4px;
   border-radius: 50%;
 }
+
+/* Greeting speech bubble next to the cloud mascot. Light bubble, dark text,
+   cyan edge — the site's button colours. Sits left of the cloud on desktop
+   (tail points at it) and above the cloud on small screens. */
+.mascot-bubble {
+  position: fixed;
+  right: 122px;
+  bottom: 186px;
+  z-index: 90;
+  max-width: 260px;
+  padding: 12px 34px 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(98, 200, 212, 0.55);
+  background: #d7e2ea;
+  color: #0c0c0c;
+  font: 600 14px/1.45 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.55);
+  cursor: pointer;
+  animation: mascot-bubble-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.mascot-bubble::after {
+  content: "";
+  position: absolute;
+  right: -7px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  background: #d7e2ea;
+  border-right: 1px solid rgba(98, 200, 212, 0.55);
+  border-bottom: 1px solid rgba(98, 200, 212, 0.55);
+  transform: rotate(-45deg);
+}
+.mascot-bubble-x {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: rgba(12, 12, 12, 0.55);
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px;
+  cursor: pointer;
+}
+.mascot-bubble-x:hover {
+  color: #0c0c0c;
+}
+@keyframes mascot-bubble-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 640px) {
+  .mascot-bubble {
+    right: 12px;
+    bottom: 248px;
+    max-width: calc(100vw - 24px);
+  }
+  .mascot-bubble::after {
+    right: 34px;
+    top: auto;
+    bottom: -7px;
+    margin-top: 0;
+    transform: rotate(45deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot-bubble { animation: none; }
+}
 .portfolio-mascot-motion { width: 100%; height: 100%; }
 .portfolio-mascot[data-animation="idle"] .portfolio-mascot-motion {
   animation: mascot-breathe 5s ease-in-out infinite;

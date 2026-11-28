@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import { Braces, Binary, Cpu, Database, GitBranch, Terminal, Code2 } from "lucide-react";
 import LaunchGateButton from "@/components/ui/launch-gate-button";
+import { notifySiteEntered } from "@/lib/mascot-events";
 
 export interface PreloaderProps {
   /** Minimum visible duration on first load, in ms. Default 1800. */
@@ -253,7 +254,10 @@ export default function Preloader({
       {gated && (
         <LaunchGateButton
           ref={launchButtonRef}
-          onLaunch={() => setVisible(false)}
+          onLaunch={() => {
+            setVisible(false);
+            notifySiteEntered();
+          }}
         />
       )}
     </div>
