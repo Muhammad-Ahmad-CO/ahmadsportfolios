@@ -507,6 +507,22 @@ function About() {
   useEffect(() => {
     setReduce(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   }, []);
+  // Fade the floating star out while About is on screen, so it never
+  // covers the keycap orb; the star itself is untouched (body class + CSS,
+  // same pattern as the folder-open fade).
+  useEffect(() => {
+    const el = targetRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => document.body.classList.toggle("about-in-view", entry.isIntersecting),
+      { threshold: 0.1 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      document.body.classList.remove("about-in-view");
+    };
+  }, []);
   const show = inView || reduce;
   const fade = (i: number) => ({
     initial: reduce ? false : { opacity: 0, y: 24 },
