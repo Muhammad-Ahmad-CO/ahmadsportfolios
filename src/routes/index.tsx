@@ -524,7 +524,7 @@ function About() {
       ref={targetRef}
       className="relative w-full px-5 pt-24 pb-36 sm:px-8 sm:pt-28 md:px-10 md:pt-36 md:pb-44"
     >
-      <div className="about-panel mx-auto grid w-full max-w-[1100px] items-center gap-10 rounded-3xl p-6 sm:p-10 md:grid-cols-[minmax(0,1fr)_300px] md:gap-14 md:p-14">
+      <div className="about-panel mx-auto grid w-full max-w-[1100px] items-center gap-10 rounded-3xl p-6 sm:p-10 md:grid-cols-[minmax(0,1fr)_360px] md:gap-14 md:p-14">
         <div className="order-2 text-center md:order-1 md:text-left">
           <p className="about-eyebrow inline-flex items-center gap-3 text-xs uppercase sm:text-sm">
             <span aria-hidden="true" className="h-px w-8 bg-current" />
@@ -562,16 +562,16 @@ function About() {
           </dl>
         </div>
         <motion.div {...fade(0)} className="order-1 mx-auto w-48 sm:w-60 md:order-2 md:w-full">
-          <div className="keep-color overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03]">
-            <KeycapOrb
-              keys={ORB_KEYS}
-              palette={ORB_PALETTE}
-              background="#0c0c0c"
-              glow="#62c8d4"
-              height="clamp(240px, 62vw, 375px)"
-              aria-label="Tools and code keys as a spinning keycap ball. Drag to spin it, press a cap, or focus it and type."
-            />
-          </div>
+          <KeycapOrb
+            keys={ORB_KEYS}
+            palette={ORB_PALETTE}
+            background="#0c0c0c"
+            glow="#62c8d4"
+            scale={0.92}
+            height="clamp(240px, 62vw, 375px)"
+            className="keep-color"
+            aria-label="Tools and code keys as a spinning keycap ball. Drag to spin it, press a cap, or focus it and type."
+          />
         </motion.div>
       </div>
     </section>

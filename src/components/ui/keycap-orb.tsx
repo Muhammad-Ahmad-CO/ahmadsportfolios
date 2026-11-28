@@ -594,25 +594,25 @@ vec3 tone(vec3 c) {
 
 void main() {
   vec2 p = (gl_FragCoord.xy - 0.5 * uRes) / uRes.y;
-  vec3 col = uBg;
 
-  // The lit floor: a pool of the glow colour rising from the bottom edge,
-  // brightest just off-centre, gone by the middle of the frame.
+  // Transparent background: only the floor glow and the halo behind the
+  // ball are drawn, as a soft premultiplied pool of light. Everything else
+  // stays transparent so the page behind the canvas shows through — the orb
+  // sits on the panel, not inside a box. (uBg is kept for the API but no
+  // longer fills the frame.)
   vec2 g = (p - vec2(uOrb.x + 0.2, uHorizon - 0.5)) * vec2(0.55, 0.95);
-  col += uGlow * exp(-dot(g, g) * 8.0) * 0.5;
-  col += uGlow * exp(-dot(g, g) * 2.6) * 0.05;
-
-  // A faint halo right behind the ball, so its silhouette separates.
+  vec3 glowCol = uGlow * (exp(-dot(g, g) * 8.0) * 0.5 + exp(-dot(g, g) * 2.6) * 0.05);
   vec2 h = p - uOrb;
-  col += uGlow * exp(-dot(h, h) * 9.0) * 0.012;
+  glowCol += uGlow * exp(-dot(h, h) * 9.0) * 0.012;
 
-  // Corners sink.
-  col *= 1.0 - 0.4 * smoothstep(0.5, 1.15, length(p * vec2(0.8, 1.0)));
-
-  vec3 outc = tone(col);
+  vec3 outc = tone(glowCol);
   // Dither: an 8-bit gradient this dark bands visibly without it.
   outc += (hash(gl_FragCoord.xy) - 0.5) / 255.0 * 1.5;
-  fragColor = vec4(outc, 1.0);
+  float a = clamp(max(outc.r, max(outc.g, outc.b)) * 1.6, 0.0, 0.9);
+  // Melt the floor light into the panel: fade it out over the bottom of the
+  // frame so the pool ends in a soft gradient, never a straight edge.
+  a *= smoothstep(-0.5, -0.38, p.y);
+  fragColor = vec4(outc * a, a);
 }
 `
 
@@ -785,7 +785,9 @@ void main() {
     float fade = exp(-max(uFloor - vWorld.y, 0.0) * 1.5) * 0.3;
     fragColor = vec4(outc * fade * alpha, fade * alpha);
   } else if (uGlass > 0.5) {
-    fragColor = vec4(outc, alpha);
+    // Premultiplied: the canvas is transparent, so the stored colour must
+    // already be scaled by alpha.
+    fragColor = vec4(outc * alpha, alpha);
   } else {
     fragColor = vec4(outc, 1.0);
   }
@@ -922,7 +924,7 @@ export default function KeycapOrb({
     const root = rootRef.current
     if (!canvas || !root) return
 
-    const gl = canvas.getContext("webgl2", { alpha: false, antialias: true, premultipliedAlpha: false })
+    const gl = canvas.getContext("webgl2", { alpha: true, antialias: true, premultipliedAlpha: true })
     if (!gl) {
       setFailed(true)
       return
@@ -1422,7 +1424,7 @@ export default function KeycapOrb({
 
       // ---- draw
       gl.viewport(0, 0, W, H)
-      gl.clearColor(0, 0, 0, 1)
+      gl.clearColor(0, 0, 0, 0)
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 
       const orbScreen = project(viewProj, center)
@@ -1598,7 +1600,8 @@ export default function KeycapOrb({
         "relative w-full select-none overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/40 " +
         className
       }
-      style={{ height, background: background, cursor: "grab", touchAction: "pan-y" }}
+      // Transparent: the panel behind the canvas shows through.
+      style={{ height, background: "transparent", cursor: "grab", touchAction: "pan-y" }}
     >
       {failed ? (
         <div
